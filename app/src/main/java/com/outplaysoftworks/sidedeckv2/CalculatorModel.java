@@ -80,35 +80,43 @@ public class CalculatorModel {
 
 
     public void doP1Add() {
-        player1LpPrevious = player1Lp;
-        player1Lp += enteredValue;
-        createCalculationAction(player1LpPrevious, player1Lp, 1);
-        mCalculatorPresenter.onP1LpUpdated(player1LpPrevious, player1Lp);
-        doEnteredValue();
+        if(enteredValue != 0) {
+            player1LpPrevious = player1Lp;
+            player1Lp += enteredValue;
+            createCalculationAction(player1LpPrevious, player1Lp, 1);
+            mCalculatorPresenter.onP1LpUpdated(player1LpPrevious, player1Lp);
+            doEnteredValue();
+        }
     }
 
     public void doP1Sub() {
-        player1LpPrevious = player1Lp;
-        player1Lp -= enteredValue;
-        createCalculationAction(player1LpPrevious, player1Lp, 1);
-        mCalculatorPresenter.onP1LpUpdated(player1LpPrevious, player1Lp);
-        doEnteredValue();
+        if(enteredValue != 0) {
+            player1LpPrevious = player1Lp;
+            player1Lp -= enteredValue;
+            createCalculationAction(player1LpPrevious, player1Lp, 1);
+            mCalculatorPresenter.onP1LpUpdated(player1LpPrevious, player1Lp);
+            doEnteredValue();
+        }
     }
 
     public void doP2Add() {
-        player2LpPrevious = player2Lp;
-        player2Lp += enteredValue;
-        createCalculationAction(player2LpPrevious, player2Lp, 2);
-        mCalculatorPresenter.onP2LpUpdated(player2LpPrevious, player2Lp);
-        doEnteredValue();
+        if(enteredValue != 0) {
+            player2LpPrevious = player2Lp;
+            player2Lp += enteredValue;
+            createCalculationAction(player2LpPrevious, player2Lp, 2);
+            mCalculatorPresenter.onP2LpUpdated(player2LpPrevious, player2Lp);
+            doEnteredValue();
+        }
     }
 
     public void doP2Sub() {
-        player2LpPrevious = player2Lp;
-        player2Lp -= enteredValue;
-        createCalculationAction(player2LpPrevious, player2Lp, 2);
-        mCalculatorPresenter.onP2LpUpdated(player2LpPrevious, player2Lp);
-        doEnteredValue();
+        if(enteredValue != 0) {
+            player2LpPrevious = player2Lp;
+            player2Lp -= enteredValue;
+            createCalculationAction(player2LpPrevious, player2Lp, 2);
+            mCalculatorPresenter.onP2LpUpdated(player2LpPrevious, player2Lp);
+            doEnteredValue();
+        }
     }
 
     private void createCalculationAction(int previousLp, int newLp, int player){
@@ -118,6 +126,8 @@ public class CalculatorModel {
 
     private void undoLastCalculation(){
         CalculationAction lastAction = actions.get(actions.size()-1);
+
+        actions.remove(actions.size()-1);
     }
 
     public Integer getDefaultLp() {

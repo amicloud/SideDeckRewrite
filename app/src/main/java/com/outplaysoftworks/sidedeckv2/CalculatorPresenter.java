@@ -46,14 +46,16 @@ public class CalculatorPresenter {
     }
 
     public void onP1LpUpdated(Integer player1LpPrevious, Integer player1Lp){
-        //if(mCalculatorFragment != null) {
+        if(mCalculatorFragment != null) {
             mCalculatorFragment.onP1LpUpdated(player1LpPrevious, player1Lp);
-        //}
+            mCalculatorFragment.playLpSound();
+        }
 
     }
     public void onP2LpUpdated(Integer player2LpPrevious, Integer player2Lp){
         if(mCalculatorFragment != null) {
             mCalculatorFragment.onP2LpUpdated(player2LpPrevious, player2Lp);
+            mCalculatorFragment.playLpSound();
         }
     }
 

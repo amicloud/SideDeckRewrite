@@ -1,6 +1,8 @@
 package com.outplaysoftworks.sidedeckv2;
 
 import android.animation.ValueAnimator;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +19,11 @@ import butterknife.ButterKnife;
 public class CalculatorFragment extends Fragment {
     private CalculatorPresenter mCalculatorPresenter;
 
+    //Sound stuff
+    private static SoundPool soundPool;
+    private static Integer lpCounterSoundId;
+    private static Integer diceRollSoundId;
+    private static Integer coinFlipSoundId;
     //TODO: Create view objects and inject them please
     private static TextView enteredValueView;
     private static TextView player1Lp;
@@ -41,9 +48,17 @@ public class CalculatorFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_calculator, container, false);
         /*mCalculatorPresenter = new CalculatorPresenter(this);*/
         assignViewsByIds(view);
+        setUpSounds();
         setLpToDefault();
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void setUpSounds() {
+        soundPool = new SoundPool(32, AudioManager.STREAM_MUSIC, 0);
+        lpCounterSoundId = soundPool.load(getContext(), R.raw.lpcountersound, 1);
+        coinFlipSoundId = soundPool.load(getContext(), R.raw.coinflipsound, 1);
+        diceRollSoundId = soundPool.load(getContext(), R.raw.dicerollsound, 1);
     }
 
     private void assignViewsByIds(View view) {
@@ -72,12 +87,17 @@ public class CalculatorFragment extends Fragment {
             enteredValueView.setText("");
             return;
         }
+        if(enteredValue.equals("0")){
+            enteredValueView.setText("");
+            return;
+        }
         if(enteredValueView != null) {
             if(previousEnteredValue.equals("")){
                 previousEnteredValue = "0";
             }
-            animateTextView(Integer.parseInt(previousEnteredValue), Integer.parseInt(enteredValue),
-                    enteredValueView, AppConstants.ENTEREDVALUEVIEWANIMATIONDURATION);
+            //animateTextView(Integer.parseInt(previousEnteredValue), Integer.parseInt(enteredValue),
+            //        enteredValueView, AppConstants.ENTEREDVALUEVIEWANIMATIONDURATION);
+            enteredValueView.setText(enteredValue);
         }
     }
 
@@ -141,5 +161,17 @@ public class CalculatorFragment extends Fragment {
     public void setLpToDefault() {
         player1Lp.setText(mCalculatorPresenter.getDefaultLp());
         player2Lp.setText(mCalculatorPresenter.getDefaultLp());
+    }
+
+    public void playLpSound(){
+        soundPool.play(lpCounterSoundId, 1, 1, 1, 0, 1);
+    }
+
+    public void playDiceSound(){
+        soundPool.play(diceRollSoundId, 1, 1, 1, 0, 1);
+    }
+
+    public void playCoinSound(){
+        soundPool.play(coinFlipSoundId, 1, 1, 1, 0, 1);
     }
 }
