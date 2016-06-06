@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuItemUndo"
+        android:title="@string/undo"/>
+    <item android:id="@+id/menuItemReset"
+        android:title="@string/reset"/>
+    <item android:id="@+id/menuItemShowQuickCalc"
+        android:title="@string/quickCalc"/>
+    <item android:id="@+id/menuItemSettings"
+        android:title="@string/settings"/>
+<!--    <item android:id="@+id/debugRating"
+        android:title="Show Rating Dialog"/>
+    <item android:id="@+id/debugTutorial"
+        android:title="Show Tutorial"/>
+    <item android:id="@+id/clearPreferences"
+        android:title="Clear all preferences"/>-->
+</menu>

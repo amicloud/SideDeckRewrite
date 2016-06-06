@@ -11,6 +11,15 @@ public class CalculatorModel {
 
     private Integer enteredValue;
     private String player1Name;
+
+    public String getPlayer2Name() {
+        return player2Name;
+    }
+
+    public String getPlayer1Name() {
+        return player1Name;
+    }
+
     private String player2Name;
     private ArrayList<CalculationAction> actions;
     private CalculatorPresenter mCalculatorPresenter;
@@ -83,7 +92,7 @@ public class CalculatorModel {
         if(enteredValue != 0) {
             player1LpPrevious = player1Lp;
             player1Lp += enteredValue;
-            createCalculationAction(player1LpPrevious, player1Lp, 1);
+            createCalculationAction(player1LpPrevious, player1Lp, 1, this);
             mCalculatorPresenter.onP1LpUpdated(player1LpPrevious, player1Lp);
             doEnteredValue();
         }
@@ -93,7 +102,7 @@ public class CalculatorModel {
         if(enteredValue != 0) {
             player1LpPrevious = player1Lp;
             player1Lp -= enteredValue;
-            createCalculationAction(player1LpPrevious, player1Lp, 1);
+            createCalculationAction(player1LpPrevious, player1Lp, 1, this);
             mCalculatorPresenter.onP1LpUpdated(player1LpPrevious, player1Lp);
             doEnteredValue();
         }
@@ -103,7 +112,7 @@ public class CalculatorModel {
         if(enteredValue != 0) {
             player2LpPrevious = player2Lp;
             player2Lp += enteredValue;
-            createCalculationAction(player2LpPrevious, player2Lp, 2);
+            createCalculationAction(player2LpPrevious, player2Lp, 2, this);
             mCalculatorPresenter.onP2LpUpdated(player2LpPrevious, player2Lp);
             doEnteredValue();
         }
@@ -113,20 +122,19 @@ public class CalculatorModel {
         if(enteredValue != 0) {
             player2LpPrevious = player2Lp;
             player2Lp -= enteredValue;
-            createCalculationAction(player2LpPrevious, player2Lp, 2);
+            createCalculationAction(player2LpPrevious, player2Lp, 2, this);
             mCalculatorPresenter.onP2LpUpdated(player2LpPrevious, player2Lp);
             doEnteredValue();
         }
     }
 
-    private void createCalculationAction(int previousLp, int newLp, int player){
-        CalculationAction calculationAction = new CalculationAction(previousLp, newLp, player);
+    private void createCalculationAction(int previousLp, int newLp, int player, CalculatorModel model){
+        CalculationAction calculationAction = new CalculationAction(previousLp, newLp, player, model);
         actions.add(calculationAction);
     }
 
     private void undoLastCalculation(){
         CalculationAction lastAction = actions.get(actions.size()-1);
-
         actions.remove(actions.size()-1);
     }
 

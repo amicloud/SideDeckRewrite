@@ -1,5 +1,6 @@
 package com.outplaysoftworks.sidedeckv2;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
@@ -10,13 +11,18 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity{
     private SectionsPagerAdapter mSectionsPagerAdapter;
     CalculatorFragment mCalculatorFragment;
     ViewPager mViewPager;
+    static Context context;
+    static PopupMenu popupMenu;
     public static SharedPreferences sharedPreferences;
 
     @Override
@@ -25,8 +31,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mCalculatorFragment = new CalculatorFragment();
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        context = this;
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -73,6 +78,30 @@ public class MainActivity extends AppCompatActivity{
             }
             return null;
         }
+    }
+
+    public void showPopupMenu(View view){
+        final View v = view;
+        popupMenu = new PopupMenu(context, v);
+        MenuInflater menuInflater = popupMenu.getMenuInflater();
+        menuInflater.inflate(R.menu.actions, popupMenu.getMenu());
+        popupMenu.show();
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() ==  R.id.menuItemUndo){
+
+                }else if(item.getItemId() == R.id.menuItemReset){
+
+                }else if(item.getItemId() == R.id.menuItemSettings){
+
+                }else if(item.getItemId() == R.id.menuItemShowQuickCalc){
+
+                }
+                return false;
+            }
+        });
+
     }
 
     void onClickNumbers(View view){

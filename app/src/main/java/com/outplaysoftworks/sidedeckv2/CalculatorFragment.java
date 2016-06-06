@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 
 public class CalculatorFragment extends Fragment {
     private CalculatorPresenter mCalculatorPresenter;
+    public static View view;
 
     //Sound stuff
     private static SoundPool soundPool;
@@ -45,8 +46,7 @@ public class CalculatorFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_calculator, container, false);
-        /*mCalculatorPresenter = new CalculatorPresenter(this);*/
+        view = inflater.inflate(R.layout.fragment_calculator, container, false);
         assignViewsByIds(view);
         setUpSounds();
         setLpToDefault();
