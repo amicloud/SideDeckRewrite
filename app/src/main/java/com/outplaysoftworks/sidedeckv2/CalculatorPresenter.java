@@ -40,6 +40,7 @@ public class CalculatorPresenter {
     }
 
     public void relayDiceRoll() {
+        mCalculatorModel.doDiceRoll();
     }
 
     public void relayCoinFlip() {
@@ -61,5 +62,21 @@ public class CalculatorPresenter {
 
     public String getDefaultLp() {
         return mCalculatorModel.getDefaultLp().toString();
+    }
+
+    public void relayTurnClick(){
+        mCalculatorModel.doTurnClick();
+    }
+
+    public void relayTurnLongClick(){
+        mCalculatorModel.doTurnLongClick();
+    }
+
+    public void onTurnUpdated(Integer turn){
+        mCalculatorFragment.onTurnUpdated(turn);
+    }
+
+    public void onDiceRollComplete(int lastDiceRoll) {
+        mCalculatorFragment.onDiceRollComplete(lastDiceRoll);
     }
 }

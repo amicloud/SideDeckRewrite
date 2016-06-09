@@ -1,9 +1,12 @@
 package com.outplaysoftworks.sidedeckv2;
 
 import android.animation.ValueAnimator;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import java.util.logging.LogRecord;
 
 import butterknife.ButterKnife;
 
@@ -33,6 +40,8 @@ public class CalculatorFragment extends Fragment {
     private static EditText player2Name;
     private static Button diceRollButton;
     private static Button coinFlipButton;
+    private static Button turnButton;
+    private static ArrayList<Drawable> diceDrawables = new ArrayList<>();
 
     public CalculatorFragment() {
         makePresenter();
@@ -48,10 +57,37 @@ public class CalculatorFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_calculator, container, false);
         assignViewsByIds(view);
+        assignClickListeners();
+        loadDrawables();
         setUpSounds();
         setLpToDefault();
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void loadDrawables() {
+        diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_1));
+        diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_2));
+        diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_3));
+        diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_4));
+        diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_5));
+        diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_6));
+    }
+
+    private void assignClickListeners() {
+        turnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickTurn();
+            }
+        });
+        turnButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                onLongClickTurn();
+                return true;
+            }
+        });
     }
 
     private void setUpSounds() {
@@ -66,7 +102,9 @@ public class CalculatorFragment extends Fragment {
         player1Lp = (TextView)view.findViewById(R.id.player1Lp);
         player2Lp = (TextView)view.findViewById(R.id.player2Lp);
         player1Name = (EditText)view.findViewById(R.id.player1Name);
-        player2Name= (EditText)view.findViewById(R.id.player2Name);
+        player2Name = (EditText)view.findViewById(R.id.player2Name);
+        turnButton = (Button)view.findViewById(R.id.turnButton);
+        diceRollButton = (Button)view.findViewById(R.id.diceRollButton);
     }
 
     public void onClickNumbers(View view) {
@@ -173,5 +211,47 @@ public class CalculatorFragment extends Fragment {
 
     public void playCoinSound(){
         soundPool.play(coinFlipSoundId, 1, 1, 1, 0, 1);
+    }
+
+    public void onClickTurn() {
+        mCalculatorPresenter.relayTurnClick();
+    }
+
+    public void onLongClickTurn() {
+        mCalculatorPresenter.relayTurnLongClick();
+    }
+
+    public void onTurnUpdated(Integer turn){
+        turnButton.setText(view.getResources().getString(R.string.turn) + turn.toString());
+    }
+
+    public void onDiceRollComplete(final int lastDiceRoll) {
+        diceRollButton.setClickable(false);
+        final Drawable originalBackgroundDrawable = diceRollButton.getBackground();
+        RandomAnimationBuilder randomAnimationBuilder = new RandomAnimationBuilder(diceDrawables, 2000, 10);
+        AnimationDrawable animation = randomAnimationBuilder.makeAnimation();
+        diceRollButton.setBackground(animation);
+        diceRollButton.setText("");
+        animation.start();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                diceRollButton.setBackgroundDrawable(diceDrawables.get(lastDiceRoll));
+                diceRollButton.setClickable(true);
+                resetDiceRollButtonAfterDelay(originalBackgroundDrawable);
+            }
+        }, 2050);
+    }
+
+    private void resetDiceRollButtonAfterDelay(final Drawable originalBackground){
+        final Handler handler =  new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                diceRollButton.setText(view.getResources().getString(R.string.diceRoll));
+                diceRollButton.setBackground(originalBackground);
+            }
+        }, 5000);
     }
 }

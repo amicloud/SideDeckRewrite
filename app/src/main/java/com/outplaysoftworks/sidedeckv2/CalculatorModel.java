@@ -3,6 +3,7 @@ package com.outplaysoftworks.sidedeckv2;
 import android.content.SharedPreferences;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Billy on 5/13/2016.
@@ -11,6 +12,8 @@ public class CalculatorModel {
 
     private Integer enteredValue;
     private String player1Name;
+    private Random random = new Random(System.nanoTime());
+    private int lastDiceRoll;
 
     public String getPlayer2Name() {
         return player2Name;
@@ -30,10 +33,12 @@ public class CalculatorModel {
     private Integer player2Lp;
     private Integer player2LpPrevious;
     public Integer defaultLp;
+    private Integer currentTurn;
 
     public CalculatorModel(CalculatorPresenter calculatorPresenter){
         mCalculatorPresenter = calculatorPresenter;
         enteredValue = 0;
+        currentTurn = 1;
         initializeLp();
         actions = new ArrayList<CalculationAction>();
         player1Name = getPlayerOneNameFromPreferences();
@@ -140,5 +145,21 @@ public class CalculatorModel {
 
     public Integer getDefaultLp() {
         return defaultLp;
+    }
+
+    public void doTurnClick() {
+        currentTurn++;
+        mCalculatorPresenter.onTurnUpdated(currentTurn);
+    }
+
+    public void doTurnLongClick() {
+        currentTurn--;
+        mCalculatorPresenter.onTurnUpdated(currentTurn);
+    }
+
+
+    public void doDiceRoll() {
+        lastDiceRoll = random.nextInt(6);
+        mCalculatorPresenter.onDiceRollComplete(lastDiceRoll);
     }
 }

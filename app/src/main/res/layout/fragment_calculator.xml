@@ -6,7 +6,9 @@
     tools:context="com.outplaysoftworks.sidedeckv2.MainActivity"
     android:orientation="vertical"
     android:padding="2dp"
-    android:background="@color/material_dark">
+    android:background="@color/material_dark"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +39,8 @@
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="4" />
+            android:layout_weight="3"
+            android:id="@+id/turnButton" />
         <TextView
             android:padding="0dp"
             android:layout_margin="1dp"
@@ -70,7 +73,9 @@
             android:id="@+id/player1Name"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="5" />
+            android:layout_weight="5"
+            android:lines="1"
+            android:longClickable="false" />
 
 
         <TextView
@@ -87,7 +92,7 @@
             android:onClick="onClickEnteredValue"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="4" />
+            android:layout_weight="3" />
 
 
         <EditText
@@ -104,7 +109,9 @@
             android:id="@+id/player2Name"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="5" />
+            android:layout_weight="5"
+            android:lines="1"
+            android:longClickable="false" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -141,7 +148,8 @@
             android:onClick="onClickDiceRoll"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="4" />
+            android:layout_weight="3"
+            android:id="@+id/diceRollButton" />
 
         <Button
 
@@ -192,7 +200,7 @@
             android:onClick="onClickCoinFlip"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="4" />
+            android:layout_weight="3" />
         <Button
 
             android:padding="0dp"
