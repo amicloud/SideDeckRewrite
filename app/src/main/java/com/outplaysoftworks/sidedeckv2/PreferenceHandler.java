@@ -10,11 +10,11 @@ public class PreferenceHandler {
     public PreferenceHandler(Context context){
         this.context = context;
     }
-    private final static String KEYplayerOneDefaultNameSetting = "KEYplayerOneDefaultNameSetting";
-    private final static String KEYplayerTwoDefaultNameSetting = "KEYplayerTwoDefaultNameSetting";
-    private final static String KEYsoundOnOff= "KEYsoundOnOff";
-    private final static String KEYdefaultLpSetting = "KEYdefaultLpSetting";
-    private final static String KEYamoledNightModeSetting = "KEYamoledNightModeSetting";
-    private final static String KEYhasUserRatedAppYet = "KEYhasUserRatedAppYet";
-    private final static String KEYlaunchWhenUserPressedRemind = "KEYlaunchWhenUserPressedRemind";
+    private final static String KEY_playerOneDefaultNameSetting = "playerOneDefaultNameSetting";
+    private final static String KEY_playerTwoDefaultNameSetting = "playerTwoDefaultNameSetting";
+    private final static String KEY_soundOnOff= "soundOnOff";
+    private final static String KEY_defaultLpSetting = "defaultLpSetting";
+    private final static String KEY_amoledNightModeSetting = "amoledNightModeSetting";
+    private final static String KEY_hasUserRatedAppYet = "hasUserRatedAppYet";
+    private final static String KEY_launchWhenUserPressedRemind = "launchWhenUserPressedRemind";
 }
