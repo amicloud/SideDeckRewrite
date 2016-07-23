@@ -14,19 +14,8 @@ public class CalculatorModel {
     private String player1Name;
     private Random random = new Random(System.nanoTime());
     private int lastDiceRoll;
-
-    public String getPlayer2Name() {
-        return player2Name;
-    }
-
-    public String getPlayer1Name() {
-        return player1Name;
-    }
-
     private String player2Name;
-    private ArrayList<CalculationAction> actions;
-    private CalculatorPresenter mCalculatorPresenter;
-    private LogPresenter mLogPresenter;
+    private ArrayList<Calculation> actions;
     private String enteredValueString;
     private String appendedString;
     private Integer player1Lp;
@@ -35,13 +24,22 @@ public class CalculatorModel {
     private Integer player2LpPrevious;
     public Integer defaultLp;
     private Integer currentTurn;
+    public String getPlayer2Name() {
+        return player2Name;
+    }
 
+    public String getPlayer1Name() {
+        return player1Name;
+    }
+
+    private CalculatorPresenter mCalculatorPresenter;
+    private LogPresenter mLogPresenter;
     public CalculatorModel(CalculatorPresenter calculatorPresenter){
         mCalculatorPresenter = calculatorPresenter;
         enteredValue = 0;
         currentTurn = 1;
         initializeLp();
-        actions = new ArrayList<CalculationAction>();
+        actions = new ArrayList<Calculation>();
         player1Name = getPlayerOneNameFromPreferences();
         player2Name = getPlayerTwoNameFromPreferences();
     }
@@ -135,11 +133,11 @@ public class CalculatorModel {
     }
 
     private void createCalculationAction(int previousLp, int newLp, int player, CalculatorModel model){
-        CalculationAction calculationAction = new CalculationAction(previousLp, newLp, player, model);
+        Calculation calculationAction = new Calculation(previousLp, newLp, player, model);
         addCalculationActionToList(calculationAction);
     }
 
-    private void addCalculationActionToList(CalculationAction action){
+    private void addCalculationActionToList(Calculation action){
         actions.add(action);
         if(mLogPresenter ==  null){
             mLogPresenter = MainActivity.mLogFragment.mLogPresenter;
@@ -148,7 +146,7 @@ public class CalculatorModel {
     }
 
     private void undoLastCalculation(){
-        CalculationAction lastAction = actions.get(actions.size()-1);
+        Calculation lastAction = actions.get(actions.size()-1);
         actions.remove(actions.size()-1);
     }
 

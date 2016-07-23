@@ -10,7 +10,6 @@ public class PreferenceHandler {
     public PreferenceHandler(Context context){
         this.context = context;
     }
-
     private final static String KEYplayerOneDefaultNameSetting = "KEYplayerOneDefaultNameSetting";
     private final static String KEYplayerTwoDefaultNameSetting = "KEYplayerTwoDefaultNameSetting";
     private final static String KEYsoundOnOff= "KEYsoundOnOff";

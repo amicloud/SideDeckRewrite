@@ -15,11 +15,11 @@ public class LogPresenter {
         }
     }
 
-    public void relayAddToActions(CalculationAction action){
+    public void relayAddToActions(Calculation action){
         mLogModel.recieveAction(action);
     }
 
-    public void relayActionToLogFragment(CalculationAction action){
+    public void relayActionToLogFragment(Calculation action){
         LogFragment.onAction(action);
     }
 }

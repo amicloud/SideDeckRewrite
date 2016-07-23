@@ -15,12 +15,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import java.util.logging.LogRecord;
-
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 
 public class CalculatorFragment extends Fragment {
@@ -30,7 +32,7 @@ public class CalculatorFragment extends Fragment {
     private static Integer diceRollAnimationDuration = 2000; //In milliseconds
     private static Integer diceRollAnimationFrameCount = 5;
     final Handler diceResetHandler = new Handler();
-
+    private ArrayList<Toast> lpToasts = new ArrayList<>();
     //Sound stuff
     private static SoundPool soundPool;
     private static Integer lpCounterSoundId;
@@ -38,14 +40,22 @@ public class CalculatorFragment extends Fragment {
     private static Integer coinFlipSoundId;
     //View objects
     public static View view;
-    private static TextView enteredValueView;
-    private static TextView player1Lp;
-    private static TextView player2Lp;
-    private static EditText player1Name;
-    private static EditText player2Name;
-    private static Button diceRollButton;
-    private static Button coinFlipButton;
-    private static Button turnButton;
+    @BindView(R.id.enteredValue)
+    TextView enteredValueView;
+    @BindView(R.id.player1Lp)
+    TextView player1Lp;
+    @BindView(R.id.player2Lp)
+    TextView player2Lp;
+    @BindView(R.id.player1Name)
+    EditText player1Name;
+    @BindView(R.id.player2Name)
+    EditText player2Name;
+    @BindView(R.id.buttonDiceRoll)
+    Button buttonDiceRoll;
+    @BindView(R.id.buttonCoinFlip)
+    Button coinFlipButton;
+    @BindView(R.id.buttonTurn)
+    Button buttonTurn;
 
     //Drawable stuff
     private static ArrayList<Drawable> diceDrawables = new ArrayList<>();
@@ -63,8 +73,7 @@ public class CalculatorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_calculator, container, false);
-        assignViewsByIds(view);
-        assignClickListeners();
+        ButterKnife.bind(this, view);
         loadDrawables();
         setUpSounds();
         setLpToDefault();
@@ -79,23 +88,7 @@ public class CalculatorFragment extends Fragment {
         diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_4));
         diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_5));
         diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_6));
-        diceRollBackgroundDrawable = diceRollButton.getBackground();
-    }
-
-    private void assignClickListeners() {
-        turnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickTurn();
-            }
-        });
-        turnButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                onLongClickTurn();
-                return true;
-            }
-        });
+        diceRollBackgroundDrawable = buttonDiceRoll.getBackground();
     }
 
     private void setUpSounds() {
@@ -104,17 +97,8 @@ public class CalculatorFragment extends Fragment {
         coinFlipSoundId = soundPool.load(getContext(), R.raw.coinflipsound, 1);
         diceRollSoundId = soundPool.load(getContext(), R.raw.dicerollsound, 1);
     }
-
-    private void assignViewsByIds(View view) {
-        enteredValueView = (TextView)view.findViewById(R.id.enteredValue);
-        player1Lp = (TextView)view.findViewById(R.id.player1Lp);
-        player2Lp = (TextView)view.findViewById(R.id.player2Lp);
-        player1Name = (EditText)view.findViewById(R.id.player1Name);
-        player2Name = (EditText)view.findViewById(R.id.player2Name);
-        turnButton = (Button)view.findViewById(R.id.turnButton);
-        diceRollButton = (Button)view.findViewById(R.id.diceRollButton);
-    }
-
+    @OnClick({R.id.button0, R.id.button00, R.id.button000,R.id.button1, R.id.button2, R.id.button3,
+            R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8, R.id.button9})
     public void onClickNumbers(View view) {
         String tag = view.getTag().toString();
         mCalculatorPresenter.relayNumbers(tag);
@@ -166,35 +150,43 @@ public class CalculatorFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-
-    public void onClickEnteredValue(View view) {
+    @OnClick(R.id.enteredValue)
+    public void onClickEnteredValue() {
         mCalculatorPresenter.relayEnteredValue();
     }
-
-    public void onClickP1Add(View view) {
+    @OnClick(R.id.buttonP1Add)
+    public void onClickP1Add() {
         mCalculatorPresenter.relayP1Add();
     }
-
-    public void onClickP1Sub(View view) {
+    @OnClick(R.id.buttonP1Sub)
+    public void onClickP1Sub() {
         mCalculatorPresenter.relayP1Sub();
     }
-
-    public void onClickP2Add(View view) {
+    @OnClick(R.id.buttonP2Add)
+    public void onClickP2Add() {
         mCalculatorPresenter.relayP2Add();
     }
-
-    public void onClickP2Sub(View view) {
+    @OnClick(R.id.buttonP2Sub)
+    public void onClickP2Sub() {
         mCalculatorPresenter.relayP2Sub();
     }
-
-    public void onClickDiceRoll(View view) {
+    @OnClick(R.id.buttonDiceRoll)
+    public void onClickDiceRoll() {
         mCalculatorPresenter.relayDiceRoll();
     }
-
-    public void onClickCoinFlip(View view) {
+    @OnClick(R.id.buttonCoinFlip)
+    public void onClickCoinFlip() {
         mCalculatorPresenter.relayCoinFlip();
     }
-
+    @OnClick(R.id.buttonTurn)
+    public void onClickTurn() {
+        mCalculatorPresenter.relayTurnClick();
+    }
+    @OnLongClick(R.id.buttonTurn)
+    public boolean onLongClickTurn() {
+        mCalculatorPresenter.relayTurnLongClick();
+        return true;
+    }
 
     public void onP1LpUpdated(Integer player1LpPrevious, Integer player1LpDo) {
         animateTextView(player1LpPrevious, player1LpDo, player1Lp, AppConstants.LPCHANGEANIMATIONDURATION);
@@ -221,27 +213,19 @@ public class CalculatorFragment extends Fragment {
         soundPool.play(coinFlipSoundId, 1, 1, 1, 0, 1);
     }
 
-    public void onClickTurn() {
-        mCalculatorPresenter.relayTurnClick();
-    }
-
-    public void onLongClickTurn() {
-        mCalculatorPresenter.relayTurnLongClick();
-    }
-
     public void onTurnUpdated(Integer turn){
-        turnButton.setText(view.getResources().getString(R.string.turn) + turn.toString());
+        buttonTurn.setText(view.getResources().getString(R.string.turn) + turn.toString());
     }
 
     //TODO: Make sure this scales correctly across multiple screen dpi settings
     public void onDiceRollComplete(final int lastDiceRoll) {
-        diceRollButton.setClickable(false);
+        buttonDiceRoll.setClickable(false);
         final Drawable originalBackgroundDrawable = diceRollBackgroundDrawable;
         RandomAnimationBuilder randomAnimationBuilder = new RandomAnimationBuilder(diceDrawables,
             diceRollAnimationDuration, diceRollAnimationFrameCount);
         AnimationDrawable animation = randomAnimationBuilder.makeAnimation();
-        diceRollButton.setBackground(animation);
-        diceRollButton.setText("");
+        buttonDiceRoll.setBackground(animation);
+        buttonDiceRoll.setText("");
         //animation.setEnterFadeDuration(randomAnimationBuilder.getFrameDuration()/2);
         //animation.setExitFadeDuration(randomAnimationBuilder.getFrameDuration()/2);
         animation.start();
@@ -249,9 +233,9 @@ public class CalculatorFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                diceRollButton.setAlpha(1f);
-                diceRollButton.setBackgroundDrawable(diceDrawables.get(lastDiceRoll));
-                diceRollButton.setClickable(true);
+                buttonDiceRoll.setAlpha(1f);
+                buttonDiceRoll.setBackgroundDrawable(diceDrawables.get(lastDiceRoll));
+                buttonDiceRoll.setClickable(true);
             }
         }, diceRollAnimationDuration + (randomAnimationBuilder.getFrameDuration()*2));
         resetDiceRollButtonAfterDelay(originalBackgroundDrawable);
@@ -262,9 +246,19 @@ public class CalculatorFragment extends Fragment {
         diceResetHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                diceRollButton.setText(view.getResources().getString(R.string.diceRoll));
-                diceRollButton.setBackground(originalBackground);
+                buttonDiceRoll.setText(view.getResources().getString(R.string.diceRoll));
+                buttonDiceRoll.setBackground(originalBackground);
             }
         }, diceRollAnimationDuration + 6000);
+    }
+
+    public void makeToast(String toastText) {
+        if(lpToasts.size() > 0){
+            lpToasts.get(0).cancel();
+            lpToasts.clear();
+        }
+        Toast toast = Toast.makeText(this.getContext(), toastText, Toast.LENGTH_LONG);
+        lpToasts.add(toast);
+        toast.show();
     }
 }

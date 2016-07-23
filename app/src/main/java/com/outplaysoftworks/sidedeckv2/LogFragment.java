@@ -50,12 +50,12 @@ public class LogFragment extends Fragment {
         viewHolder = (LinearLayout)view.findViewById(R.id.viewHolder);
     }
 
-    public static void onAction(CalculationAction action){
+    public static void onAction(Calculation action){
         LinearLayout layout = makeLayoutForAction(action);
         addLayoutToList(layout);
     }
 
-    private static LinearLayout makeLayoutForAction(CalculationAction action){
+    private static LinearLayout makeLayoutForAction(Calculation action){
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         LinearLayout actionLayout = (LinearLayout)layoutInflater.inflate(R.layout.calculation_action, viewHolder, false);
         TextView playerName = (TextView)actionLayout.findViewById(R.id.playerName);

@@ -1,6 +1,5 @@
 package com.outplaysoftworks.sidedeckv2;
 
-import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -21,9 +20,9 @@ public class LogModel {
         layouts.add(action);
     }
 
-    public void recieveAction(CalculationAction action) {
+    public void recieveAction(Calculation action) {
     }
 
-    private void createLayoutFromAction(CalculationAction action){
+    private void createLayoutFromAction(Calculation action){
     }
 }

@@ -1,6 +1,7 @@
 package com.outplaysoftworks.sidedeckv2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void showPopupMenu(View view){
         final View v = view;
+        final Intent preferencesIntent = new Intent(this, SettingsActivity.class);
         popupMenu = new PopupMenu(context, v);
         MenuInflater menuInflater = popupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.actions, popupMenu.getMenu());
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity{
                 }else if(item.getItemId() == R.id.menuItemReset){
 
                 }else if(item.getItemId() == R.id.menuItemSettings){
-
+                    startActivity(preferencesIntent);
                 }else if(item.getItemId() == R.id.menuItemShowQuickCalc){
 
                 }
@@ -105,32 +107,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-    }
-
-    void onClickNumbers(View view){
-        mCalculatorFragment.onClickNumbers(view);
-    }
-    void onClickEnteredValue(View view){
-        mCalculatorFragment.onClickEnteredValue(view);
-    }
-
-    void onClickP1Add(View view){
-        mCalculatorFragment.onClickP1Add(view);
-    }
-    void onClickP1Sub(View view){
-        mCalculatorFragment.onClickP1Sub(view);
-    }
-    void onClickP2Add(View view){
-        mCalculatorFragment.onClickP2Add(view);
-    }
-    void onClickP2Sub(View view){
-        mCalculatorFragment.onClickP2Sub(view);
-    }
-    void onClickDiceRoll(View view){
-        mCalculatorFragment.onClickDiceRoll(view);
-    }
-    void onClickCoinFlip(View view){
-        mCalculatorFragment.onClickCoinFlip(view);
     }
 
 }

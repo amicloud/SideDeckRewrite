@@ -5,7 +5,7 @@ import android.view.View;
 /**
  * Created by Billy on 5/14/2016.
  */
-public class CalculationAction {
+public class Calculation {
 
     public Integer getLpPrevious() {
         return lpPrevious;
@@ -35,7 +35,7 @@ public class CalculationAction {
     private CalculatorModel mCalculatorModel;
     private Integer lpDifference;
     private boolean isLpLoss;
-    public CalculationAction(int previousLp, int lpAfter, int player, CalculatorModel model) {
+    public Calculation(int previousLp, int lpAfter, int player, CalculatorModel model) {
         this.lpPrevious = previousLp;
         this.lpAfter = lpAfter;
         this.player = player;
