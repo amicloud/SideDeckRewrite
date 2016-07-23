@@ -26,6 +26,7 @@ public class CalculatorModel {
     private String player2Name;
     private ArrayList<CalculationAction> actions;
     private CalculatorPresenter mCalculatorPresenter;
+    private LogPresenter mLogPresenter;
     private String enteredValueString;
     private String appendedString;
     private Integer player1Lp;
@@ -135,7 +136,15 @@ public class CalculatorModel {
 
     private void createCalculationAction(int previousLp, int newLp, int player, CalculatorModel model){
         CalculationAction calculationAction = new CalculationAction(previousLp, newLp, player, model);
-        actions.add(calculationAction);
+        addCalculationActionToList(calculationAction);
+    }
+
+    private void addCalculationActionToList(CalculationAction action){
+        actions.add(action);
+        if(mLogPresenter ==  null){
+            mLogPresenter = MainActivity.mLogFragment.mLogPresenter;
+        }
+        mLogPresenter.relayActionToLogFragment(action);
     }
 
     private void undoLastCalculation(){

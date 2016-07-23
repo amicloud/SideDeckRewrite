@@ -17,3 +17,10 @@
 #}
 
 -keep class **$$ViewBinder { *; }
+-keep public class * implements butterknife.internal.ViewBinder { public <init>(); }
+-keep class butterknife.*
+-keepclasseswithmembernames class * { @butterknife.* <methods>; }
+-keepclasseswithmembernames class * { @butterknife.* <fields>; }
+-keepclasseswithmembernames class * { @retrofit2.* <methods>; }
+-keepclasseswithmembernames class * { @retrofit2.* <fields>; }
+-keep class retrofit2.*

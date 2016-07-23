@@ -20,10 +20,12 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity{
     private SectionsPagerAdapter mSectionsPagerAdapter;
     CalculatorFragment mCalculatorFragment;
+    public static LogFragment mLogFragment;
     ViewPager mViewPager;
     static Context context;
     static PopupMenu popupMenu;
     public static SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mCalculatorFragment = new CalculatorFragment();
+        mLogFragment = new LogFragment();
         context = this;
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 

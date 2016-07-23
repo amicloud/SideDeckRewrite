@@ -18,6 +18,13 @@ public class RandomAnimationBuilder {
     private Integer frameDuration;
     private Random random = new Random(System.nanoTime());
 
+    /**
+     * Used to create an animation from a series of drawables with the frames in
+     * a completely random order with uniform duration
+     * @param drawables Arraylist of drawables to use for individual frames
+     * @param duration Total animation duration
+     * @param frameCount Total frames for animation
+     */
     public RandomAnimationBuilder(ArrayList<Drawable> drawables, Integer duration, Integer frameCount){
         this.drawables = drawables;
         this.duration = duration;
@@ -25,6 +32,14 @@ public class RandomAnimationBuilder {
         this.frameDuration = duration/frameCount;
     }
 
+    public Integer getFrameDuration(){
+        return frameDuration;
+    }
+
+    /**
+     * Contructs an Animation Drawable using resources in the RandomAnimationBuilder object
+     * @return Animation Drawable ready to use
+     */
     public AnimationDrawable makeAnimation(){
         AnimationDrawable animationDrawable = new AnimationDrawable();
         int max = drawables.size();

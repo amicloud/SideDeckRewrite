@@ -25,14 +25,19 @@ import butterknife.ButterKnife;
 
 public class CalculatorFragment extends Fragment {
     private CalculatorPresenter mCalculatorPresenter;
-    public static View view;
+    private static boolean isDiceButtonWaitingToReset = false;
+    private static boolean canDiceButtonBeReset = true;
+    private static Integer diceRollAnimationDuration = 2000; //In milliseconds
+    private static Integer diceRollAnimationFrameCount = 5;
+    final Handler diceResetHandler = new Handler();
 
     //Sound stuff
     private static SoundPool soundPool;
     private static Integer lpCounterSoundId;
     private static Integer diceRollSoundId;
     private static Integer coinFlipSoundId;
-    //TODO: Create view objects and inject them please
+    //View objects
+    public static View view;
     private static TextView enteredValueView;
     private static TextView player1Lp;
     private static TextView player2Lp;
@@ -41,8 +46,10 @@ public class CalculatorFragment extends Fragment {
     private static Button diceRollButton;
     private static Button coinFlipButton;
     private static Button turnButton;
-    private static ArrayList<Drawable> diceDrawables = new ArrayList<>();
 
+    //Drawable stuff
+    private static ArrayList<Drawable> diceDrawables = new ArrayList<>();
+    private static Drawable diceRollBackgroundDrawable;
     public CalculatorFragment() {
         makePresenter();
     }
@@ -72,6 +79,7 @@ public class CalculatorFragment extends Fragment {
         diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_4));
         diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_5));
         diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_6));
+        diceRollBackgroundDrawable = diceRollButton.getBackground();
     }
 
     private void assignClickListeners() {
@@ -225,33 +233,38 @@ public class CalculatorFragment extends Fragment {
         turnButton.setText(view.getResources().getString(R.string.turn) + turn.toString());
     }
 
+    //TODO: Make sure this scales correctly across multiple screen dpi settings
     public void onDiceRollComplete(final int lastDiceRoll) {
         diceRollButton.setClickable(false);
-        final Drawable originalBackgroundDrawable = diceRollButton.getBackground();
-        RandomAnimationBuilder randomAnimationBuilder = new RandomAnimationBuilder(diceDrawables, 2000, 10);
+        final Drawable originalBackgroundDrawable = diceRollBackgroundDrawable;
+        RandomAnimationBuilder randomAnimationBuilder = new RandomAnimationBuilder(diceDrawables,
+            diceRollAnimationDuration, diceRollAnimationFrameCount);
         AnimationDrawable animation = randomAnimationBuilder.makeAnimation();
         diceRollButton.setBackground(animation);
         diceRollButton.setText("");
+        //animation.setEnterFadeDuration(randomAnimationBuilder.getFrameDuration()/2);
+        //animation.setExitFadeDuration(randomAnimationBuilder.getFrameDuration()/2);
         animation.start();
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                diceRollButton.setAlpha(1f);
                 diceRollButton.setBackgroundDrawable(diceDrawables.get(lastDiceRoll));
                 diceRollButton.setClickable(true);
-                resetDiceRollButtonAfterDelay(originalBackgroundDrawable);
             }
-        }, 2050);
+        }, diceRollAnimationDuration + (randomAnimationBuilder.getFrameDuration()*2));
+        resetDiceRollButtonAfterDelay(originalBackgroundDrawable);
     }
 
     private void resetDiceRollButtonAfterDelay(final Drawable originalBackground){
-        final Handler handler =  new Handler();
-        handler.postDelayed(new Runnable() {
+        diceResetHandler.removeCallbacksAndMessages(null);
+        diceResetHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 diceRollButton.setText(view.getResources().getString(R.string.diceRoll));
                 diceRollButton.setBackground(originalBackground);
             }
-        }, 5000);
+        }, diceRollAnimationDuration + 6000);
     }
 }
