@@ -99,4 +99,12 @@ public class CalculatorPresenter {
     public void onDiceRollComplete(int lastDiceRoll) {
         mCalculatorFragment.onDiceRollComplete(lastDiceRoll);
     }
+
+    public String getPlayer1Name(){
+        return mCalculatorModel.getPlayer1Name();
+    }
+
+    public String getPlayer2Name(){
+        return mCalculatorModel.getPlayer2Name();
+    }
 }

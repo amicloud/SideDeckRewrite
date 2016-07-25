@@ -29,8 +29,8 @@ public class CalculatorFragment extends Fragment {
     private CalculatorPresenter mCalculatorPresenter;
     private static boolean isDiceButtonWaitingToReset = false;
     private static boolean canDiceButtonBeReset = true;
-    private static Integer diceRollAnimationDuration = 2000; //In milliseconds
-    private static Integer diceRollAnimationFrameCount = 5;
+    private static final Integer diceRollAnimationDuration = 2000; //In milliseconds
+    private static final Integer diceRollAnimationFrameCount = 5;
     final Handler diceResetHandler = new Handler();
     private ArrayList<Toast> lpToasts = new ArrayList<>();
     //Sound stuff
@@ -77,8 +77,14 @@ public class CalculatorFragment extends Fragment {
         loadDrawables();
         setUpSounds();
         setLpToDefault();
+        setPlayerNamesToDefault();
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void setPlayerNamesToDefault() {
+        player1Name.setText(mCalculatorPresenter.getPlayer1Name());
+        player2Name.setText(mCalculatorPresenter.getPlayer2Name());
     }
 
     private void loadDrawables() {

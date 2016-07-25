@@ -28,6 +28,7 @@
     <string name="playerOneDefaultName">Player 1 default name</string>
     <string name="playerTwoDefaultName">Player 2 default name</string>
     <string name="sound">Sound</string>
+    <string name="soundSettingSummary">Enable sound effects</string>
     <string name="lpAddedTo">" LP added to "</string>
     <string name="lpSubtracedFrom">" LP subtracted from "</string>
     <string name="x" translatable="false">x</string>
