@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 
 public class LogFragment extends Fragment {
 
-    private static View view;
+    public static View view;
     private static ArrayList<LinearLayout> layouts = new ArrayList<>();
     @BindView(R.id.layoutHolder)
     LinearLayout layoutHolder;
