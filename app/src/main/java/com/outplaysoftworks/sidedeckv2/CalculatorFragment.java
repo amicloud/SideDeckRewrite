@@ -76,10 +76,14 @@ public class CalculatorFragment extends Fragment {
         ButterKnife.bind(this, view);
         loadDrawables();
         setUpSounds();
-        setLpToDefault();
-        setPlayerNamesToDefault();
+        reset();
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void reset(){
+        setLpToDefault();
+        setPlayerNamesToDefault();
     }
 
     private void setPlayerNamesToDefault() {
@@ -178,11 +182,13 @@ public class CalculatorFragment extends Fragment {
     }
     @OnClick(R.id.buttonDiceRoll)
     public void onClickDiceRoll() {
+        playDiceSound();
         mCalculatorPresenter.relayDiceRoll();
     }
     @OnClick(R.id.buttonCoinFlip)
     public void onClickCoinFlip() {
         mCalculatorPresenter.relayCoinFlip();
+        playCoinSound();
     }
     @OnClick(R.id.buttonTurn)
     public void onClickTurn() {

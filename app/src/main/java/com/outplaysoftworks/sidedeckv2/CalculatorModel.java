@@ -179,8 +179,10 @@ public class CalculatorModel {
     }
 
     public void doTurnLongClick() {
-        currentTurn--;
-        mCalculatorPresenter.onTurnUpdated(currentTurn);
+        if(currentTurn > 1) {
+            currentTurn--;
+            mCalculatorPresenter.onTurnUpdated(currentTurn);
+        }
     }
 
 

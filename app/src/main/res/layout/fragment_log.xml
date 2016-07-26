@@ -22,7 +22,7 @@
             tools:context="com.outplaysoftworks.sidedeck.LogFragment">
 
             <LinearLayout
-                android:id="@+id/viewHolder"
+                android:id="@+id/layoutHolder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
