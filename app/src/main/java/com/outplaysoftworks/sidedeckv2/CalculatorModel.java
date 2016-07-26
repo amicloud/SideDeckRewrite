@@ -153,15 +153,15 @@ public class CalculatorModel {
 
     private void createCalculation(int previousLp, int newLp, int player, CalculatorModel model){
         Calculation Calculation = new Calculation(previousLp, newLp, player, model);
-        addCalculationToList(Calculation);
+        addCalculation(Calculation);
     }
 
-    private void addCalculationToList(Calculation calculation){
+    private void addCalculation(Calculation calculation){
         calculations.add(calculation);
         if(mLogPresenter ==  null){
             mLogPresenter = MainActivity.mLogFragment.mLogPresenter;
         }
-        mLogPresenter.sendCalculationToLogModel(calculation);
+        mLogPresenter.sendCalculationToLogModel(calculation, currentTurn);
     }
 
     private void undoLastCalculation(){
@@ -174,15 +174,25 @@ public class CalculatorModel {
     }
 
     public void doTurnClick() {
+        if(mLogPresenter == null){
+            mLogPresenter = MainActivity.mLogFragment.mLogPresenter;
+        }
         currentTurn++;
         mCalculatorPresenter.onTurnUpdated(currentTurn);
+        mLogPresenter.onTurnIncremented(currentTurn);
+
     }
 
     public void doTurnLongClick() {
+        if(mLogPresenter == null){
+            mLogPresenter = MainActivity.mLogFragment.mLogPresenter;
+        }
         if(currentTurn > 1) {
             currentTurn--;
             mCalculatorPresenter.onTurnUpdated(currentTurn);
+            mLogPresenter.onTurnDecremented(currentTurn);
         }
+
     }
 
 

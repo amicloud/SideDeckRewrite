@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class LogFragment extends Fragment {
 
     public static View view;
     private static ArrayList<LinearLayout> layouts = new ArrayList<>();
+    private static ArrayList<LinearLayout> sections = new ArrayList<>();
     @BindView(R.id.layoutHolder)
     LinearLayout layoutHolder;
 
@@ -46,12 +49,17 @@ public class LogFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_log, container, false);
         ButterKnife.setDebug(true);
         ButterKnife.bind(this, view);
+        setupLog();
         return view;
     }
 
-    public void onCalculation(Calculation calculation) {
+    private void setupLog() {
+        addSectionToLayout(createSection(1));
+    }
+
+    public void onCalculation(Calculation calculation, Integer turn) {
         LinearLayout layout = makeLayoutForCalculation(calculation);
-        addLayoutToList(layout);
+        addCalculationToSection(turn - 1, layout);
     }
 
     private LinearLayout makeLayoutForCalculation(Calculation calculation) {
@@ -102,6 +110,59 @@ public class LogFragment extends Fragment {
         layoutHolder.addView(layout, 0);
     }
 
+    private LinearLayout createSection(Integer turnNumber){
+        LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
+        LinearLayout section = (LinearLayout) layoutInflater.inflate(R.layout.section, layoutHolder, false);
+        TextView sectionText = ButterKnife.findById(section, R.id.text);
+        String text = view.getResources().getString(R.string.logTurn) + " " + turnNumber.toString();
+        sectionText.setText(text);
+        return section;
+    }
+
+    private void addSectionToLayout(LinearLayout section){
+        layoutHolder = ButterKnife.findById(view, R.id.layoutHolder);
+        layoutHolder.addView(section, 0);
+        sections.add(section);
+    }
+
+    private void addCalculationToSection(int sectionNumber, LinearLayout calculation){
+        sections.get(sectionNumber).addView(calculation, 1);
+        if(sections.get(sectionNumber).getChildCount() > 2){
+            sections.get(sectionNumber).addView(createHorizontalRule(), 2);
+        }
+    }
+
+    private RelativeLayout createHorizontalRule(){
+        LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
+        RelativeLayout rule = (RelativeLayout) layoutInflater.inflate(R.layout.log_horizontal_rule,
+                layoutHolder, false);
+        return rule;
+    }
+
+    private void removeSection(){
+        layoutHolder = ButterKnife.findById(view, R.id.layoutHolder);
+        sections.remove(sections.size()-1);
+        layoutHolder.removeViewAt(0);
+    }
+
+    private void removeCalculationFromSection(Integer section){
+        sections.get(section).removeViewAt(0);
+    }
+
+    public void onTurnIncremented(Integer turn){
+        if(sections.size() < turn){
+            addSectionToLayout(createSection(turn));
+        }
+        /*if(sections.get(turn - 2) != null){
+            addSectionToLayout(createSection(turn));
+        }*/
+    }
+
+    public void onTurnDecremented(Integer turn){
+        if(sections.get(turn - 1) != null){
+            //sections.remove(turn - 1);
+        }
+    }
  /*   private void removeLayoutFromHolder(int index){
         layoutHolder.removeViewAt(index);
     }*/

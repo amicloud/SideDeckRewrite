@@ -16,12 +16,12 @@ public class LogModel {
         mLogPresenter = logPresenter;
     }
 
-    public void addCalculationToList(Calculation calculation){
+    public void addCalculationToList(Calculation calculation, Integer turn){
         calculationList.add(calculation);
-        onCalculationAddedToList(calculation);
+        onCalculationAddedToList(calculation, turn);
     }
 
-    private void onCalculationAddedToList(Calculation calculation){
-        mLogPresenter.createCalculation(calculation);
+    private void onCalculationAddedToList(Calculation calculation, Integer turn){
+        mLogPresenter.createCalculation(calculation, turn);
     }
 }

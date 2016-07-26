@@ -15,11 +15,19 @@ public class LogPresenter {
         }
     }
 
-    public void sendCalculationToLogModel(Calculation calculation){
-        mLogModel.addCalculationToList(calculation);
+    public void sendCalculationToLogModel(Calculation calculation, Integer turn){
+        mLogModel.addCalculationToList(calculation, turn);
     }
 
-    public void createCalculation(Calculation calculation) {
-        mLogFragment.onCalculation(calculation);
+    public void createCalculation(Calculation calculation, Integer turn) {
+        mLogFragment.onCalculation(calculation, turn);
+    }
+
+    public void onTurnIncremented(Integer currentTurn) {
+        mLogFragment.onTurnIncremented(currentTurn);
+    }
+
+    public void onTurnDecremented(Integer currentTurn) {
+        mLogFragment.onTurnDecremented(currentTurn);
     }
 }
