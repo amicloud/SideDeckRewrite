@@ -15,7 +15,7 @@ public class CalculatorModel {
     private Random random = new Random(System.nanoTime());
     private int lastDiceRoll;
     private String player2Name;
-    private ArrayList<Calculation> actions;
+    private ArrayList<Calculation> calculations;
     private String enteredValueString;
     private String appendedString;
     private Integer player1Lp;
@@ -48,7 +48,7 @@ public class CalculatorModel {
         enteredValue = 0;
         currentTurn = 1;
         initializeLp();
-        actions = new ArrayList<Calculation>();
+        calculations = new ArrayList<Calculation>();
         player1Name = getPlayerOneNameFromPreferences();
         player2Name = getPlayerTwoNameFromPreferences();
     }
@@ -115,7 +115,7 @@ public class CalculatorModel {
         if(enteredValue != 0) {
             player1LpPrevious = player1Lp;
             player1Lp += enteredValue;
-            createCalculationAction(player1LpPrevious, player1Lp, 1, this);
+            createCalculation(player1LpPrevious, player1Lp, 1, this);
             mCalculatorPresenter.onP1LpUpdated(player1LpPrevious, player1Lp);
             doEnteredValue();
         }
@@ -125,7 +125,7 @@ public class CalculatorModel {
         if(enteredValue != 0) {
             player1LpPrevious = player1Lp;
             player1Lp -= enteredValue;
-            createCalculationAction(player1LpPrevious, player1Lp, 1, this);
+            createCalculation(player1LpPrevious, player1Lp, 1, this);
             mCalculatorPresenter.onP1LpUpdated(player1LpPrevious, player1Lp);
             doEnteredValue();
         }
@@ -135,7 +135,7 @@ public class CalculatorModel {
         if(enteredValue != 0) {
             player2LpPrevious = player2Lp;
             player2Lp += enteredValue;
-            createCalculationAction(player2LpPrevious, player2Lp, 2, this);
+            createCalculation(player2LpPrevious, player2Lp, 2, this);
             mCalculatorPresenter.onP2LpUpdated(player2LpPrevious, player2Lp);
             doEnteredValue();
         }
@@ -145,28 +145,28 @@ public class CalculatorModel {
         if(enteredValue != 0) {
             player2LpPrevious = player2Lp;
             player2Lp -= enteredValue;
-            createCalculationAction(player2LpPrevious, player2Lp, 2, this);
+            createCalculation(player2LpPrevious, player2Lp, 2, this);
             mCalculatorPresenter.onP2LpUpdated(player2LpPrevious, player2Lp);
             doEnteredValue();
         }
     }
 
-    private void createCalculationAction(int previousLp, int newLp, int player, CalculatorModel model){
-        Calculation calculationAction = new Calculation(previousLp, newLp, player, model);
-        addCalculationActionToList(calculationAction);
+    private void createCalculation(int previousLp, int newLp, int player, CalculatorModel model){
+        Calculation Calculation = new Calculation(previousLp, newLp, player, model);
+        addCalculationToList(Calculation);
     }
 
-    private void addCalculationActionToList(Calculation action){
-        actions.add(action);
+    private void addCalculationToList(Calculation calculation){
+        calculations.add(calculation);
         if(mLogPresenter ==  null){
             mLogPresenter = MainActivity.mLogFragment.mLogPresenter;
         }
-        mLogPresenter.relayActionToLogFragment(action);
+        mLogPresenter.sendCalculationToLogModel(calculation);
     }
 
     private void undoLastCalculation(){
-        Calculation lastAction = actions.get(actions.size()-1);
-        actions.remove(actions.size()-1);
+        Calculation lastcalculations = calculations.get(calculations.size()-1);
+        calculations.remove(calculations.size()-1);
     }
 
     public Integer getDefaultLp() {

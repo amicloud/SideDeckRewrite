@@ -1,6 +1,7 @@
 package com.outplaysoftworks.sidedeckv2;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,14 +13,18 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LogFragment extends Fragment {
 
     public LogPresenter mLogPresenter;
     private static View view;
     private static LayoutInflater mInflater;
     private static ArrayList<LinearLayout> layouts = new ArrayList<>();
-    private static LinearLayout viewHolder;
     private static Context context;
+    @BindView(R.id.viewHolder)
+    private static LinearLayout viewHolder;
 
     public LogFragment(){
         makePresenter();
@@ -41,6 +46,7 @@ public class LogFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_log, container, false);
+        ButterKnife.bind(this, view);
         assignViewByIds();
         context = view.getContext();
         return view;
@@ -50,38 +56,48 @@ public class LogFragment extends Fragment {
         viewHolder = (LinearLayout)view.findViewById(R.id.viewHolder);
     }
 
-    public static void onAction(Calculation action){
-        LinearLayout layout = makeLayoutForAction(action);
+    public void onCalculation(Calculation calculation){
+        LinearLayout layout = makeLayoutForCalculation(calculation);
         addLayoutToList(layout);
     }
 
-    private static LinearLayout makeLayoutForAction(Calculation action){
+    private LinearLayout makeLayoutForCalculation(Calculation calculation){
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        LinearLayout actionLayout = (LinearLayout)layoutInflater.inflate(R.layout.calculation_action, viewHolder, false);
-        TextView playerName = (TextView)actionLayout.findViewById(R.id.playerName);
-        TextView lpDifference = (TextView)actionLayout.findViewById(R.id.lpDifference);
-        TextView lpAfter = (TextView)actionLayout.findViewById(R.id.lpAfter);
-        playerName.setText(getPlayerName(action.getPlayer()));
-        String lpDiff = action.getLpDifference().toString();
+        LinearLayout calculationLayout = (LinearLayout)layoutInflater.inflate(R.layout.calculation, viewHolder, false);
+        TextView playerName = (TextView)calculationLayout.findViewById(R.id.playerName);
+        TextView lpDifference = (TextView)calculationLayout.findViewById(R.id.lpDifference);
+        TextView lpAfter = (TextView)calculationLayout.findViewById(R.id.lpAfter);
+        playerName.setText(getPlayerName(calculation.getPlayer()));
+        String lpDiff = calculation.getLpDifference().toString();
         if(lpDiff.contains("-")){
             lpDiff = lpDiff.replace("-", "");
         }
         lpDifference.setText(lpDiff);
-        String lpAft = action.getLpAfter().toString();
+        String lpAft = calculation.getLpAfter().toString();
         if(lpAft.contains("-")){
             lpAft = lpAft.replace("-", "");
         }
         lpAfter.setText(lpAft);
-        if(action.isLpLoss()){
+        if(calculation.isLpLoss()){
             lpDifference.setTextColor(Color.RED);
-        }else if(!action.isLpLoss()){
+        }else if(!calculation.isLpLoss()){
             lpDifference.setTextColor(Color.GREEN);
         }
-        return actionLayout;
+        return calculationLayout;
     }
-    private static String getPlayerName(Integer playerNumber){
-        return "Player"; //TODO: IMPLEMENT THE THING
+    private String getPlayerName(Integer playerNumber){
+        SharedPreferences sharedPreferences = MainActivity.sharedPreferences;
+        String name;
+        if(playerNumber == 1){
+            name = sharedPreferences.getString(AppConstants.KEY_PLAYER_ONE_DEF_NAME, "Player 1");
+        } else if(playerNumber == 2){
+            name = sharedPreferences.getString(AppConstants.KEY_PLAYER_TWO_DEF_NAME, "Player 2");
+        } else{
+            return "Something went wrong";
+        }
+        return name;
     }
+
     private static void addLayoutToList(LinearLayout layout){
         layouts.add(layout);
         addLayoutToHolder(layout);
@@ -91,7 +107,7 @@ public class LogFragment extends Fragment {
         viewHolder.addView(layout, 0);
     }
 
-    private void removeLayoutFromHolder(){
-
+    private void removeLayoutFromHolder(int index){
+        viewHolder.removeViewAt(index);
     }
 }
