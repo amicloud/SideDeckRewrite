@@ -32,7 +32,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:9.2.1'
     compile 'com.github.amlcurran.showcaseview:library:5.4.1'
     compile 'me.grantland:autofittextview:0.2.+'
-    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.google.android.gms:play-services-appindexing:9.2.1'
     compile 'com.jakewharton:butterknife:8.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'io.reactivex:rxandroid:1.2.1'

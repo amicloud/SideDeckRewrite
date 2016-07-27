@@ -3,9 +3,12 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/material_dark</item>
-        <item name="colorPrimaryDark">@color/material_dark_tinted</item>
+        <item name="colorPrimary">@color/material_light</item>
+        <item name="colorPrimaryDark">@color/material_light_dark</item>
         <item name="colorAccent">@color/material_accent</item>
+        <item name="android:colorBackground">@color/material_dark</item>
+        <item name="android:background">@color/material_dark</item>
+        <item name="android:textColor">@color/material_white</item>
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
@@ -16,4 +19,31 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="LightTheme" parent="AppTheme" >
+        <item name="colorPrimary">@color/material_white</item>
+        <item name="colorPrimaryDark">@color/material_white</item>
+        <item name="colorAccent">@color/material_accent</item>
+        <item name="android:colorBackground">@color/material_white</item>
+        <item name="android:textColorPrimary">@color/material_white</item>
+        <item name="android:colorForeground">@color/material_white</item>
+    </style>
+    <style name="Button">
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textColor">@color/material_white</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="Button.Number">
+        <item name="android:background">@color/material_light_dark</item>
+        <item name="android:textSize">35dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+
+    <style name="Button.Function">
+        <item name="android:background">@color/material_light</item>
+        <item name="android:typeface">sans</item>
+    </style>
 </resources>

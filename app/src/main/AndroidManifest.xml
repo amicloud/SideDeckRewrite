@@ -20,7 +20,7 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:windowSoftInputMode="adjustNothing"/>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"

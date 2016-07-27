@@ -54,7 +54,7 @@
     <string name="yes">Yes!</string>
     <string name="notReally">Not really</string>
     <string name="giveFeedback">Would you mind giving us some feedback?</string>
-    <string name="okSure">Ok, sure</string>
+    <string name="okSure">OK, sure</string>
     <string name="mailTo" translatable="false">mailto:outplaysoftworks@gmail.com?subject=SideDeck%20Feedback</string>
     <string name="noThanks">No, thanks</string>
 

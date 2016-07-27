@@ -1,1 +1,25 @@
-<resources></resources>
+<resources>
+
+        <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+                <!-- Customize your theme here. -->
+                <item name="colorPrimary">@color/material_light</item>
+                <item name="colorPrimaryDark">@color/material_light_dark</item>
+                <item name="colorAccent">@color/material_accent</item>
+                <item name="android:colorBackground">@color/material_dark</item>
+                <item name="android:background">@color/material_dark</item>
+                <item name="android:textColor">@color/material_white</item>
+                <item name="android:navigationBarColor">@color/material_dark</item>
+                <item name="android:statusBarColor">@color/material_dark</item>
+        </style>
+
+        <style name="LightTheme" parent="AppTheme">
+                <item name="colorPrimary">@color/material_white</item>
+                <item name="colorPrimaryDark">@color/material_white</item>
+                <item name="colorAccent">@color/material_accent</item>
+                <item name="android:colorBackground">@color/material_white</item>
+                <item name="android:navigationBarColor">@color/material_white</item>
+                <item name="android:statusBarColor">@color/material_white</item>
+                <item name="android:textColorPrimary">@color/material_white</item>
+                <item name="android:colorForeground">@color/material_white</item>
+        </style>
+</resources>
