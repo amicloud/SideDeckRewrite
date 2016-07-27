@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -65,9 +67,9 @@ public class LogFragment extends Fragment {
     private LinearLayout makeLayoutForCalculation(Calculation calculation) {
         LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
         LinearLayout calculationLayout = (LinearLayout) layoutInflater.inflate(R.layout.calculation, layoutHolder, false);
-        TextView playerName = (TextView) calculationLayout.findViewById(R.id.playerName);
-        TextView lpDifference = (TextView) calculationLayout.findViewById(R.id.lpDifference);
-        TextView lpAfter = (TextView) calculationLayout.findViewById(R.id.lpAfter);
+        TextView playerName = ButterKnife.findById(calculationLayout, R.id.playerName);
+        TextView lpDifference = ButterKnife.findById(calculationLayout, R.id.lpDifference);
+        TextView lpAfter = ButterKnife.findById(calculationLayout, R.id.lpAfter);
         playerName.setText(getPlayerName(calculation.getPlayer()));
         String lpDiff = calculation.getLpDifference().toString();
         if (lpDiff.contains("-")) {
@@ -80,9 +82,9 @@ public class LogFragment extends Fragment {
         }
         lpAfter.setText(lpAft);
         if (calculation.isLpLoss()) {
-            lpDifference.setTextColor(Color.RED);
+            lpDifference.setTextColor(view.getResources().getColor(R.color.material_red));
         } else if (!calculation.isLpLoss()) {
-            lpDifference.setTextColor(Color.GREEN);
+            lpDifference.setTextColor(view.getResources().getColor(R.color.material_green));
         }
         return calculationLayout;
     }

@@ -321,7 +321,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Timer"
-            android:id="@+id/button"
+            android:id="@+id/buttonTimer"
             android:layout_weight="1"
             style="@style/Button.Function" />
 
@@ -329,7 +329,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Reset"
-            android:id="@+id/button10"
+            android:id="@+id/buttonReset"
             android:layout_weight="1"
             style="@style/Button.Function" />
 
@@ -338,14 +338,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Clear"
-            android:id="@+id/button12"
+            android:id="@+id/buttonClear"
             android:layout_weight="1" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Undo"
-            android:id="@+id/button11"
+            android:id="@+id/buttonUndo"
             android:layout_weight="1"
             style="@style/Button.Function" />
     </LinearLayout>
