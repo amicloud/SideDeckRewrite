@@ -46,23 +46,14 @@ public class CalculatorPresenter {
     public void relayCoinFlip() {
     }
 
-    public void onP1LpUpdated(Integer player1LpPrevious, Integer player1Lp){
-        if(mCalculatorFragment != null) {
-            mCalculatorFragment.onP1LpUpdated(player1LpPrevious, player1Lp);
-            mCalculatorFragment.playLpSound();
-            mCalculatorFragment.makeToast(createLpToastText(1, player1LpPrevious, player1Lp));
-        }
-
-    }
-    public void onP2LpUpdated(Integer player2LpPrevious, Integer player2Lp){
-        if(mCalculatorFragment != null) {
-            mCalculatorFragment.onP2LpUpdated(player2LpPrevious, player2Lp);
-            mCalculatorFragment.playLpSound();
-            mCalculatorFragment.makeToast(createLpToastText(2,player2LpPrevious, player2Lp));
+    public void onLpUpdated(Integer playerLpPrevious, Integer playerLp, int player, boolean isReset){
+        if(mCalculatorFragment != null){
+            String toast = createLpToastText(playerLpPrevious, playerLp, player);
+            mCalculatorFragment.onLpUpdated(playerLpPrevious, playerLp, player, toast, isReset);
         }
     }
 
-    private String createLpToastText(int player, int playerLpPrevious, int playerLp){
+    private String createLpToastText(int playerLpPrevious, int playerLp, int player){
         String text, subOrAdd;
         String playerName = "";
         Integer change = playerLpPrevious - playerLp;
@@ -106,5 +97,13 @@ public class CalculatorPresenter {
 
     public String getPlayer2Name(){
         return mCalculatorModel.getPlayer2Name();
+    }
+
+    public void onPlayerNameChanged(String name, int i) {
+        mCalculatorModel.doPlayerNameChanged(name, i);
+    }
+
+    public void onResetClicked(){
+        mCalculatorModel.doReset();
     }
 }

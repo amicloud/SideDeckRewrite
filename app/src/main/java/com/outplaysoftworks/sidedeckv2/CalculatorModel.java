@@ -1,6 +1,7 @@
 package com.outplaysoftworks.sidedeckv2;
 
 import android.content.SharedPreferences;
+import android.widget.Switch;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -53,15 +54,16 @@ public class CalculatorModel {
         player2Name = getPlayerTwoNameFromPreferences();
     }
 
+    private void makeLogPresenter(){
+        mLogPresenter = MainActivity.mLogFragment.mLogPresenter;
+    }
+
     private void initializeLp() {
         defaultLp = getDefaultLpFromPreferences();
         player1Lp = defaultLp;
         player2Lp = defaultLp;
         player1LpPrevious = player1Lp;
         player2LpPrevious = player2Lp;
-        //mCalculatorPresenter.setLpToDefault(defaultLp);
-        /*mCalculatorPresenter.onP1LpUpdated(player1LpPrevious, player1Lp);
-        mCalculatorPresenter.onP2LpUpdated(player2LpPrevious, player2Lp);*/
     }
 
     private Integer getDefaultLpFromPreferences() {
@@ -113,41 +115,56 @@ public class CalculatorModel {
 
     public void doP1Add() {
         if(enteredValue != 0) {
-            player1LpPrevious = player1Lp;
-            player1Lp += enteredValue;
+            int tPlayer1LpPrevious = player1Lp;
+            int tPlayer1Lp = player1Lp + enteredValue;
+            setPlayerLp(tPlayer1LpPrevious, tPlayer1Lp, 1, false);
             createCalculation(player1LpPrevious, player1Lp, 1, this);
-            mCalculatorPresenter.onP1LpUpdated(player1LpPrevious, player1Lp);
             doEnteredValue();
         }
     }
 
     public void doP1Sub() {
         if(enteredValue != 0) {
-            player1LpPrevious = player1Lp;
-            player1Lp -= enteredValue;
+            int tPlayer1LpPrevious = player1Lp;
+            int tPlayer1Lp = player1Lp - enteredValue;
+            setPlayerLp(tPlayer1LpPrevious, tPlayer1Lp, 1, false);
             createCalculation(player1LpPrevious, player1Lp, 1, this);
-            mCalculatorPresenter.onP1LpUpdated(player1LpPrevious, player1Lp);
             doEnteredValue();
         }
     }
 
     public void doP2Add() {
         if(enteredValue != 0) {
-            player2LpPrevious = player2Lp;
-            player2Lp += enteredValue;
+            int tPlayer2LpPrevious = player2Lp;
+            int tPlayer2Lp = player2Lp + enteredValue;
+            setPlayerLp(tPlayer2LpPrevious, tPlayer2Lp, 2, false);
             createCalculation(player2LpPrevious, player2Lp, 2, this);
-            mCalculatorPresenter.onP2LpUpdated(player2LpPrevious, player2Lp);
             doEnteredValue();
         }
     }
 
     public void doP2Sub() {
         if(enteredValue != 0) {
-            player2LpPrevious = player2Lp;
-            player2Lp -= enteredValue;
+            int tPlayer2LpPrevious = player2Lp;
+            int tPlayer2Lp = player2Lp - enteredValue;
+            setPlayerLp(tPlayer2LpPrevious, tPlayer2Lp, 2, false);
             createCalculation(player2LpPrevious, player2Lp, 2, this);
-            mCalculatorPresenter.onP2LpUpdated(player2LpPrevious, player2Lp);
             doEnteredValue();
+        }
+    }
+
+    private void setPlayerLp(int playerLpPrevious, int playerLp, int player, boolean isReset){
+        switch(player){
+            case 1:
+                player1LpPrevious = playerLpPrevious;
+                player1Lp = playerLp;
+                mCalculatorPresenter.onLpUpdated(playerLpPrevious, playerLp, player, isReset);
+                break;
+            case 2:
+                player2LpPrevious = playerLpPrevious;
+                player2Lp = playerLp;
+                mCalculatorPresenter.onLpUpdated(playerLpPrevious, playerLp, player, isReset);
+                break;
         }
     }
 
@@ -158,15 +175,11 @@ public class CalculatorModel {
 
     private void addCalculation(Calculation calculation){
         calculations.add(calculation);
-        if(mLogPresenter ==  null){
-            mLogPresenter = MainActivity.mLogFragment.mLogPresenter;
-        }
+        makeLogPresenter();
         mLogPresenter.sendCalculationToLogModel(calculation, currentTurn);
     }
 
     private void undoLastCalculation(){
-        Calculation lastcalculations = calculations.get(calculations.size()-1);
-        calculations.remove(calculations.size()-1);
     }
 
     public Integer getDefaultLp() {
@@ -174,19 +187,14 @@ public class CalculatorModel {
     }
 
     public void doTurnClick() {
-        if(mLogPresenter == null){
-            mLogPresenter = MainActivity.mLogFragment.mLogPresenter;
-        }
+        makeLogPresenter();
         currentTurn++;
         mCalculatorPresenter.onTurnUpdated(currentTurn);
         mLogPresenter.onTurnIncremented(currentTurn);
 
     }
-
     public void doTurnLongClick() {
-        if(mLogPresenter == null){
-            mLogPresenter = MainActivity.mLogFragment.mLogPresenter;
-        }
+        makeLogPresenter();
         if(currentTurn > 1) {
             currentTurn--;
             mCalculatorPresenter.onTurnUpdated(currentTurn);
@@ -195,9 +203,33 @@ public class CalculatorModel {
 
     }
 
-
     public void doDiceRoll() {
         lastDiceRoll = random.nextInt(6);
         mCalculatorPresenter.onDiceRollComplete(lastDiceRoll);
+    }
+
+    public void doReset(){
+        makeLogPresenter();
+        setPlayerLp(0, defaultLp, 1, true);
+        setPlayerLp(0, defaultLp, 2, true);
+        player1LpPrevious = player1Lp;
+        player2LpPrevious = player2Lp;
+        calculations.clear();
+        mLogPresenter.reset();
+        enteredValue = 0;
+        enteredValueString = "";
+        currentTurn = 1;
+        mCalculatorPresenter.onTurnUpdated(currentTurn);
+    }
+
+    public void doPlayerNameChanged(String name, int i) {
+        switch(i){
+            case 1:
+                player1Name = name;
+                break;
+            case 2:
+                player2Name = name;
+                break;
+        }
     }
 }

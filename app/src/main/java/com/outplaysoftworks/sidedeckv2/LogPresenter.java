@@ -30,4 +30,8 @@ public class LogPresenter {
     public void onTurnDecremented(Integer currentTurn) {
         mLogFragment.onTurnDecremented(currentTurn);
     }
+
+    public void reset() {
+        mLogFragment.reset();
+    }
 }

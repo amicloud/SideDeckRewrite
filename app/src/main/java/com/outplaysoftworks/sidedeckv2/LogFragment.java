@@ -165,6 +165,16 @@ public class LogFragment extends Fragment {
             //sections.remove(turn - 1);
         }
     }
+
+    public void reset() {
+        layoutHolder = ButterKnife.findById(view, R.id.layoutHolder);
+        if(layoutHolder.getChildCount() > 0) {
+            layoutHolder.removeAllViews();
+            layouts.clear();
+            sections.clear();
+            addSectionToLayout(createSection(1));
+        }
+    }
  /*   private void removeLayoutFromHolder(int index){
         layoutHolder.removeViewAt(index);
     }*/
