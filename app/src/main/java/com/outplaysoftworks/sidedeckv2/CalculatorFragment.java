@@ -1,15 +1,17 @@
 package com.outplaysoftworks.sidedeckv2;
 
 import android.animation.ValueAnimator;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -28,20 +32,21 @@ import butterknife.OnTextChanged;
 
 
 public class CalculatorFragment extends Fragment {
-    private static final Integer diceRollAnimationDuration = 2000; //In milliseconds
-    private static final Integer diceRollAnimationFrameCount = 5;
+    private final Integer diceRollAnimationDuration = 2000; //In milliseconds
+    private final Integer diceRollAnimationFrameCount = 5;
+    private boolean isDoingInitialSetup = true;
     //View objects
     public static View view;
-    private static boolean isDiceButtonWaitingToReset = false;
-    private static boolean canDiceButtonBeReset = true;
+    private boolean isDiceButtonWaitingToReset = false;
+    private boolean canDiceButtonBeReset = true;
     //Sound stuff
-    private static SoundPool soundPool;
-    private static Integer lpCounterSoundId;
-    private static Integer diceRollSoundId;
-    private static Integer coinFlipSoundId;
+    private SoundPool soundPool;
+    private Integer lpCounterSoundId;
+    private Integer diceRollSoundId;
+    private Integer coinFlipSoundId;
     //Drawable stuff
-    private static ArrayList<Drawable> diceDrawables = new ArrayList<>();
-    private static Drawable diceRollBackgroundDrawable;
+    private ArrayList<Drawable> diceDrawables = new ArrayList<>();
+    private Drawable diceRollBackgroundDrawable;
     final Handler diceResetHandler = new Handler();
     @BindView(R.id.enteredValue)
     TextView enteredValueView;
@@ -72,12 +77,7 @@ public class CalculatorFragment extends Fragment {
             ValueAnimator valueAnimator = ValueAnimator.ofInt(initialValue, finalValue);
             valueAnimator.setDuration(duration);
 
-            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    textview.setText(valueAnimator.getAnimatedValue().toString());
-                }
-            });
+            valueAnimator.addUpdateListener(valueAnimator1 -> textview.setText(valueAnimator1.getAnimatedValue().toString()));
             valueAnimator.start();
         }
     }
@@ -92,19 +92,33 @@ public class CalculatorFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_calculator, container, false);
         ButterKnife.bind(this, view);
+        isDoingInitialSetup = true;
         loadDrawables();
         setUpSounds();
         setPlayerNamesToDefault();
-        reset(false);
+        reset();
         // Inflate the layout for this fragment
         return view;
     }
 
     @OnClick(R.id.buttonReset)
-    void reset(boolean askForConfirmation) {
-        if(askForConfirmation){
-            //TODO: Put a dialog here
+    void onResetClick() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this.getContext())
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setTitle(this.getContext().getResources().getString(R.string.reset) + "?")
+            .setMessage(this.getContext().getResources().getString(R.string.AreYouSure))
+            .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+                reset();
+            })
+            .setNegativeButton(getString(R.string.notReally), (dialog, which) ->{
+                //Do nothing
+            })
+            .show();
+        TextView message = ButterKnife.findById(alertDialog, android.R.id.message);
+        message.setTextColor(getResources().getColor(R.color.material_white));
         }
+
+    private void reset(){
         setLpToDefault();
         mCalculatorPresenter.onResetClicked();
     }
@@ -164,33 +178,89 @@ public class CalculatorFragment extends Fragment {
         }
     }
 
+    public SharedPreferences getPreferences(){
+        return PreferenceManager.getDefaultSharedPreferences(this.getContext());
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
-    @OnClick(R.id.enteredValue)
-    public void onClickEnteredValue() {
-        mCalculatorPresenter.relayEnteredValue();
+    @OnClick({R.id.enteredValue, R.id.buttonClear})
+    public void onClickClear() {
+        mCalculatorPresenter.relayClear();
     }
+
+    private void showSafeValueDialog(int player, boolean add){
+        AlertDialog diag = new AlertDialog.Builder(this.getContext())
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Possible erroneous entry")//TODO: Pick better words and localize
+                .setMessage("The entered number " + mCalculatorPresenter.getEnteredValue()
+                    + " seems to large")
+                .setPositiveButton("Continue", (dialog, which) ->{
+                    switch(player){
+                        case 1:
+                            if(add){
+                                mCalculatorPresenter.relayP1Add();
+                            } else {
+                                mCalculatorPresenter.relayP1Sub();
+                            }
+                            break;
+                        case 2:
+                            if(add){
+                                mCalculatorPresenter.relayP2Add();
+                            } else {
+                                mCalculatorPresenter.relayP2Sub();
+                            }
+                            break;
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+        TextView tv = ButterKnife.findById(diag, android.R.id.message);
+        tv.setTextColor(getResources().getColor(R.color.material_white));
+    }
+
+
 
     @OnClick(R.id.buttonP1Add)
     public void onClickP1Add() {
+        if(getPreferences().getBoolean(getString(R.string.KEYcheckSafeEntry), true)
+                && mCalculatorPresenter.getEnteredValue() > 10000){
+            showSafeValueDialog(1, true);
+            return;
+        }
         mCalculatorPresenter.relayP1Add();
     }
 
     @OnClick(R.id.buttonP1Sub)
     public void onClickP1Sub() {
+        if(getPreferences().getBoolean(getString(R.string.KEYcheckSafeEntry), true)
+                && mCalculatorPresenter.getEnteredValue() > 10000){
+            showSafeValueDialog(1, false);
+            return;
+        }
         mCalculatorPresenter.relayP1Sub();
     }
 
     @OnClick(R.id.buttonP2Add)
     public void onClickP2Add() {
+        if(getPreferences().getBoolean(getString(R.string.KEYcheckSafeEntry), true)
+                && mCalculatorPresenter.getEnteredValue() > 10000){
+            showSafeValueDialog(2, true);
+            return;
+        }
         mCalculatorPresenter.relayP2Add();
     }
 
     @OnClick(R.id.buttonP2Sub)
     public void onClickP2Sub() {
+        if(getPreferences().getBoolean(getString(R.string.KEYcheckSafeEntry), true)
+                && mCalculatorPresenter.getEnteredValue() > 10000){
+            showSafeValueDialog(2, false);
+            return;
+        }
         mCalculatorPresenter.relayP2Sub();
     }
 
@@ -268,25 +338,19 @@ public class CalculatorFragment extends Fragment {
         //animation.setExitFadeDuration(randomAnimationBuilder.getFrameDuration()/2);
         animation.start();
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                buttonDiceRoll.setAlpha(1f);
-                buttonDiceRoll.setBackgroundDrawable(diceDrawables.get(lastDiceRoll));
-                buttonDiceRoll.setClickable(true);
-            }
+        handler.postDelayed(() -> {
+            buttonDiceRoll.setAlpha(1f);
+            buttonDiceRoll.setBackgroundDrawable(diceDrawables.get(lastDiceRoll));
+            buttonDiceRoll.setClickable(true);
         }, diceRollAnimationDuration + (randomAnimationBuilder.getFrameDuration() * 2));
         resetDiceRollButtonAfterDelay(originalBackgroundDrawable);
     }
 
     private void resetDiceRollButtonAfterDelay(final Drawable originalBackground) {
         diceResetHandler.removeCallbacksAndMessages(null);
-        diceResetHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                buttonDiceRoll.setText(view.getResources().getString(R.string.diceRoll));
-                buttonDiceRoll.setBackground(originalBackground);
-            }
+        diceResetHandler.postDelayed(() -> {
+            buttonDiceRoll.setText(view.getResources().getString(R.string.diceRoll));
+            buttonDiceRoll.setBackground(originalBackground);
         }, diceRollAnimationDuration + 6000);
     }
 

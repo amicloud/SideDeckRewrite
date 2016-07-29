@@ -9,6 +9,7 @@
         <item name="android:colorBackground">@color/material_dark</item>
         <item name="android:background">@color/material_dark</item>
         <item name="android:textColor">@color/material_white</item>
+        <item name="android:textColorPrimary">@color/material_light</item>
     </style>
 
     <style name="SplashTheme" parent="AppTheme">

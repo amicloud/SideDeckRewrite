@@ -4,6 +4,12 @@
         android:key="@string/KEYsoundOnOff"
         android:summary="@string/sound"
         android:title="@string/soundSettingSummary"/>
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/KEYcheckSafeEntry"
+        android:summary="@string/checkForSafeEntrySummary"
+        android:title="@string/checkForSafeEntryTitle"
+        />
     <EditTextPreference
         android:capitalize="words"
         android:defaultValue="@string/playerOne"

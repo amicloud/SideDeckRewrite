@@ -22,8 +22,8 @@ public class CalculatorPresenter {
         mCalculatorFragment.onEnteredValueUpdated(enteredValue);
     }
 
-    public void relayEnteredValue() {
-        mCalculatorModel.doEnteredValue();
+    public void relayClear() {
+        mCalculatorModel.doClear();
     }
 
     public void relayP1Add() {
@@ -105,5 +105,9 @@ public class CalculatorPresenter {
 
     public void onResetClicked(){
         mCalculatorModel.doReset();
+    }
+
+    public Integer getEnteredValue(){
+        return mCalculatorModel.getEnteredValue();
     }
 }

@@ -1,7 +1,6 @@
 package com.outplaysoftworks.sidedeckv2;
 
 import android.content.SharedPreferences;
-import android.widget.Switch;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,6 +24,10 @@ public class CalculatorModel {
     private Integer player2LpPrevious;
     public Integer defaultLp;
     private Integer currentTurn;
+
+    public Integer getEnteredValue(){
+        return this.enteredValue;
+    }
 
     public String getPlayer1Name() {
         return player1Name;
@@ -106,7 +109,7 @@ public class CalculatorModel {
         mCalculatorPresenter.onEnteredValueUpdated(enteredValue.toString());
     }
 
-    public void doEnteredValue() {
+    public void doClear() {
         enteredValue = 0;
         enteredValueString = "";
         mCalculatorPresenter.onEnteredValueUpdated(enteredValue.toString());
@@ -119,7 +122,7 @@ public class CalculatorModel {
             int tPlayer1Lp = player1Lp + enteredValue;
             setPlayerLp(tPlayer1LpPrevious, tPlayer1Lp, 1, false);
             createCalculation(player1LpPrevious, player1Lp, 1, this);
-            doEnteredValue();
+            doClear();
         }
     }
 
@@ -129,7 +132,7 @@ public class CalculatorModel {
             int tPlayer1Lp = player1Lp - enteredValue;
             setPlayerLp(tPlayer1LpPrevious, tPlayer1Lp, 1, false);
             createCalculation(player1LpPrevious, player1Lp, 1, this);
-            doEnteredValue();
+            doClear();
         }
     }
 
@@ -139,7 +142,7 @@ public class CalculatorModel {
             int tPlayer2Lp = player2Lp + enteredValue;
             setPlayerLp(tPlayer2LpPrevious, tPlayer2Lp, 2, false);
             createCalculation(player2LpPrevious, player2Lp, 2, this);
-            doEnteredValue();
+            doClear();
         }
     }
 
@@ -149,7 +152,7 @@ public class CalculatorModel {
             int tPlayer2Lp = player2Lp - enteredValue;
             setPlayerLp(tPlayer2LpPrevious, tPlayer2Lp, 2, false);
             createCalculation(player2LpPrevious, player2Lp, 2, this);
-            doEnteredValue();
+            doClear();
         }
     }
 
