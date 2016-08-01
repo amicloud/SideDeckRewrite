@@ -1,4 +1,4 @@
-package com.outplaysoftworks.sidedeckv2;
+package com.outplaysoftworks.sidedeck;
 
 /**
  * Created by Billy on 5/13/2016.
@@ -109,5 +109,21 @@ public class CalculatorPresenter {
 
     public Integer getEnteredValue(){
         return mCalculatorModel.getEnteredValue();
+    }
+
+    public void onUndoClicked() {
+        mCalculatorModel.doUndo();
+    }
+
+    public void onP1LpSet(Integer lp){
+        mCalculatorFragment.setPlayer1Lp(lp);
+    }
+
+    public void onP2LpSet(Integer lp){
+        mCalculatorFragment.setPlayer2Lp(lp);
+    }
+
+    public boolean getAllowedNegativeLp() {
+        return mCalculatorFragment.getPreferenceAllowNegativeLp();
     }
 }

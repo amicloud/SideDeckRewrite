@@ -1,4 +1,4 @@
-package com.outplaysoftworks.sidedeckv2;
+package com.outplaysoftworks.sidedeck;
 
 import android.content.SharedPreferences;
 
@@ -24,6 +24,7 @@ public class CalculatorModel {
     private Integer player2LpPrevious;
     public Integer defaultLp;
     private Integer currentTurn;
+    private boolean allowNegativeLp;
 
     public Integer getEnteredValue(){
         return this.enteredValue;
@@ -45,7 +46,27 @@ public class CalculatorModel {
         this.player2Name = player2Name;
     }
 
+    public void setPlayer1Lp(int lp){
+        this.player1Lp = lp;
+        this.player1LpPrevious = lp;
+        mCalculatorPresenter.onP1LpSet(lp);
+    }
+
+    public void setPlayer2Lp(int lp){
+        this.player2Lp = lp;
+        this.player2LpPrevious = lp;
+        mCalculatorPresenter.onP2LpSet(lp);
+    }
+
     private CalculatorPresenter mCalculatorPresenter;
+
+    public LogPresenter getmLogPresenter(){
+        if(this.mLogPresenter == null){
+            makeLogPresenter();
+        }
+        return this.mLogPresenter;
+    }
+
     private LogPresenter mLogPresenter;
     public CalculatorModel(CalculatorPresenter calculatorPresenter){
         mCalculatorPresenter = calculatorPresenter;
@@ -130,6 +151,9 @@ public class CalculatorModel {
         if(enteredValue != 0) {
             int tPlayer1LpPrevious = player1Lp;
             int tPlayer1Lp = player1Lp - enteredValue;
+            if(!getAllowNegativeLp() && tPlayer1Lp < 0){
+                tPlayer1Lp = 0;
+            }
             setPlayerLp(tPlayer1LpPrevious, tPlayer1Lp, 1, false);
             createCalculation(player1LpPrevious, player1Lp, 1, this);
             doClear();
@@ -150,6 +174,9 @@ public class CalculatorModel {
         if(enteredValue != 0) {
             int tPlayer2LpPrevious = player2Lp;
             int tPlayer2Lp = player2Lp - enteredValue;
+            if(!getAllowNegativeLp() && tPlayer2Lp < 0){
+                tPlayer2Lp = 0;
+            }
             setPlayerLp(tPlayer2LpPrevious, tPlayer2Lp, 2, false);
             createCalculation(player2LpPrevious, player2Lp, 2, this);
             doClear();
@@ -172,7 +199,7 @@ public class CalculatorModel {
     }
 
     private void createCalculation(int previousLp, int newLp, int player, CalculatorModel model){
-        Calculation Calculation = new Calculation(previousLp, newLp, player, model);
+        Calculation Calculation = new Calculation(previousLp, newLp, player, currentTurn, model);
         addCalculation(Calculation);
     }
 
@@ -182,7 +209,17 @@ public class CalculatorModel {
         mLogPresenter.sendCalculationToLogModel(calculation, currentTurn);
     }
 
+    public void doUndo(){
+        if(calculations.size() > 0) {
+            undoLastCalculation();
+        }
+    }
+
     private void undoLastCalculation(){
+        makeLogPresenter();
+        Calculation lastCalculation = calculations.get(calculations.size()-1);
+        lastCalculation.undoCalculation();
+        calculations.remove(calculations.size()-1);
     }
 
     public Integer getDefaultLp() {
@@ -234,5 +271,9 @@ public class CalculatorModel {
                 player2Name = name;
                 break;
         }
+    }
+
+    public boolean getAllowNegativeLp(){
+        return mCalculatorPresenter.getAllowedNegativeLp();
     }
 }

@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/material_dark"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical"
     android:padding="2dp"
-    tools:context="com.outplaysoftworks.sidedeckv2.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.outplaysoftworks.sidedeck.MainActivity">
 
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/material_dark"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:padding="2dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -95,7 +103,8 @@
             android:padding="0dp"
             android:textColor="@color/material_white"
             android:textSize="22dp"
-            android:typeface="monospace" />
+            android:typeface="monospace"
+            android:maxLines="1" />
 
 
         <EditText
@@ -349,5 +358,162 @@
             android:layout_weight="1"
             style="@style/Button.Function" />
     </LinearLayout>
-
 </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/trans"
+        android:visibility="visible"
+        android:id="@+id/holderTimer">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/trans"
+            android:id="@+id/spacerTimerTop" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:background="@color/trans"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:clickable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/material_light"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:clickable="true">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="9"
+                    android:background="@color/trans"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:clickable="true" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="X"
+                    android:textIsSelectable="false"
+                    android:textSize="28sp"
+                    android:typeface="monospace"
+                    android:background="@color/trans"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:clickable="true"
+                    android:id="@+id/buttonTimerClose"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:id="@+id/timerHolder"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/material_light"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:clickable="true"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="10">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar
+                            android:layout_centerInParent="true"
+                            android:id="@+id/picker"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            app:max="3600"
+                            app:pointer_color="@color/accent"
+                            app:pointer_halo_color="@color/material_dark"
+                            app:pointer_size="10dp"
+                            app:text_color="@color/material_white"
+                            app:text_size="65sp"
+                            app:show_text="false"
+                            app:init_position="1800"
+                            app:wheel_active_color="@color/accent"
+                            app:wheel_unactive_color="@color/material_dark" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="TIME"
+                            android:id="@+id/textTime"
+                            android:textSize="48sp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Stop"
+                        android:id="@+id/buttonStopTimer"
+                        android:layout_weight="1"
+                        style="@style/Button.Number"
+                        android:typeface="normal"
+                        android:textSize="26sp" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Start"
+                        android:id="@+id/buttonStartTimer"
+                        android:layout_weight="1"
+                        style="@style/Button.Number"
+                        android:typeface="normal"
+                        android:textSize="26sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/trans"
+            android:layout_margin="0dp"
+            android:id="@+id/spacerTimerBottom" />
+    </LinearLayout>
+
+    /
+</RelativeLayout>

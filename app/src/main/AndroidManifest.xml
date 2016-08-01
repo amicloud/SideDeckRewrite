@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.outplaysoftworks.sidedeckv2">
+    package="com.outplaysoftworks.sidedeck">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Splash"
+            android:name="com.outplaysoftworks.sidedeck.Splash"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,16 +18,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.outplaysoftworks.sidedeck.MainActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing"/>
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.outplaysoftworks.sidedeck.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="com.outplaysoftworks.sidedeck.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.outplaysoftworks.sidedeckv2.MainActivity" />
+                android:value="com.outplaysoftworks.sidedeck.MainActivity" />
         </activity>
     </application>
 

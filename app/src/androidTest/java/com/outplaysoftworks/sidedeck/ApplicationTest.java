@@ -1,4 +1,4 @@
-package com.outplaysoftworks.sidedeckv2;
+package com.outplaysoftworks.sidedeck;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

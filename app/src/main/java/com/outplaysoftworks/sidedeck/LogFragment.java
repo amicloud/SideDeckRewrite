@@ -1,11 +1,7 @@
-package com.outplaysoftworks.sidedeckv2;
+package com.outplaysoftworks.sidedeck;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,26 +9,25 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.grantland.widget.AutofitHelper;
 
 public class LogFragment extends Fragment {
 
+    private static final String TAG = "Log Fragment";
     public static View view;
     private static ArrayList<LinearLayout> layouts = new ArrayList<>();
     private static ArrayList<LinearLayout> sections = new ArrayList<>();
-    @BindView(R.id.layoutHolder)
-    LinearLayout layoutHolder;
+    public LogPresenter mLogPresenter;
+    /*@BindView(R.id.layoutHolder)*/
+    static LinearLayout layoutHolder;
 
     public LogFragment() {
         makePresenter();
     }
 
-    public LogPresenter mLogPresenter;
     private void makePresenter() {
         if (mLogPresenter == null) {
             mLogPresenter = new LogPresenter(this);
@@ -71,33 +66,37 @@ public class LogFragment extends Fragment {
         TextView lpDifference = ButterKnife.findById(calculationLayout, R.id.lpDifference);
         TextView lpAfter = ButterKnife.findById(calculationLayout, R.id.lpAfter);
         playerName.setText(getPlayerName(calculation.getPlayer()));
+        playerName.setMaxLines(1);
+        AutofitHelper.create(playerName);
         String lpDiff = calculation.getLpDifference().toString();
         if (lpDiff.contains("-")) {
             lpDiff = lpDiff.replace("-", "");
         }
         lpDifference.setText(lpDiff);
+        AutofitHelper.create(lpDifference);
         String lpAft = calculation.getLpAfter().toString();
         if (lpAft.contains("-")) {
             lpAft = lpAft.replace("-", "");
         }
         lpAfter.setText(lpAft);
+        AutofitHelper.create(lpAfter);
         if (calculation.isLpLoss()) {
             lpDifference.setTextColor(view.getResources().getColor(R.color.material_red));
         } else if (!calculation.isLpLoss()) {
             lpDifference.setTextColor(view.getResources().getColor(R.color.material_green));
         }
+        if (sections.get(calculation.getTurn() - 1).getChildCount() > 1) {
+            calculationLayout.addView(createHorizontalRule());
+        }
         return calculationLayout;
     }
 
     private String getPlayerName(Integer playerNumber) {
-        SharedPreferences sharedPreferences = MainActivity.sharedPreferences;
-        String name;
+        String name = "";
         if (playerNumber == 1) {
-            name = sharedPreferences.getString(AppConstants.KEY_PLAYER_ONE_DEF_NAME, "Player 1");
+            name = MainActivity.mCalculatorFragment.getPlayer1Name();
         } else if (playerNumber == 2) {
-            name = sharedPreferences.getString(AppConstants.KEY_PLAYER_TWO_DEF_NAME, "Player 2");
-        } else {
-            return "Something went wrong";
+            name = MainActivity.mCalculatorFragment.getPlayer2Name();
         }
         return name;
     }
@@ -112,7 +111,7 @@ public class LogFragment extends Fragment {
         layoutHolder.addView(layout, 0);
     }
 
-    private LinearLayout createSection(Integer turnNumber){
+    private LinearLayout createSection(Integer turnNumber) {
         LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
         LinearLayout section = (LinearLayout) layoutInflater.inflate(R.layout.section, layoutHolder, false);
         TextView sectionText = ButterKnife.findById(section, R.id.text);
@@ -121,38 +120,25 @@ public class LogFragment extends Fragment {
         return section;
     }
 
-    private void addSectionToLayout(LinearLayout section){
+    private void addSectionToLayout(LinearLayout section) {
         layoutHolder = ButterKnife.findById(view, R.id.layoutHolder);
         layoutHolder.addView(section, 0);
         sections.add(section);
     }
 
-    private void addCalculationToSection(int sectionNumber, LinearLayout calculation){
+    private void addCalculationToSection(int sectionNumber, LinearLayout calculation) {
         sections.get(sectionNumber).addView(calculation, 1);
-        if(sections.get(sectionNumber).getChildCount() > 2){
-            sections.get(sectionNumber).addView(createHorizontalRule(), 2);
-        }
     }
 
-    private RelativeLayout createHorizontalRule(){
+    private RelativeLayout createHorizontalRule() {
         LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
         RelativeLayout rule = (RelativeLayout) layoutInflater.inflate(R.layout.log_horizontal_rule,
                 layoutHolder, false);
         return rule;
     }
 
-    private void removeSection(){
-        layoutHolder = ButterKnife.findById(view, R.id.layoutHolder);
-        sections.remove(sections.size()-1);
-        layoutHolder.removeViewAt(0);
-    }
-
-    private void removeCalculationFromSection(Integer section){
-        sections.get(section).removeViewAt(0);
-    }
-
-    public void onTurnIncremented(Integer turn){
-        if(sections.size() < turn){
+    public void onTurnIncremented(Integer turn) {
+        if (sections.size() < turn) {
             addSectionToLayout(createSection(turn));
         }
         /*if(sections.get(turn - 2) != null){
@@ -160,22 +146,26 @@ public class LogFragment extends Fragment {
         }*/
     }
 
-    public void onTurnDecremented(Integer turn){
-        if(sections.get(turn - 1) != null){
+    public void onTurnDecremented(Integer turn) {
+        if (sections.get(turn - 1) != null) {
             //sections.remove(turn - 1);
         }
     }
 
     public void reset() {
-        layoutHolder = ButterKnife.findById(view, R.id.layoutHolder);
-        if(layoutHolder.getChildCount() > 0) {
-            layoutHolder.removeAllViews();
-            layouts.clear();
-            sections.clear();
-            addSectionToLayout(createSection(1));
+        //layoutHolder = ButterKnife.findById(view, R.id.layoutHolder);
+        if(view != null) {
+            layoutHolder = (LinearLayout) view.findViewById(R.id.layoutHolder);
+            if (layoutHolder.getChildCount() > 0) {
+                layoutHolder.removeAllViews();
+                layouts.clear();
+                sections.clear();
+                addSectionToLayout(createSection(1));
+            }
         }
     }
- /*   private void removeLayoutFromHolder(int index){
-        layoutHolder.removeViewAt(index);
-    }*/
+
+    public void onUndo(Calculation calculation) {
+        sections.get(calculation.getTurn() - 1).removeViewAt(1);
+    }
 }

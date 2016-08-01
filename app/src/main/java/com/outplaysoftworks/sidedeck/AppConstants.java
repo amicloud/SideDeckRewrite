@@ -1,4 +1,4 @@
-package com.outplaysoftworks.sidedeckv2;
+package com.outplaysoftworks.sidedeck;
 
 /**
  * Created by Billy on 5/15/2016.

@@ -1,4 +1,4 @@
-package com.outplaysoftworks.sidedeckv2;
+package com.outplaysoftworks.sidedeck;
 
 import android.widget.LinearLayout;
 
@@ -23,5 +23,9 @@ public class LogModel {
 
     private void onCalculationAddedToList(Calculation calculation, Integer turn){
         mLogPresenter.createCalculation(calculation, turn);
+    }
+
+    public void removeLastCalculation(){
+        calculationList.remove(calculationList.size()-1);
     }
 }

@@ -8,8 +8,12 @@
         android:defaultValue="true"
         android:key="@string/KEYcheckSafeEntry"
         android:summary="@string/checkForSafeEntrySummary"
-        android:title="@string/checkForSafeEntryTitle"
-        />
+        android:title="@string/checkForSafeEntryTitle" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/KEYallowNegativeLp"
+        android:summary="@string/stopAtZeroSummary"
+        android:title="@string/stopAtZeroTitle"/>
     <EditTextPreference
         android:capitalize="words"
         android:defaultValue="@string/playerOne"

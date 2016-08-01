@@ -1,9 +1,8 @@
-package com.outplaysoftworks.sidedeckv2;
+package com.outplaysoftworks.sidedeck;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,14 +12,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity{
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    CalculatorFragment mCalculatorFragment;
+    public static CalculatorFragment mCalculatorFragment;
     public static LogFragment mLogFragment;
     ViewPager mViewPager;
     static Context context;
@@ -59,11 +57,11 @@ public class MainActivity extends AppCompatActivity{
             //return PlaceholderFragment.newInstance(position + 1);
             switch (position) {
                 case 0:
-                    return new CalculatorFragment();
+                    return mCalculatorFragment;
                 case 1:
-                    return new LogFragment();
+                    return mLogFragment;
             }
-            return new LogFragment();
+            return null;
         }
 
         @Override
@@ -95,9 +93,9 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if(item.getItemId() ==  R.id.menuItemUndo){
-
+                    mCalculatorFragment.onUndoClicked();
                 }else if(item.getItemId() == R.id.menuItemReset){
-
+                    mCalculatorFragment.onResetClick();
                 }else if(item.getItemId() == R.id.menuItemSettings){
                     startActivity(preferencesIntent);
                 }else if(item.getItemId() == R.id.menuItemShowQuickCalc){

@@ -1,11 +1,10 @@
-package com.outplaysoftworks.sidedeckv2;
+package com.outplaysoftworks.sidedeck;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.SynchronousQueue;
 
 /**
  * Created by Billy on 6/8/2016.
@@ -46,6 +45,28 @@ public class RandomAnimationBuilder {
         for(int i = 0; i < frameCount; i++) {
             int rand = random.nextInt(max);
             animationDrawable.addFrame(drawables.get(rand), frameDuration);
+        }
+        return animationDrawable;
+    }
+
+    /**
+     * Constructs an animation Drawable using resources in the RandomAnimationBuilder object
+     * @param allowIdenticalConsecutiveFrames If true, allows consecutive frames to use the same image
+     * @return Animation drawable ready to use
+     */
+    public AnimationDrawable makeAnimation(boolean allowIdenticalConsecutiveFrames) {
+        AnimationDrawable animationDrawable = new AnimationDrawable();
+        int max = drawables.size();
+        int lastRandomNumber;
+        int rand = 0;
+        int i = 0;
+        while (i < frameCount) {
+            lastRandomNumber = rand;
+            rand = random.nextInt(max);
+            if (allowIdenticalConsecutiveFrames || lastRandomNumber != rand) {
+                animationDrawable.addFrame(drawables.get(rand), frameDuration);
+                i++;
+            }
         }
         return animationDrawable;
     }

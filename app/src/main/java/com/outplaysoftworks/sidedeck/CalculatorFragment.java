@@ -1,4 +1,4 @@
-package com.outplaysoftworks.sidedeckv2;
+package com.outplaysoftworks.sidedeck;
 
 import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
@@ -12,38 +12,42 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import butterknife.OnTextChanged;
+import me.grantland.widget.AutofitHelper;
 
 
 public class CalculatorFragment extends Fragment {
     private final Integer diceRollAnimationDuration = 2000; //In milliseconds
-    private final Integer diceRollAnimationFrameCount = 5;
-    private boolean isDoingInitialSetup = true;
+    private final Integer diceRollAnimationFrameCount = 12;
     //View objects
     public static View view;
-    private boolean isDiceButtonWaitingToReset = false;
-    private boolean canDiceButtonBeReset = true;
     //Sound stuff
     private SoundPool soundPool;
     private Integer lpCounterSoundId;
     private Integer diceRollSoundId;
     private Integer coinFlipSoundId;
+    private Integer timerWarning1SoundId;
+    private Integer timerWarning2SoundId;
+    private Integer timerWarning3SoundId;
     //Drawable stuff
     private ArrayList<Drawable> diceDrawables = new ArrayList<>();
     private Drawable diceRollBackgroundDrawable;
@@ -64,6 +68,12 @@ public class CalculatorFragment extends Fragment {
     Button coinFlipButton;
     @BindView(R.id.buttonTurn)
     Button buttonTurn;
+    @BindView(R.id.holderTimer)
+    LinearLayout holderTimer;
+    @BindView(R.id.buttonTimer)
+    Button buttonTimer;
+
+
     Integer lpSoundStreamId;
     private CalculatorPresenter mCalculatorPresenter;
     private ArrayList<Toast> lpToasts = new ArrayList<>();
@@ -92,18 +102,27 @@ public class CalculatorFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_calculator, container, false);
         ButterKnife.bind(this, view);
-        isDoingInitialSetup = true;
         loadDrawables();
         setUpSounds();
         setPlayerNamesToDefault();
         reset();
+        createAutoFitTextHelpers();
+        setPickerListener();
         // Inflate the layout for this fragment
         return view;
     }
 
+    private void createAutoFitTextHelpers(){
+        AutofitHelper.create(enteredValueView);
+        AutofitHelper.create(player1Name);
+        AutofitHelper.create(player2Name);
+        AutofitHelper.create(player1Lp);
+        AutofitHelper.create(player2Lp);
+    }
+
     @OnClick(R.id.buttonReset)
     void onResetClick() {
-        AlertDialog alertDialog = new AlertDialog.Builder(this.getContext())
+        AlertDialog alertDialog = new AlertDialog.Builder(this.getContext(), R.style.MyDialog)
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setTitle(this.getContext().getResources().getString(R.string.reset) + "?")
             .setMessage(this.getContext().getResources().getString(R.string.AreYouSure))
@@ -115,12 +134,20 @@ public class CalculatorFragment extends Fragment {
             })
             .show();
         TextView message = ButterKnife.findById(alertDialog, android.R.id.message);
-        message.setTextColor(getResources().getColor(R.color.material_white));
-        }
+        /*if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+            message.setTextColor(getResources().getColor(R.color.material_black));
+        } else {
+            message.setTextColor(getResources().getColor(R.color.material_white));
+        }*/
+    }
 
     private void reset(){
         setLpToDefault();
         mCalculatorPresenter.onResetClicked();
+        timerHandler.removeCallbacksAndMessages(null);
+        getTimeFromSeconds();
+        buttonTimer.setText("TIMER");
+
     }
 
     private void setPlayerNamesToDefault() {
@@ -143,6 +170,9 @@ public class CalculatorFragment extends Fragment {
         lpCounterSoundId = soundPool.load(getContext(), R.raw.lpcountersound, 1);
         coinFlipSoundId = soundPool.load(getContext(), R.raw.coinflipsound, 1);
         diceRollSoundId = soundPool.load(getContext(), R.raw.dicerollsound, 1);
+        timerWarning1SoundId = soundPool.load(getContext(), R.raw.timer_warning1, 1);
+        timerWarning2SoundId = soundPool.load(getContext(), R.raw.timer_warning2, 1);
+        timerWarning3SoundId = soundPool.load(getContext(), R.raw.timer_warning3, 1);
     }
 
     @OnClick({R.id.button0, R.id.button00, R.id.button000, R.id.button1, R.id.button2, R.id.button3,
@@ -193,11 +223,11 @@ public class CalculatorFragment extends Fragment {
     }
 
     private void showSafeValueDialog(int player, boolean add){
-        AlertDialog diag = new AlertDialog.Builder(this.getContext())
+        AlertDialog alertDialog = new AlertDialog.Builder(this.getContext(), R.style.MyDialog)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Possible erroneous entry")//TODO: Pick better words and localize
+                .setTitle("Possible accidental entry")//TODO: Pick better words and localize
                 .setMessage("The entered number " + mCalculatorPresenter.getEnteredValue()
-                    + " seems to large")
+                    + " seems too large.  Are you sure that this is correct?")
                 .setPositiveButton("Continue", (dialog, which) ->{
                     switch(player){
                         case 1:
@@ -218,8 +248,13 @@ public class CalculatorFragment extends Fragment {
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
-        TextView tv = ButterKnife.findById(diag, android.R.id.message);
-        tv.setTextColor(getResources().getColor(R.color.material_white));
+
+        TextView message = ButterKnife.findById(alertDialog, android.R.id.message);
+        /*if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+            message.setTextColor(getResources().getColor(R.color.material_black));
+        } else {
+            message.setTextColor(getResources().getColor(R.color.material_white));
+        }*/
     }
 
 
@@ -227,7 +262,7 @@ public class CalculatorFragment extends Fragment {
     @OnClick(R.id.buttonP1Add)
     public void onClickP1Add() {
         if(getPreferences().getBoolean(getString(R.string.KEYcheckSafeEntry), true)
-                && mCalculatorPresenter.getEnteredValue() > 10000){
+                && mCalculatorPresenter.getEnteredValue() > 100000){
             showSafeValueDialog(1, true);
             return;
         }
@@ -237,7 +272,7 @@ public class CalculatorFragment extends Fragment {
     @OnClick(R.id.buttonP1Sub)
     public void onClickP1Sub() {
         if(getPreferences().getBoolean(getString(R.string.KEYcheckSafeEntry), true)
-                && mCalculatorPresenter.getEnteredValue() > 10000){
+                && mCalculatorPresenter.getEnteredValue() > 100000){
             showSafeValueDialog(1, false);
             return;
         }
@@ -287,6 +322,16 @@ public class CalculatorFragment extends Fragment {
         return true;
     }
 
+    @OnClick(R.id.buttonTimer)
+    public void onClickTimerShow(){
+        holderTimer.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick({R.id.buttonTimerClose, R.id.spacerTimerBottom, R.id.spacerTimerTop})
+    public void onClickTimerHide(){
+        holderTimer.setVisibility(View.GONE);
+    }
+
     public void onLpUpdated(Integer playerLpPrevious, Integer playerLp, Integer player, String toast,
                             boolean doNotShowToast) {
         playLpSound();
@@ -310,15 +355,25 @@ public class CalculatorFragment extends Fragment {
         if (lpSoundStreamId != null) {
             soundPool.stop(lpSoundStreamId);
         }
-        lpSoundStreamId = soundPool.play(lpCounterSoundId, 1, 1, 1, 0, 1);
+        if(getIsSoundEnabled()) {
+            lpSoundStreamId = soundPool.play(lpCounterSoundId, 1, 1, 1, 0, 1);
+        }
     }
 
+    public boolean getIsSoundEnabled(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        return prefs.getBoolean(getString(R.string.KEYsoundOnOff), true);
+    }
     public void playDiceSound() {
-        soundPool.play(diceRollSoundId, 1, 1, 1, 0, 1);
+        if (getIsSoundEnabled()) {
+            soundPool.play(diceRollSoundId, 1, 1, 1, 0, 1);
+        }
     }
 
     public void playCoinSound() {
-        soundPool.play(coinFlipSoundId, 1, 1, 1, 0, 1);
+        if(getIsSoundEnabled()) {
+            soundPool.play(coinFlipSoundId, 1, 1, 1, 0, 1);
+        }
     }
 
     public void onTurnUpdated(Integer turn) {
@@ -331,7 +386,7 @@ public class CalculatorFragment extends Fragment {
         final Drawable originalBackgroundDrawable = diceRollBackgroundDrawable;
         RandomAnimationBuilder randomAnimationBuilder = new RandomAnimationBuilder(diceDrawables,
                 diceRollAnimationDuration, diceRollAnimationFrameCount);
-        AnimationDrawable animation = randomAnimationBuilder.makeAnimation();
+        AnimationDrawable animation = randomAnimationBuilder.makeAnimation(false);
         buttonDiceRoll.setBackground(animation);
         buttonDiceRoll.setText("");
         //animation.setEnterFadeDuration(randomAnimationBuilder.getFrameDuration()/2);
@@ -364,19 +419,166 @@ public class CalculatorFragment extends Fragment {
         View view = toast.getView();
         view.setBackgroundColor(getResources().getColor(R.color.material_light_dark));
         TextView textView = ButterKnife.findById(view, android.R.id.message);
+        textView.setGravity(Gravity.CENTER);
         textView.setBackgroundColor(view.getSolidColor());
         toast.show();
     }
-
+    int debounceTime = 2000;
+    Handler p1NameHandler = new Handler();
     @OnTextChanged(R.id.player1Name)
     public void onPlayer1NameChanged() {
+        p1NameHandler.removeCallbacksAndMessages(null);
+        p1NameHandler.postDelayed(()-> player1Name.clearFocus(), debounceTime);
         String name = player1Name.getText().toString();
         mCalculatorPresenter.onPlayerNameChanged(name, 1);
     }
-
+    Handler p2NameHandler = new Handler();
     @OnTextChanged(R.id.player2Name)
     public void onPlayer2NameChanged() {
+        p2NameHandler.removeCallbacksAndMessages(null);
+        p2NameHandler.postDelayed(()-> player2Name.clearFocus(), debounceTime);
         String name = player2Name.getText().toString();
         mCalculatorPresenter.onPlayerNameChanged(name, 2);
     }
+
+    @OnClick(R.id.buttonUndo)
+    public void onUndoClicked(){
+        mCalculatorPresenter.onUndoClicked();
+    }
+
+    public void setPlayer1Lp(Integer lp){
+        player1Lp.setText(lp.toString());
+    }
+
+    public void setPlayer2Lp(Integer lp){
+        player2Lp.setText(lp.toString());
+    }
+
+    public String getPlayer1Name(){
+        return mCalculatorPresenter.getPlayer1Name();
+    }
+
+    public String getPlayer2Name(){
+        return mCalculatorPresenter.getPlayer2Name();
+    }
+
+    public boolean getPreferenceAllowNegativeLp(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        return prefs.getBoolean(getContext().getString(R.string.KEYallowNegativeLp), false);
+    }
+
+    Handler timerHandler = new Handler();
+    Runnable timerTask = new Runnable(){
+        @Override
+        public void run() {
+            if(currentTimeInSeconds == 0){
+                timerFinished();
+                //TODO: Add timer beep sound
+                return;
+            }
+            if(currentTimeInSeconds == 300){
+                timerAlert();
+            }
+            decrementTimeOnUiThread();
+            timerHandler.postDelayed(this, 999);
+        }
+    };
+
+    private void timerAlert() {
+        if(getIsSoundEnabled()){
+            Random random = new Random();
+            int rand = random.nextInt(2);
+            switch (rand){
+                case 0:
+                    soundPool.play(timerWarning1SoundId, 1, 1, 1, 0, 1);
+                    break;
+                case 1:
+                    soundPool.play(timerWarning2SoundId, 1, 1, 1, 0, 1);
+                    break;
+                case 2:
+                    soundPool.play(timerWarning3SoundId, 1, 1, 1, 0, 1);
+                    break;
+            }
+        }
+    }
+
+    private void decrementTimeOnUiThread(){
+        this.getActivity().runOnUiThread(this::decrementTime);
+    }
+    private void decrementTime() {
+        currentTimeInSeconds--;
+        picker.setValue(currentTimeInSeconds);
+        getTimeFromSeconds();
+        //Log.d("TIMER", "decrementTime: " + currentTimeInSeconds);
+
+    }
+
+    private void timerFinished() {
+        timerRunning = false;
+    }
+
+    @BindView(R.id.picker)
+    HoloCircleSeekBar picker;
+    @BindView(R.id.buttonStopTimer)
+    Button stopTimer;
+    @BindView(R.id.buttonStartTimer)
+    Button startTimer;
+    @BindView(R.id.textTime)
+    TextView textTime;
+
+    private Integer currentTimeInSeconds = 1800;
+    private boolean timerRunning = false;
+
+    @OnClick(R.id.buttonStartTimer)
+    public void startTimer(){
+        initializeTimerTask();
+    }
+
+    @OnClick(R.id.buttonStopTimer)
+    public void stopTimer(){
+        timerRunning = false;
+        timerHandler.removeCallbacksAndMessages(null);
+    }
+
+    public void initializeTimerTask(){
+        timerHandler.removeCallbacksAndMessages(null);
+        timerHandler.postDelayed(timerTask, 999);
+
+    }
+    private void getTimeFromSeconds(){
+        Integer time1 = currentTimeInSeconds / 60;
+        Integer time2 = currentTimeInSeconds % 60;
+        String timeMinutes = time1.toString();
+        if(timeMinutes.length() < 2){
+            timeMinutes = "0" + timeMinutes;
+        }
+        String timeSeconds = time2.toString();
+        if(timeSeconds.length() < 2){
+            timeSeconds = "0" + timeSeconds;
+        }
+        String theTime = timeMinutes + ":" + timeSeconds;
+        textTime.setText(theTime);
+        buttonTimer.setText(theTime);
+
+    }
+    public void setPickerListener(){
+        picker.setOnSeekBarChangeListener(new HoloCircleSeekBar.OnCircleSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(HoloCircleSeekBar holoCircleSeekBar, int i, boolean b) {
+                currentTimeInSeconds = holoCircleSeekBar.getValue();
+                getTimeFromSeconds();
+            }
+
+            @Override
+            public void onStartTrackingTouch(HoloCircleSeekBar holoCircleSeekBar) {
+                currentTimeInSeconds = holoCircleSeekBar.getValue();
+            }
+
+            @Override
+            public void onStopTrackingTouch(HoloCircleSeekBar holoCircleSeekBar) {
+                currentTimeInSeconds = holoCircleSeekBar.getValue();
+            }
+        });
+    }
+
 }

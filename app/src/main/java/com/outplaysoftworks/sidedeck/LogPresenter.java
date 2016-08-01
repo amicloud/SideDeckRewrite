@@ -1,4 +1,4 @@
-package com.outplaysoftworks.sidedeckv2;
+package com.outplaysoftworks.sidedeck;
 
 /**
  * Created by Billy on 6/13/2016.
@@ -33,5 +33,10 @@ public class LogPresenter {
 
     public void reset() {
         mLogFragment.reset();
+    }
+
+    public void onUndo(Calculation calculation){
+        mLogModel.removeLastCalculation();
+        mLogFragment.onUndo(calculation);
     }
 }
