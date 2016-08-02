@@ -48,10 +48,12 @@ public class CalculatorFragment extends Fragment {
     private Integer timerWarning1SoundId;
     private Integer timerWarning2SoundId;
     private Integer timerWarning3SoundId;
+    private int timerBeepSoundId;
     //Drawable stuff
     private ArrayList<Drawable> diceDrawables = new ArrayList<>();
     private Drawable diceRollBackgroundDrawable;
     final Handler diceResetHandler = new Handler();
+    final Handler coinHandler = new Handler();
     @BindView(R.id.enteredValue)
     TextView enteredValueView;
     @BindView(R.id.player1Lp)
@@ -77,6 +79,7 @@ public class CalculatorFragment extends Fragment {
     Integer lpSoundStreamId;
     private CalculatorPresenter mCalculatorPresenter;
     private ArrayList<Toast> lpToasts = new ArrayList<>();
+    private int timerBeep;
 
     public CalculatorFragment() {
         makePresenter();
@@ -173,6 +176,8 @@ public class CalculatorFragment extends Fragment {
         timerWarning1SoundId = soundPool.load(getContext(), R.raw.timer_warning1, 1);
         timerWarning2SoundId = soundPool.load(getContext(), R.raw.timer_warning2, 1);
         timerWarning3SoundId = soundPool.load(getContext(), R.raw.timer_warning3, 1);
+        timerBeepSoundId = soundPool.load(getContext(), R.raw.timer_beep, 1);
+
     }
 
     @OnClick({R.id.button0, R.id.button00, R.id.button000, R.id.button1, R.id.button2, R.id.button3,
@@ -304,11 +309,53 @@ public class CalculatorFragment extends Fragment {
         playDiceSound();
         mCalculatorPresenter.relayDiceRoll();
     }
-
+    private int currentFrame;
+    private int getCurrentFrame(){
+        return currentFrame;
+    }
+    private void setCurrentFrame(int cf){ currentFrame = cf; }
     @OnClick(R.id.buttonCoinFlip)
     public void onClickCoinFlip() {
         mCalculatorPresenter.relayCoinFlip();
         playCoinSound();
+            currentFrame = 0;
+            if(getIsSoundEnabled()){
+                soundPool.play(coinFlipSoundId, 1, 1, 1, 0, 1);
+            }
+            coinFlipButton.setClickable(false);
+            final int frames = 10;
+            Double temp = Math.random();
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(getCurrentFrame() < frames) {
+                        Coin coin = makeCoin();
+                        coinFlipButton.setText(coin.getFace().toString());
+                        setCurrentFrame(getCurrentFrame() + 1);
+                        handler.postDelayed(this, 200);
+                    }
+                    if(frames == getCurrentFrame()) {
+                        resetCoinFlipAfterDelay();
+                        coinFlipButton.setClickable(true);
+                    }
+                }
+            },400);
+    }
+    private void resetCoinFlipAfterDelay(){
+        coinHandler.removeCallbacksAndMessages(null);
+        coinHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                coinFlipButton.setText(getContext().getString(R.string.coinFlip));
+            }
+        }, 8000);
+    }
+
+    private Coin makeCoin(){
+        Double toss = Math.random();
+        Coin coin = new Coin(toss, getContext());
+        return coin;
     }
 
     @OnClick(R.id.buttonTurn)
@@ -471,18 +518,25 @@ public class CalculatorFragment extends Fragment {
     Runnable timerTask = new Runnable(){
         @Override
         public void run() {
-            if(currentTimeInSeconds == 0){
+            timerRunning = true;
+            if(currentTimeInSeconds == 1){
                 timerFinished();
-                //TODO: Add timer beep sound
+                timerBeep();
                 return;
             }
-            if(currentTimeInSeconds == 300){
+            if(currentTimeInSeconds == 301){
                 timerAlert();
             }
             decrementTimeOnUiThread();
             timerHandler.postDelayed(this, 999);
         }
     };
+
+    private void timerBeep() {
+        if(getIsSoundEnabled()){
+            soundPool.play(timerBeepSoundId, 1, 1, 1, 0, 1);
+        }
+    }
 
     private void timerAlert() {
         if(getIsSoundEnabled()){
@@ -519,30 +573,45 @@ public class CalculatorFragment extends Fragment {
 
     @BindView(R.id.picker)
     HoloCircleSeekBar picker;
-    @BindView(R.id.buttonStopTimer)
-    Button stopTimer;
+    @BindView(R.id.buttonResetTimer)
+    Button buttonResetTimer;
     @BindView(R.id.buttonStartTimer)
-    Button startTimer;
+    Button buttonStartTimer;
     @BindView(R.id.textTime)
     TextView textTime;
 
-    private Integer currentTimeInSeconds = 1800;
-    private boolean timerRunning = false;
 
+    private boolean timerRunning = false;
+    private Integer defaultTimeInSeconds = 2400;
+    private Integer currentTimeInSeconds = defaultTimeInSeconds;
     @OnClick(R.id.buttonStartTimer)
     public void startTimer(){
-        initializeTimerTask();
+        if(!timerRunning) {
+            initializeTimerTask();
+        }else if(timerRunning){
+            stopTimer();
+        }
     }
 
-    @OnClick(R.id.buttonStopTimer)
     public void stopTimer(){
         timerRunning = false;
         timerHandler.removeCallbacksAndMessages(null);
+        buttonStartTimer.setText("START");
+    }
+
+    @OnClick(R.id.buttonResetTimer)
+    public void resetTimer(){
+        stopTimer();
+        picker.setValue(defaultTimeInSeconds);
+        currentTimeInSeconds = defaultTimeInSeconds;
+        getTimeFromSeconds();
+        buttonTimer.setText("Timer");
     }
 
     public void initializeTimerTask(){
         timerHandler.removeCallbacksAndMessages(null);
         timerHandler.postDelayed(timerTask, 999);
+        buttonStartTimer.setText("STOP");
 
     }
     private void getTimeFromSeconds(){
@@ -562,6 +631,7 @@ public class CalculatorFragment extends Fragment {
 
     }
     public void setPickerListener(){
+        picker.setValue(defaultTimeInSeconds);
         picker.setOnSeekBarChangeListener(new HoloCircleSeekBar.OnCircleSeekBarChangeListener() {
             @Override
             public void onProgressChanged(HoloCircleSeekBar holoCircleSeekBar, int i, boolean b) {

@@ -365,7 +365,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/trans"
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/holderTimer">
 
         <View
@@ -457,7 +457,7 @@
                             app:text_color="@color/material_white"
                             app:text_size="65sp"
                             app:show_text="false"
-                            app:init_position="1800"
+                            app:init_position="2400"
                             app:wheel_active_color="@color/accent"
                             app:wheel_unactive_color="@color/material_dark" />
 
@@ -483,8 +483,8 @@
                     <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Stop"
-                        android:id="@+id/buttonStopTimer"
+                        android:text="Reset"
+                        android:id="@+id/buttonResetTimer"
                         android:layout_weight="1"
                         style="@style/Button.Number"
                         android:typeface="normal"

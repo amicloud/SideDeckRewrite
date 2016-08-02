@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "694983165819",
+    "firebase_url": "https://sidedeck-1346.firebaseio.com",
+    "project_id": "sidedeck-1346",
+    "storage_bucket": "sidedeck-1346.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694983165819:android:a6d8c69f37c1aa53",
+        "android_client_info": {
+          "package_name": "com.outplaysoftworks.sidedeck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "694983165819-75inbe2foasjco39l3rlev38u86t746n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.outplaysoftworks.sidedeck",
+            "certificate_hash": "97BDF8A296B5E610C54B84E1D0710819E5620B73"
+          }
+        },
+        {
+          "client_id": "694983165819-ipslbdna0lopq6u99pt360ocvistlksh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL16JT5JqSE8pOWMHxtMcSXBk2ZnzMdQo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "694983165819-ipslbdna0lopq6u99pt360ocvistlksh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
