@@ -26,4 +26,5 @@
     <color name="material_green_dark">#c900ad17</color>
     <color name="material_black">#000000</color>
     <color name="material_white">#ffffff</color>
+    <color name="material_lightGray">#d8d8d8</color>
 </resources>

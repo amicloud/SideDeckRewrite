@@ -14,6 +14,7 @@
             android:name="com.outplaysoftworks.sidedeck.Splash"
             android:windowSoftInputMode="adjustNothing"
             android:configChanges="orientation"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait">>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +33,7 @@
             android:label="@string/title_activity_settings"
             android:parentActivityName="com.outplaysoftworks.sidedeck.MainActivity"
             android:configChanges="orientation"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait">>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

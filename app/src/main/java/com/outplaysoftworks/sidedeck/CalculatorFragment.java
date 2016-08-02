@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -147,10 +148,6 @@ public class CalculatorFragment extends Fragment {
     private void reset(){
         setLpToDefault();
         mCalculatorPresenter.onResetClicked();
-        timerHandler.removeCallbacksAndMessages(null);
-        getTimeFromSeconds();
-        buttonTimer.setText("TIMER");
-
     }
 
     private void setPlayerNamesToDefault() {
@@ -324,30 +321,34 @@ public class CalculatorFragment extends Fragment {
             }
             coinFlipButton.setClickable(false);
             final int frames = 10;
-            Double temp = Math.random();
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(getCurrentFrame() < frames) {
-                        Coin coin = makeCoin();
-                        coinFlipButton.setText(coin.getFace().toString());
-                        setCurrentFrame(getCurrentFrame() + 1);
-                        handler.postDelayed(this, 200);
-                    }
-                    if(frames == getCurrentFrame()) {
-                        resetCoinFlipAfterDelay();
-                        coinFlipButton.setClickable(true);
+                    try {
+                        if (getCurrentFrame() < frames) {
+                            Coin coin = makeCoin();
+                            coinFlipButton.setText(coin.getFace().toString());
+                            setCurrentFrame(getCurrentFrame() + 1);
+                            handler.postDelayed(this, 200);
+                        }
+                        if (frames == getCurrentFrame()) {
+                            resetCoinFlipAfterDelay();
+                            coinFlipButton.setClickable(true);
+                        }
+                    }catch (NullPointerException e){
+                        Log.d("CF: ", "coin handler crashed");
                     }
                 }
             },400);
     }
     private void resetCoinFlipAfterDelay(){
         coinHandler.removeCallbacksAndMessages(null);
-        coinHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        coinHandler.postDelayed(() -> {
+            try {
                 coinFlipButton.setText(getContext().getString(R.string.coinFlip));
+            } catch (NullPointerException e){
+                Log.d("CF: ", "Coin handler 2 crashed");
             }
         }, 8000);
     }
@@ -436,14 +437,16 @@ public class CalculatorFragment extends Fragment {
         AnimationDrawable animation = randomAnimationBuilder.makeAnimation(false);
         buttonDiceRoll.setBackground(animation);
         buttonDiceRoll.setText("");
-        //animation.setEnterFadeDuration(randomAnimationBuilder.getFrameDuration()/2);
-        //animation.setExitFadeDuration(randomAnimationBuilder.getFrameDuration()/2);
         animation.start();
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
-            buttonDiceRoll.setAlpha(1f);
-            buttonDiceRoll.setBackgroundDrawable(diceDrawables.get(lastDiceRoll));
-            buttonDiceRoll.setClickable(true);
+            try {
+                buttonDiceRoll.setAlpha(1f);
+                buttonDiceRoll.setBackgroundDrawable(diceDrawables.get(lastDiceRoll));
+                buttonDiceRoll.setClickable(true);
+            } catch (NullPointerException e){
+                Log.d("CF: ", "Dice handler crashed");
+            }
         }, diceRollAnimationDuration + (randomAnimationBuilder.getFrameDuration() * 2));
         resetDiceRollButtonAfterDelay(originalBackgroundDrawable);
     }
@@ -451,8 +454,12 @@ public class CalculatorFragment extends Fragment {
     private void resetDiceRollButtonAfterDelay(final Drawable originalBackground) {
         diceResetHandler.removeCallbacksAndMessages(null);
         diceResetHandler.postDelayed(() -> {
-            buttonDiceRoll.setText(view.getResources().getString(R.string.diceRoll));
-            buttonDiceRoll.setBackground(originalBackground);
+            try {
+                buttonDiceRoll.setText(view.getResources().getString(R.string.diceRoll));
+                buttonDiceRoll.setBackground(originalBackground);
+            } catch (NullPointerException e){
+                Log.d("CF: ", "Dice reset handler crashed");
+            }
         }, diceRollAnimationDuration + 6000);
     }
 
@@ -488,6 +495,7 @@ public class CalculatorFragment extends Fragment {
         mCalculatorPresenter.onPlayerNameChanged(name, 2);
     }
 
+
     @OnClick(R.id.buttonUndo)
     public void onUndoClicked(){
         mCalculatorPresenter.onUndoClicked();
@@ -518,17 +526,21 @@ public class CalculatorFragment extends Fragment {
     Runnable timerTask = new Runnable(){
         @Override
         public void run() {
-            timerRunning = true;
-            if(currentTimeInSeconds == 1){
-                timerFinished();
-                timerBeep();
-                return;
+            try {
+                timerRunning = true;
+                if (currentTimeInSeconds == 0) {
+                    timerFinished();
+                    timerBeep();
+                    return;
+                }
+                if (currentTimeInSeconds == 301) {
+                    timerAlert();
+                }
+                decrementTimeOnUiThread();
+                timerHandler.postDelayed(this, 999);
+            } catch (NullPointerException e){
+                Log.d("CF: ", "timerTask continued after activity was destroyed");
             }
-            if(currentTimeInSeconds == 301){
-                timerAlert();
-            }
-            decrementTimeOnUiThread();
-            timerHandler.postDelayed(this, 999);
         }
     };
 
@@ -642,13 +654,24 @@ public class CalculatorFragment extends Fragment {
             @Override
             public void onStartTrackingTouch(HoloCircleSeekBar holoCircleSeekBar) {
                 currentTimeInSeconds = holoCircleSeekBar.getValue();
+                getTimeFromSeconds();
             }
 
             @Override
             public void onStopTrackingTouch(HoloCircleSeekBar holoCircleSeekBar) {
                 currentTimeInSeconds = holoCircleSeekBar.getValue();
+                getTimeFromSeconds();
             }
         });
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        coinHandler.removeCallbacksAndMessages(null);
+        diceResetHandler.removeCallbacksAndMessages(null);
+        p1NameHandler.removeCallbacksAndMessages(null);
+        p2NameHandler.removeCallbacksAndMessages(null);
+        timerHandler.removeCallbacksAndMessages(null);
+    }
 }

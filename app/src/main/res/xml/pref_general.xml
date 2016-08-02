@@ -3,23 +3,34 @@
         android:defaultValue="true"
         android:key="@string/KEYsoundOnOff"
         android:summary="@string/sound"
-        android:title="@string/soundSettingSummary"/>
+        android:title="@string/soundSettingSummary"
+        android:background="@color/material_white"
+        android:textColorSecondary="@color/material_white"/>
     <SwitchPreference
         android:defaultValue="true"
         android:key="@string/KEYcheckSafeEntry"
         android:summary="@string/checkForSafeEntrySummary"
+        android:textColorHighlight="@color/material_white"
+        android:textColorHint="@color/material_white"
+        android:textColorLink="@color/material_white"
+        android:textColor="@color/material_white"
+        android:shadowColor="@color/material_white"
+        android:textColorSecondary="@color/material_white"
         android:title="@string/checkForSafeEntryTitle" />
     <SwitchPreference
         android:defaultValue="false"
         android:key="@string/KEYallowNegativeLp"
         android:summary="@string/stopAtZeroSummary"
-        android:title="@string/stopAtZeroTitle"/>
+        android:title="@string/stopAtZeroTitle"
+        android:textColorSecondary="@color/material_white"/>
     <EditTextPreference
         android:capitalize="words"
         android:defaultValue="@string/playerOne"
         android:inputType="textPersonName"
         android:key="@string/KEYplayerOneDefaultNameSetting"
         android:maxLines="1"
+        android:maxLength="20"
+        android:textColorSecondary="@color/material_white"
         android:singleLine="true"
         android:title="@string/playerOneDefaultName"/>
     <EditTextPreference
@@ -28,8 +39,10 @@
         android:inputType="textPersonName"
         android:key="@string/KEYplayerTwoDefaultNameSetting"
         android:maxLines="1"
+        android:maxLength="20"
         android:singleLine="true"
-        android:title="@string/playerTwoDefaultName"/>
+        android:title="@string/playerTwoDefaultName"
+        android:textColorSecondary="@color/material_white"/>
     <EditTextPreference
         android:defaultValue="8000"
         android:maxLength="6"
@@ -37,5 +50,6 @@
         android:key="@string/KEYdefaultLpSetting"
         android:maxLines="1"
         android:singleLine="true"
-        android:title="@string/defaultLifepoints"/>
+        android:title="@string/defaultLifepoints"
+        android:textColorSecondary="@color/material_white"/>
 </PreferenceScreen>

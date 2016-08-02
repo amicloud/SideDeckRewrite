@@ -4,8 +4,6 @@
         android:title="@string/undo"/>
     <item android:id="@+id/menuItemReset"
         android:title="@string/reset"/>
-    <item android:id="@+id/menuItemShowQuickCalc"
-        android:title="@string/quickCalc"/>
     <item android:id="@+id/menuItemSettings"
         android:title="@string/settings"/>
 <!--    <item android:id="@+id/debugRating"

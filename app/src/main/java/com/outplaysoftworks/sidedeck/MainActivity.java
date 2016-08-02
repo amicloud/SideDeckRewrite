@@ -16,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
@@ -115,25 +114,24 @@ public class MainActivity extends AppCompatActivity{
         MenuInflater menuInflater = popupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.actions, popupMenu.getMenu());
         popupMenu.show();
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId() ==  R.id.menuItemUndo){
-                    mCalculatorFragment.onUndoClicked();
-                }else if(item.getItemId() == R.id.menuItemReset){
-                    mCalculatorFragment.onResetClick();
-                }else if(item.getItemId() == R.id.menuItemSettings){
-                    startActivity(preferencesIntent);
-                }else if(item.getItemId() == R.id.menuItemShowQuickCalc){
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if(item.getItemId() ==  R.id.menuItemUndo){
+                mCalculatorFragment.onUndoClicked();
+            }else if(item.getItemId() == R.id.menuItemReset){
+                mCalculatorFragment.onResetClick();
+            }else if(item.getItemId() == R.id.menuItemSettings){
+                startActivity(preferencesIntent);
+            }/*else if(item.getItemId() == R.id.menuItemShowQuickCalc){
 
-                }
-                return false;
-            }
+            }*/
+            return false;
         });
     }
 
     public void checkFirebaseForUpdate(){
         Log.d("DB: ", "CHECKING FOR NEW VERSION");
+        Long currentTimeSeconds = System.currentTimeMillis()/1000L;
+        System.out.println(currentTimeSeconds.toString());
         if(!IS_BETA_RELEASE) {
             databaseReference.child("currentRelease").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -165,12 +163,14 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void onGotNewVersionBeta(Version newVersion) {
-        Version localVersion = new Version(BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
+        Version localVersion = new Version(System.currentTimeMillis()/1000L,BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
         /*Log.d("Got version: ", "current release is " + newVersion.getVersionCode());
         Log.d("Got version: ", "current beta is " + newVersion.getVersionCode());*/
         int remoteVersionCode = newVersion.getVersionCode();
         String remoteVersionName = newVersion.getVersionName();
-        if(localVersion.getVersionCode() < remoteVersionCode){
+        Long remoteVersionAvailableAt = newVersion.getAvailableAt();
+        if(localVersion.getVersionCode() < remoteVersionCode  &&
+                localVersion.getAvailableAt() < remoteVersionAvailableAt){
             new AlertDialog.Builder(this, R.style.MyDialog)
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .setTitle("A New Version is Available")
@@ -186,12 +186,14 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void onGotNewVersion(Version newVersion){
-        Version localVersion = new Version(BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
+        Version localVersion = new Version(System.currentTimeMillis()/1000L, BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
         /*Log.d("Got version: ", "current release is " + newVersion.getVersionCode());
         Log.d("Got version: ", "current beta is " + newVersion.getVersionCode());*/
         int remoteVersionCode = newVersion.getVersionCode();
         String remoteVersionName = newVersion.getVersionName();
-        if(localVersion.getVersionCode() < remoteVersionCode){
+        Long remoteVersionAvailableAt = newVersion.getAvailableAt();
+        if(localVersion.getVersionCode() < remoteVersionCode &&
+                localVersion.getAvailableAt() < remoteVersionAvailableAt){
             new AlertDialog.Builder(this, R.style.MyDialog)
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .setTitle("A New Version is Available")
@@ -220,7 +222,7 @@ public class MainActivity extends AppCompatActivity{
 class Version{
     private int versionCode;
     private String versionName;
-
+    private Long availableAt;
     public int getVersionCode() {
         return versionCode;
     }
@@ -237,7 +239,12 @@ class Version{
         this.versionName = versionName;
     }
 
-    public Version(int versionCode, String versionName){
+    public Long getAvailableAt(){
+        return this.availableAt;
+    }
+
+    public Version(Long availableAt, int versionCode, String versionName){
+        this.availableAt = availableAt;
         this.versionCode = versionCode;
         this.versionName = versionName;
     }

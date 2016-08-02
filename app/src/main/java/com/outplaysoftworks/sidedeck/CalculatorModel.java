@@ -250,6 +250,7 @@ public class CalculatorModel {
 
     public void doReset(){
         makeLogPresenter();
+        defaultLp = getDefaultLpFromPreferences();
         setPlayerLp(0, defaultLp, 1, true);
         setPlayerLp(0, defaultLp, 2, true);
         player1LpPrevious = player1Lp;
