@@ -372,6 +372,7 @@ public class CalculatorFragment extends Fragment {
 
     @OnClick(R.id.buttonTimer)
     public void onClickTimerShow(){
+        getTimeFromSeconds();
         holderTimer.setVisibility(View.VISIBLE);
     }
 
@@ -477,7 +478,7 @@ public class CalculatorFragment extends Fragment {
         textView.setBackgroundColor(view.getSolidColor());
         toast.show();
     }
-    int debounceTime = 2000;
+    int debounceTime = 3000;
     Handler p1NameHandler = new Handler();
     @OnTextChanged(R.id.player1Name)
     public void onPlayer1NameChanged() {

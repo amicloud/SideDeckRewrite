@@ -14,7 +14,7 @@
             android:name="com.outplaysoftworks.sidedeck.Splash"
             android:windowSoftInputMode="adjustNothing"
             android:configChanges="orientation"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.Splash"
             android:screenOrientation="portrait">>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

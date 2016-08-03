@@ -5,7 +5,8 @@
     android:layout_height="fill_parent"
     android:background="@color/material_dark"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:animateLayoutChanges="true">
 
     <LinearLayout
         android:layout_width="match_parent"

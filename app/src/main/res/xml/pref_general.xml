@@ -10,11 +10,7 @@
         android:defaultValue="true"
         android:key="@string/KEYcheckSafeEntry"
         android:summary="@string/checkForSafeEntrySummary"
-        android:textColorHighlight="@color/material_white"
-        android:textColorHint="@color/material_white"
-        android:textColorLink="@color/material_white"
-        android:textColor="@color/material_white"
-        android:shadowColor="@color/material_white"
+        android:theme="@style/AppTheme"
         android:textColorSecondary="@color/material_white"
         android:title="@string/checkForSafeEntryTitle" />
     <SwitchPreference

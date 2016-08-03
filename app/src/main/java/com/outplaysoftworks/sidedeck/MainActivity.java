@@ -130,22 +130,18 @@ public class MainActivity extends AppCompatActivity{
 
     public void checkFirebaseForUpdate(){
         Log.d("DB: ", "CHECKING FOR NEW VERSION");
-        Long currentTimeSeconds = System.currentTimeMillis()/1000L;
-        System.out.println(currentTimeSeconds.toString());
-        if(!IS_BETA_RELEASE) {
-            databaseReference.child("currentRelease").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Version version = dataSnapshot.getValue(Version.class);
-                    onGotNewVersion(version);
-                }
+        databaseReference.child("currentRelease").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Version version = dataSnapshot.getValue(Version.class);
+                onGotNewVersion(version);
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.d("FireBase", " couldn't get version information");
-                }
-            });
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("FireBase", " couldn't get version information");
+            }
+        });
         if(IS_BETA_RELEASE) {
             databaseReference.child("currentBeta").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -169,12 +165,13 @@ public class MainActivity extends AppCompatActivity{
         int remoteVersionCode = newVersion.getVersionCode();
         String remoteVersionName = newVersion.getVersionName();
         Long remoteVersionAvailableAt = newVersion.getAvailableAt();
+        Log.d("FB: ", "Remote avail: " + remoteVersionAvailableAt.toString() + ", local time: " + System.currentTimeMillis()/1000L);
         if(localVersion.getVersionCode() < remoteVersionCode  &&
-                localVersion.getAvailableAt() < remoteVersionAvailableAt){
+                localVersion.getAvailableAt() > remoteVersionAvailableAt){
             new AlertDialog.Builder(this, R.style.MyDialog)
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .setTitle("A New Version is Available")
-                    .setMessage("The newest beta version SideDeck is " + remoteVersionName + "\n" +
+                    .setMessage("The newest beta version of SideDeck is " + remoteVersionName + "\n" +
                             "You have version " + BuildConfig.VERSION_NAME + "\n" +
                             "Would you like to go to the Google Play Store to update?")
                     .setPositiveButton("Yes", (dialog, which) -> {
@@ -193,7 +190,7 @@ public class MainActivity extends AppCompatActivity{
         String remoteVersionName = newVersion.getVersionName();
         Long remoteVersionAvailableAt = newVersion.getAvailableAt();
         if(localVersion.getVersionCode() < remoteVersionCode &&
-                localVersion.getAvailableAt() < remoteVersionAvailableAt){
+                localVersion.getAvailableAt() > remoteVersionAvailableAt){
             new AlertDialog.Builder(this, R.style.MyDialog)
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .setTitle("A New Version is Available")

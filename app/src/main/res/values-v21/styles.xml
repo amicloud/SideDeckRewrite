@@ -11,6 +11,9 @@
                 <item name="android:navigationBarColor">@color/material_dark</item>
                 <item name="android:statusBarColor">@color/material_dark</item>
                 <item name="android:textColorPrimary">@color/material_light</item>
+                <item name="android:colorForeground">@color/material_lightGray</item>
+                <item name="android:textColorSecondary">@color/material_lightGray</item>
+                <item name="android:windowBackground">@color/material_dark</item>
         </style>
 
         <style name="LightTheme" parent="AppTheme">

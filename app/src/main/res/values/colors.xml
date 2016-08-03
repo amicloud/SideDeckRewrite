@@ -20,10 +20,10 @@
     <color name="material_light_dark">#505050</color>
     <color name="material_accent">#FF8E14</color>
     <color name="material_accent_dark">#cc7110</color>
-    <color name="material_red">#7ddb0000</color>
-    <color name="material_red_dark">#c3db0000</color>
-    <color name="material_green">#8e00ad17</color>
-    <color name="material_green_dark">#c900ad17</color>
+    <color name="material_red">#c3db0000</color>7ddb0000
+    <color name="material_red_dark">#7ddb0000</color>
+    <color name="material_green">#c900ad17</color>
+    <color name="material_green_dark">#8e00ad17</color>
     <color name="material_black">#000000</color>
     <color name="material_white">#ffffff</color>
     <color name="material_lightGray">#d8d8d8</color>
