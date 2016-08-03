@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 public class Splash extends AppCompatActivity {
-    private static final int delay = 00; //Milliseconds
+    private static final int delay = 0; //Milliseconds
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
