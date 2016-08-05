@@ -8,7 +8,7 @@
     <item
         android:state_focused="false"
         android:state_pressed="true"
-        android:drawable="@color/material_light_dark" />
+        android:drawable="@color/material_light_pressed" />
 
     <item android:drawable="@color/material_light" />
 </selector>

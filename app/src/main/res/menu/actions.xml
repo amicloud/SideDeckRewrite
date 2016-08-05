@@ -6,6 +6,8 @@
         android:title="@string/reset"/>
     <item android:id="@+id/menuItemSettings"
         android:title="@string/settings"/>
+    <item android:id="@+id/menuItemCalculator"
+        android:title="@string/calculator"/>
 <!--    <item android:id="@+id/debugRating"
         android:title="Show Rating Dialog"/>
     <item android:id="@+id/debugTutorial"

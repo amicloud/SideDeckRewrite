@@ -25,6 +25,9 @@ import android.widget.Toast;
 
 import com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar;
 
+import net.sourceforge.jeval.EvaluationException;
+import net.sourceforge.jeval.Evaluator;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -75,12 +78,20 @@ public class CalculatorFragment extends Fragment {
     LinearLayout holderTimer;
     @BindView(R.id.buttonTimer)
     Button buttonTimer;
-
+    @BindView(R.id.calculatorWork)
+    TextView calculatorWork;
+    @BindView(R.id.calculatorResults)
+    TextView calculatorResults;
+    @BindView(R.id.holderCalculator)
+    LinearLayout holderCalculator;
 
     Integer lpSoundStreamId;
     private CalculatorPresenter mCalculatorPresenter;
     private ArrayList<Toast> lpToasts = new ArrayList<>();
-    private int timerBeep;
+
+    //Calculator stuff
+    private String calcWork = "";
+    Evaluator evaluator = new Evaluator();
 
     public CalculatorFragment() {
         makePresenter();
@@ -675,4 +686,103 @@ public class CalculatorFragment extends Fragment {
         p2NameHandler.removeCallbacksAndMessages(null);
         timerHandler.removeCallbacksAndMessages(null);
     }
+
+    @OnClick(R.id.buttonShowCalc)
+    public void showCalculator(){
+        holderCalculator.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick({R.id.spacerCalculatorTop, R.id.spacerCalculatorBottom})
+    public void hideCalculator(){
+        holderCalculator.setVisibility(View.GONE);
+    }
+    private String calcLastEntered = "";
+    @OnClick({R.id.calc0, R.id.calc1, R.id.calc2, R.id.calc3, R.id.calc4, R.id.calc5, R.id.calc6,
+            R.id.calc7, R.id.calc8, R.id.calc9, R.id.calcAdd, R.id.calcMinus, R.id.calcMultiply,
+            R.id.calcDivide, R.id.calcDecimal, R.id.calcLeftParen, R.id.calcRightParen})
+    public void onClickCalculatorNumbersAndOperators(View view){
+        String tag = view.getTag().toString();
+        calcWork += tag;
+        calculatorWork.setText(calcWork);
+        calcLastEntered = tag;
+    }
+
+    @OnClick(R.id.calcEquals)
+    public void onClickCalculatorEquals(){
+        String results = "";
+        try {
+            results = evaluator.evaluate(calcCorrectParens(calcWork));
+            calculatorResults.setText(results);
+        } catch (EvaluationException e) {
+            Log.e("JEVAL: ", calcWork);
+            calculatorResults.setText(R.string.error);
+            e.printStackTrace();
+            if(calcCheckIsParenMismatch(calcWork)){
+                calculatorResults.setText("Parenthesis Mismatch");
+            }
+        }
+    }
+
+    private boolean calcCheckIsParenMismatch(String expression) {
+        int openCount = 0;
+        int closeCount = 0;
+        for (char c : expression.toCharArray()){
+            if(c == '(') {
+                openCount++;
+            } else if(c == ')'){
+                closeCount++;
+            }
+        }
+        if(closeCount != openCount){
+            return true;
+        }
+        return false;
+    }
+
+    @OnClick(R.id.calcBackspace)
+    public void onClickCalcBackspace(){
+        if(calcWork.length() > 0) {
+            calcWork = calcWork.substring(0, calcWork.length() - 1);
+            calculatorWork.setText(calcWork);
+        }
+    }
+
+    @OnClick(R.id.calcClear)
+    public void onClickCalcClear(){
+        if(calcWork.length() == 0){
+            calculatorResults.setText("");
+        }
+        calculatorWork.setText("");
+        calcWork = "";
+    }
+
+    public String calcCorrectParens(String expression){
+        if(expression.length() == 0){
+            return "";
+        }
+        String[] temp = expression.split("");
+        ArrayList<String> chars = new ArrayList<>();
+        for(String s : temp){
+            chars.add(s);
+        }
+        for(int i = 1; i < chars.size() - 1; i++) {
+            if(chars.get(i).equals("(") && (chars.get(i-1).matches("^[0-9]") || chars.get(i-1).equals(")"))){
+                chars.add(i, "*");
+                i++; //Prevents infinite loop
+            }
+        }
+        for(int i = 0; i < chars.size() - 1; i++) {
+            if(chars.get(i).equals(")") && (chars.get(i+1).matches("^[0-9]") || chars.get(i+1).equals("("))){
+                chars.add(i+1, "*");
+                i++; //Prevents infinite loop
+            }
+        }
+        String corrected = "";
+        for(String s : chars){
+            corrected += s;
+        }
+        System.out.println(corrected);
+        return corrected;
+    }
+
 }

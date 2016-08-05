@@ -21,11 +21,7 @@ public class Calculation {
         this.lpAfter = lpAfter;
         this.player = player;
         this.turn = turn;
-        if (lpAfter < previousLp) {
-            isLpLoss = true;
-        } else {
-            isLpLoss = false;
-        }
+        isLpLoss = lpAfter < previousLp;
         this.lpDifference = lpAfter - previousLp;
         this.mCalculatorModel = model;
     }

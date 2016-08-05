@@ -25,7 +25,6 @@
     <string name="turnColon">"Turn: "</string>
     <string name="playerOne">Player 1</string>
     <string name="playerTwo">Player 2</string>
-    <string name="title_activity_settings">Settings</string>
     <string name="defaultLifepoints">Default Lifepoins</string>
     <string name="playerOneDefaultName">Player 1 default name</string>
     <string name="playerTwoDefaultName">Player 2 default name</string>
@@ -36,8 +35,8 @@
     <string name="x" translatable="false">x</string>
     <string name="blankSpace" translatable="false">" "</string>
     <string name="duelLog">Duel Log</string>
-    <string name="calculator">Lifepoints</string>
-    <string name="quickCalc">Calculator</string>
+    <string name="lifePoints">Lifepoints</string>
+    <string name="calculator">Calculator</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-8255332778135768/4126997531</string>
     <string name="test_banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="amoledBlackTheme">AMOLED Black theme</string>
@@ -67,7 +66,6 @@
     <string name="Resetting">Resetting</string>
     <string name="Cancel">Cancel</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_tests">Tests</string>
     <string name="section_format">Hello World from section: %1$d</string>
@@ -135,4 +133,6 @@
     <string name="stopAtZeroSummary">Allow Lifepoints to become negative</string>
     <string name="stopAtZeroTitle">Allow Negative Lifepoints</string>
     <string name="KEYallowNegativeLp">KEYallowNegativeLp</string>
+    <string name="tapToClear">TAP TO CLEAR</string>
+    <string name="error">ERROR</string>
 </resources>

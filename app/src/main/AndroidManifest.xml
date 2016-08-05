@@ -30,7 +30,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.outplaysoftworks.sidedeck.SettingsActivity"
-            android:label="@string/title_activity_settings"
+            android:label="@string/settings"
             android:parentActivityName="com.outplaysoftworks.sidedeck.MainActivity"
             android:configChanges="orientation"
             android:theme="@style/AppTheme"

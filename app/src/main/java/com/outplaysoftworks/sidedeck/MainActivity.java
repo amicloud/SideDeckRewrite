@@ -115,15 +115,20 @@ public class MainActivity extends AppCompatActivity{
         menuInflater.inflate(R.menu.actions, popupMenu.getMenu());
         popupMenu.show();
         popupMenu.setOnMenuItemClickListener(item -> {
-            if(item.getItemId() ==  R.id.menuItemUndo){
-                mCalculatorFragment.onUndoClicked();
-            }else if(item.getItemId() == R.id.menuItemReset){
-                mCalculatorFragment.onResetClick();
-            }else if(item.getItemId() == R.id.menuItemSettings){
-                startActivity(preferencesIntent);
-            }/*else if(item.getItemId() == R.id.menuItemShowQuickCalc){
-
-            }*/
+            switch(item.getItemId()){
+                case R.id.menuItemUndo:
+                    mCalculatorFragment.onUndoClicked();
+                    break;
+                case R.id.menuItemReset:
+                    mCalculatorFragment.onResetClick();
+                    break;
+                case R.id.menuItemSettings:
+                    startActivity(preferencesIntent);
+                    break;
+                case R.id.menuItemCalculator:
+                    mCalculatorFragment.showCalculator();
+                    break;
+            }
             return false;
         });
     }
@@ -167,7 +172,7 @@ public class MainActivity extends AppCompatActivity{
         Long remoteVersionAvailableAt = newVersion.getAvailableAt();
         Log.d("FB: ", "Remote avail: " + remoteVersionAvailableAt.toString() + ", local time: " + System.currentTimeMillis()/1000L);
         if(localVersion.getVersionCode() < remoteVersionCode  &&
-                localVersion.getAvailableAt() > remoteVersionAvailableAt){
+               System.currentTimeMillis()/1000L > remoteVersionAvailableAt){
             new AlertDialog.Builder(this, R.style.MyDialog)
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .setTitle("A New Version is Available")
@@ -190,7 +195,7 @@ public class MainActivity extends AppCompatActivity{
         String remoteVersionName = newVersion.getVersionName();
         Long remoteVersionAvailableAt = newVersion.getAvailableAt();
         if(localVersion.getVersionCode() < remoteVersionCode &&
-                localVersion.getAvailableAt() > remoteVersionAvailableAt){
+                System.currentTimeMillis()/1000L > remoteVersionAvailableAt){
             new AlertDialog.Builder(this, R.style.MyDialog)
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .setTitle("A New Version is Available")
@@ -214,6 +219,19 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    @Override
+    public void onBackPressed(){
+        if(mCalculatorFragment.holderCalculator.getVisibility() == View.VISIBLE){
+            mCalculatorFragment.holderCalculator.setVisibility(View.GONE);
+        } else if( mCalculatorFragment.holderTimer.getVisibility() ==  View.VISIBLE){
+            mCalculatorFragment.holderTimer.setVisibility(View.GONE);
+        } else{
+            super.onBackPressed();
+        }
+
+        //TODO: Check if the keyboard is showing and all that bull shit for the edittexts
+        //http://toastdroid.com/2014/10/14/on-screen-keyboard-state-tracking-in-3-easy-steps/
+    }
 }
 
 class Version{
