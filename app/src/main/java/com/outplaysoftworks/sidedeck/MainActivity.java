@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity{
 
     private static boolean IS_BETA_RELEASE = true;
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
     public static CalculatorFragment mCalculatorFragment;
     public static LogFragment mLogFragment;
     ViewPager mViewPager;
@@ -48,21 +47,23 @@ public class MainActivity extends AppCompatActivity{
         mCalculatorFragment = new CalculatorFragment();
         mLogFragment = new LogFragment();
         context = this;
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         IS_BETA_RELEASE = checkIfIsBeta();
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
+        assert mViewPager != null;
         mViewPager.setAdapter(mSectionsPagerAdapter);
         //Setup the tab layout
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        assert tabLayout != null;
         tabLayout.setupWithViewPager(mViewPager);
         checkFirebaseForUpdate();
     }
 
     private boolean checkIfIsBeta() {
-        if(BuildConfig.VERSION_NAME.contains("b") || BuildConfig.VERSION_NAME.contains("B")){
-            Log.d("BETA: ", "YOU ARE CURRENTLY USING A BETA RELEASE");
+        if(BuildConfig.VERSION_NAME.contains("b") || BuildConfig.VERSION_NAME.contains("B")){ //NON-NLS
+            Log.d("BETA: ", "YOU ARE CURRENTLY USING A BETA RELEASE"); //NON-NLS
             return true;
         } else{
             return false;
@@ -108,9 +109,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void showPopupMenu(View view){
-        final View v = view;
         final Intent preferencesIntent = new Intent(this, SettingsActivity.class);
-        popupMenu = new PopupMenu(context, v);
+        popupMenu = new PopupMenu(context, view);
         MenuInflater menuInflater = popupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.actions, popupMenu.getMenu());
         popupMenu.show();
@@ -134,8 +134,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void checkFirebaseForUpdate(){
-        Log.d("DB: ", "CHECKING FOR NEW VERSION");
-        databaseReference.child("currentRelease").addListenerForSingleValueEvent(new ValueEventListener() {
+        Log.d("DB: ", "CHECKING FOR NEW VERSION"); //NON-NLS
+        databaseReference.child("currentRelease").addListenerForSingleValueEvent(new ValueEventListener() { //NON-NLS
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Version version = dataSnapshot.getValue(Version.class);
@@ -144,11 +144,11 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("FireBase", " couldn't get version information");
+                Log.d("FireBase", " couldn't get version information"); //NON-NLS
             }
         });
         if(IS_BETA_RELEASE) {
-            databaseReference.child("currentBeta").addListenerForSingleValueEvent(new ValueEventListener() {
+            databaseReference.child("currentBeta").addListenerForSingleValueEvent(new ValueEventListener() { //NON-NLS
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Version version = dataSnapshot.getValue(Version.class);
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity{
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    Log.d("FireBase", " couldn't get version information");
+                    Log.d("FireBase", " couldn't get version information"); //NON-NLS
                 }
             });
         }
@@ -170,19 +170,19 @@ public class MainActivity extends AppCompatActivity{
         int remoteVersionCode = newVersion.getVersionCode();
         String remoteVersionName = newVersion.getVersionName();
         Long remoteVersionAvailableAt = newVersion.getAvailableAt();
-        Log.d("FB: ", "Remote avail: " + remoteVersionAvailableAt.toString() + ", local time: " + System.currentTimeMillis()/1000L);
+        Log.d("FB: ", "Remote avail: " + remoteVersionAvailableAt.toString() + ", local time: " + System.currentTimeMillis()/1000L); //NON-NLS
         if(localVersion.getVersionCode() < remoteVersionCode  &&
                System.currentTimeMillis()/1000L > remoteVersionAvailableAt){
             new AlertDialog.Builder(this, R.style.MyDialog)
                     .setIcon(android.R.drawable.ic_dialog_info)
-                    .setTitle("A New Version is Available")
-                    .setMessage("The newest beta version of SideDeck is " + remoteVersionName + "\n" +
-                            "You have version " + BuildConfig.VERSION_NAME + "\n" +
-                            "Would you like to go to the Google Play Store to update?")
-                    .setPositiveButton("Yes", (dialog, which) -> {
+                    .setTitle(R.string.newVersionAvailable)
+                    .setMessage(getString(R.string.newestVersionIs) + remoteVersionName + "\n" +
+                            getString(R.string.youHaveVersion) + BuildConfig.VERSION_NAME + "\n" +
+                            getString(R.string.goToPlayStore))
+                    .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
                         takeUserToPlayStore();
                     })
-                    .setNegativeButton("No Thanks", null)
+                    .setNegativeButton(getString(R.string.noThanks), null)
                     .show();
         }
     }
@@ -198,14 +198,14 @@ public class MainActivity extends AppCompatActivity{
                 System.currentTimeMillis()/1000L > remoteVersionAvailableAt){
             new AlertDialog.Builder(this, R.style.MyDialog)
                     .setIcon(android.R.drawable.ic_dialog_info)
-                    .setTitle("A New Version is Available")
-                    .setMessage("The newest version of SideDeck is " + remoteVersionName + "\n" +
-                            "You have version " + BuildConfig.VERSION_NAME + "\n" +
-                            "Would you like to go to the Google Play Store to update?")
-                    .setPositiveButton("Yes", (dialog, which) -> {
+                    .setTitle(getString(R.string.newVersionAvailable))
+                    .setMessage(getString(R.string.newestVersionIs) + remoteVersionName + "\n" +
+                            getString(R.string.youHaveVersion) + BuildConfig.VERSION_NAME + "\n" +
+                            getString(R.string.goToPlayStore))
+                    .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
                         takeUserToPlayStore();
                     })
-                    .setNegativeButton("No Thanks", null)
+                    .setNegativeButton(getString(R.string.noThanks), null)
                     .show();
         }
     }
@@ -213,9 +213,9 @@ public class MainActivity extends AppCompatActivity{
     private void takeUserToPlayStore() {
         final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
         try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName))); //NON-NLS
         } catch (android.content.ActivityNotFoundException ActivityNotFound) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName))); //NON-NLS
         }
     }
 
@@ -242,22 +242,22 @@ class Version{
         return versionCode;
     }
 
-    public void setVersionCode(int versionCode) {
+    /*public void setVersionCode(int versionCode) {
         this.versionCode = versionCode;
     }
+    public void setVersionName(String versionName) {
+        this.versionName = versionName;
+    }*/
 
     public String getVersionName() {
         return versionName;
-    }
-
-    public void setVersionName(String versionName) {
-        this.versionName = versionName;
     }
 
     public Long getAvailableAt(){
         return this.availableAt;
     }
 
+    @SuppressWarnings("SameParameterValue")
     public Version(Long availableAt, int versionCode, String versionName){
         this.availableAt = availableAt;
         this.versionCode = versionCode;

@@ -6,9 +6,11 @@ import android.graphics.drawable.Drawable;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
+/** This class contains methods to create animations consisting of a randomized sequence of
+ *  predefined drawables
  * Created by Billy on 6/8/2016.
  */
+@SuppressWarnings("ALL")
 public class RandomAnimationBuilder {
 
     private Integer frameCount;
@@ -54,7 +56,7 @@ public class RandomAnimationBuilder {
      * @param allowIdenticalConsecutiveFrames If true, allows consecutive frames to use the same image
      * @return Animation drawable ready to use
      */
-    public AnimationDrawable makeAnimation(boolean allowIdenticalConsecutiveFrames) {
+    public AnimationDrawable makeAnimation(@SuppressWarnings("SameParameterValue") boolean allowIdenticalConsecutiveFrames) {
         AnimationDrawable animationDrawable = new AnimationDrawable();
         int max = drawables.size();
         int lastRandomNumber;

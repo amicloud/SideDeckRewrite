@@ -135,4 +135,20 @@
     <string name="KEYallowNegativeLp">KEYallowNegativeLp</string>
     <string name="tapToClear">TAP TO CLEAR</string>
     <string name="error">ERROR</string>
+    <string name="overflow">Overflow</string>
+    <string name="plusSign">+</string>
+    <string name="minusSign">-</string>
+    <string name="timer">Timer</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="parenMismatch">Parenthesis Mismatch</string>
+    <string name="cancel">Cancel</string>
+    <string name="theEnteredNumber">"The entered number "</string>
+    <string name="seemsTooLarge">" seems too large.  Are you sure that this is correct?"</string>
+    <string name="possibleAccidentalEntry">Possible accidental entry</string>
+    <string name="Continue">Continue</string>
+    <string name="newVersionAvailable">A New Version is Available</string>
+    <string name="newestVersionIs">"The newest beta version of SideDeck is "</string>
+    <string name="youHaveVersion">"You have version "</string>
+    <string name="goToPlayStore">Would you like to go to the Google Play Store to update?</string>
 </resources>

@@ -1,516 +1,534 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@color/material_dark"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:padding="2dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.outplaysoftworks.sidedeck.MainActivity"
-    android:animateLayoutChanges="true">
-
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/material_dark"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    android:padding="2dp">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/player1Lp"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="5"
-            android:gravity="center"
-            android:maxLines="1"
-            android:padding="0dp"
-            android:textColor="@color/material_white"
-            android:textSize="30dp"
-            android:typeface="monospace" />
-
-        <Button
-            android:id="@+id/buttonTurn"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:text="@string/turn1"
-            android:textSize="16dp"
-            style="@style/Button.Function" />
-
-        <TextView
-            android:id="@+id/player2Lp"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="5"
-            android:gravity="center"
-            android:maxLines="1"
-            android:padding="0dp"
-            android:textColor="@color/material_white"
-            android:textSize="30dp"
-            android:typeface="monospace" />
-    </LinearLayout>
+    tools:context="com.outplaysoftworks.sidedeck.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <EditText
-
-            android:id="@+id/player1Name"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="5"
-            android:clickable="true"
-            android:enabled="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:hint="Player 1"
-            android:lines="1"
-            android:longClickable="false"
-            android:maxLines="1"
-            android:padding="0dp"
-            android:singleLine="true"
-            android:textColor="@color/material_white"
-            android:textColorHint="@color/material_accent"
-            android:textSize="20dp"
-            android:maxLength="20" />
-
-
-        <TextView
-
-            android:id="@+id/enteredValue"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="3"
-            android:clickable="true"
-            android:enabled="true"
-            android:gravity="center"
-            android:padding="0dp"
-            android:textColor="@color/material_white"
-            android:textSize="22dp"
-            android:typeface="monospace"
-            android:maxLines="1" />
-
-
-        <EditText
-
-            android:id="@+id/player2Name"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="5"
-            android:clickable="true"
-            android:enabled="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:hint="Player 2"
-            android:lines="1"
-            android:longClickable="false"
-            android:maxLines="1"
-            android:padding="0dp"
-            android:singleLine="true"
-            android:textColor="@color/material_white"
-            android:textColorHint="@color/material_accent"
-            android:textSize="20dp"
-            android:maxLength="20" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <Button
-
-            android:id="@+id/buttonP1Add"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="5"
-            android:background="@drawable/button_pressed_green"
-            android:clickable="true"
-            android:enabled="true"
-            android:gravity="center"
-            android:padding="0dp"
-            android:text="+"
-            android:textColor="@color/material_white"
-            android:textSize="24dp" />
-
-        <Button
-
-            android:id="@+id/buttonDiceRoll"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:text="@string/diceRoll"
-            android:textSize="16dp"
-            style="@style/Button.Function" />
-
-        <Button
-
-            android:id="@+id/buttonP2Add"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="5"
-            android:background="@drawable/button_pressed_green"
-            android:clickable="true"
-            android:enabled="true"
-            android:gravity="center"
-            android:padding="0dp"
-            android:text="+"
-            android:textColor="@color/material_white"
-            android:textSize="24dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/buttonP1Sub"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="5"
-            android:background="@drawable/button_pressed_red"
-            android:clickable="true"
-            android:enabled="true"
-            android:gravity="center"
-            android:padding="0dp"
-            android:text="-"
-            android:textColor="@color/material_white"
-            android:textSize="24dp" />/
-
-        <Button
-            android:id="@+id/buttonCoinFlip"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:text="@string/coinFlip"
-            android:textSize="16dp"
-            style="@style/Button.Function" />
-
-        <Button
-
-            android:id="@+id/buttonP2Sub"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="5"
-            android:background="@drawable/button_pressed_red"
-            android:clickable="true"
-            android:enabled="true"
-            android:gravity="center"
-            android:padding="0dp"
-            android:text="-"
-            android:textColor="@color/material_white"
-            android:textSize="24dp"
-            android:visibility="visible" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/button7"
-            style="@style/Button.Number"
-            android:tag="7"
-            android:text="7" />
-        <Button
-            android:id="@+id/button8"
-            style="@style/Button.Number"
-            android:tag="8"
-            android:text="8" />
-        <Button
-            android:id="@+id/button9"
-            style="@style/Button.Number"
-            android:tag="9"
-            android:text="9" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/button4"
-            style="@style/Button.Number"
-            android:tag="4"
-            android:text="4" />
-        <Button
-            android:id="@+id/button5"
-            style="@style/Button.Number"
-            android:tag="5"
-            android:text="5" />
-        <Button
-            android:id="@+id/button6"
-            style="@style/Button.Number"
-            android:tag="6"
-            android:text="6" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/button1"
-            style="@style/Button.Number"
-            android:tag="1"
-            android:text="1" />
-        <Button
-            android:id="@+id/button2"
-            style="@style/Button.Number"
-            android:tag="2"
-            android:text="2" />
-        <Button
-            android:id="@+id/button3"
-            style="@style/Button.Number"
-            android:tag="3"
-            android:text="3" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/button0"
-            style="@style/Button.Number"
-            android:tag="0"
-            android:text="0" />
-        <Button
-            android:id="@+id/button00"
-            style="@style/Button.Number"
-            android:tag="00"
-            android:text="00" />
-        <Button
-            android:id="@+id/button000"
-            style="@style/Button.Number"
-            android:tag="000"
-            android:text="000" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".66"
-        android:orientation="horizontal"
-        android:visibility="visible">
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Timer"
-            android:id="@+id/buttonTimer"
-            android:layout_weight="1"
-            style="@style/Button.Function" />
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Calc"
-            android:id="@+id/buttonShowCalc"
-            android:layout_weight="1"
-            style="@style/Button.Function" />
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Reset"
-            android:id="@+id/buttonReset"
-            android:layout_weight="1"
-            style="@style/Button.Function" />
-
-        <Button
-            style="@style/Button.Function"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Clear"
-            android:id="@+id/buttonClear"
-            android:layout_weight="1" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Undo"
-            android:id="@+id/buttonUndo"
-            android:layout_weight="1"
-            style="@style/Button.Function" />
-    </LinearLayout>
-</LinearLayout>
-
-    <LinearLayout
+        android:layout_height="match_parent"
+        android:background="@color/material_dark"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
+        android:padding="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/player1Lp"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="0dp"
+                android:textColor="@color/material_white"
+                android:textSize="30sp"
+                android:typeface="monospace" />
+
+            <Button
+                android:id="@+id/buttonTurn"
+                style="@style/Button.Function"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="@string/turn1"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/player2Lp"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="0dp"
+                android:textColor="@color/material_white"
+                android:textSize="30sp"
+                android:typeface="monospace" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/player1Name"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:enabled="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:hint="@string/playerOne"
+                android:lines="1"
+                android:longClickable="false"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:padding="0dp"
+                android:singleLine="true"
+                android:textColor="@color/material_white"
+                android:textColorHint="@color/material_accent"
+                android:textSize="20sp" />
+
+
+            <TextView
+
+                android:id="@+id/enteredValue"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="3"
+                android:clickable="true"
+                android:enabled="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="0dp"
+                android:textColor="@color/material_white"
+                android:textSize="22sp"
+                android:typeface="monospace" />
+
+
+            <EditText
+
+                android:id="@+id/player2Name"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:enabled="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:hint="Player 2"
+                android:lines="1"
+                android:longClickable="false"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:padding="0dp"
+                android:singleLine="true"
+                android:textColor="@color/material_white"
+                android:textColorHint="@color/material_accent"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+
+                android:id="@+id/buttonP1Add"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="5"
+                android:background="@drawable/button_pressed_green"
+                android:clickable="true"
+                android:enabled="true"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="@string/plusSign"
+                android:textColor="@color/material_white"
+                android:textSize="24sp" />
+
+            <Button
+
+                android:id="@+id/buttonDiceRoll"
+                style="@style/Button.Function"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="@string/diceRoll"
+                android:textSize="16sp" />
+
+            <Button
+
+                android:id="@+id/buttonP2Add"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="5"
+                android:background="@drawable/button_pressed_green"
+                android:clickable="true"
+                android:enabled="true"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="@string/plusSign"
+                android:textColor="@color/material_white"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonP1Sub"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="5"
+                android:background="@drawable/button_pressed_red"
+                android:clickable="true"
+                android:enabled="true"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="@string/minusSign"
+                android:textColor="@color/material_white"
+                android:textSize="24sp" />/
+
+            <Button
+                android:id="@+id/buttonCoinFlip"
+                style="@style/Button.Function"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="@string/coinFlip"
+                android:textSize="16sp" />
+
+            <Button
+
+                android:id="@+id/buttonP2Sub"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="5"
+                android:background="@drawable/button_pressed_red"
+                android:clickable="true"
+                android:enabled="true"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="@string/minusSign"
+                android:textColor="@color/material_white"
+                android:textSize="24sp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button7"
+                style="@style/Button.Number"
+                android:tag="7"
+                android:text="7" />
+
+            <Button
+                android:id="@+id/button8"
+                style="@style/Button.Number"
+                android:tag="8"
+                android:text="8" />
+
+            <Button
+                android:id="@+id/button9"
+                style="@style/Button.Number"
+                android:tag="9"
+                android:text="9" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button4"
+                style="@style/Button.Number"
+                android:tag="4"
+                android:text="4" />
+
+            <Button
+                android:id="@+id/button5"
+                style="@style/Button.Number"
+                android:tag="5"
+                android:text="5" />
+
+            <Button
+                android:id="@+id/button6"
+                style="@style/Button.Number"
+                android:tag="6"
+                android:text="6" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button1"
+                style="@style/Button.Number"
+                android:tag="1"
+                android:text="1" />
+
+            <Button
+                android:id="@+id/button2"
+                style="@style/Button.Number"
+                android:tag="2"
+                android:text="2" />
+
+            <Button
+                android:id="@+id/button3"
+                style="@style/Button.Number"
+                android:tag="3"
+                android:text="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button0"
+                style="@style/Button.Number"
+                android:tag="0"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/button00"
+                style="@style/Button.Number"
+                android:tag="00"
+                android:text="00" />
+
+            <Button
+                android:id="@+id/button000"
+                style="@style/Button.Number"
+                android:tag="000"
+                android:text="000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".66"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/buttonTimer"
+                style="@style/Button.Function"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Timer" />
+
+            <Button
+                android:id="@+id/buttonShowCalc"
+                style="@style/Button.Function"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Calc" />
+
+            <Button
+                android:id="@+id/buttonReset"
+                style="@style/Button.Function"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Reset" />
+
+            <Button
+                android:id="@+id/buttonClear"
+                style="@style/Button.Function"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Clear" />
+
+            <Button
+                android:id="@+id/buttonUndo"
+                style="@style/Button.Function"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Undo" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/holderTimer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/trans"
-        android:visibility="gone"
-        android:id="@+id/holderTimer">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <View
+            android:id="@+id/spacerTimerTop"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/trans"
-            android:id="@+id/spacerTimerTop" />
+            android:background="@color/trans" />
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:background="@color/trans"
             android:layout_height="0dp"
             android:layout_weight="3"
+            android:background="@color/trans"
+            android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:clickable="true">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/material_light"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
+                android:background="@color/material_light"
+                android:clickable="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:clickable="true"
+                android:orientation="horizontal"
                 android:visibility="gone">
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_weight="9"
                     android:background="@color/trans"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+                <TextView
+                    android:id="@+id/buttonTimerClose"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@color/trans"
+                    android:clickable="true"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:clickable="true" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|center_horizontal"
                     android:text="X"
                     android:textIsSelectable="false"
                     android:textSize="28sp"
-                    android:typeface="monospace"
-                    android:background="@color/trans"
-                    android:layout_gravity="center"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:clickable="true"
-                    android:id="@+id/buttonTimerClose"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true" />
+                    android:typeface="monospace" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="vertical"
                 android:id="@+id/timerHolder"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
+                android:layout_weight="2"
                 android:background="@color/material_black"
+                android:clickable="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:clickable="true"
-                android:layout_gravity="center">
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="center"
+                    android:layout_margin="1dp"
                     android:layout_weight="10"
-                    android:layout_margin="1dp">
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar
-                            android:layout_centerInParent="true"
                             android:id="@+id/picker"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
+                            android:layout_centerInParent="true"
+                            app:init_position="2400"
                             app:max="3600"
                             app:pointer_color="@color/accent"
                             app:pointer_halo_color="@color/material_dark"
                             app:pointer_size="10dp"
+                            app:show_text="false"
                             app:text_color="@color/material_white"
                             app:text_size="65sp"
-                            app:show_text="false"
-                            app:init_position="2400"
                             app:wheel_active_color="@color/accent"
                             app:wheel_unactive_color="@color/material_dark" />
 
                         <TextView
+                            android:id="@+id/textTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="TIME"
-                            android:id="@+id/textTime"
-                            android:textSize="48sp"
+                            android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:layout_centerHorizontal="true" />
+                            android:text="TIME"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="48sp" />
                     </RelativeLayout>
 
 
                 </LinearLayout>
+
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_margin="1dp"
                     android:layout_weight="2"
-                    android:layout_margin="1dp">
+                    android:orientation="horizontal">
 
                     <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Reset"
                         android:id="@+id/buttonResetTimer"
-                        android:layout_weight="1"
                         style="@style/Button.Number"
-                        android:typeface="normal"
-                        android:textSize="26sp" />
-
-                    <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Start"
-                        android:id="@+id/buttonStartTimer"
                         android:layout_weight="1"
+                        android:text="Reset"
+                        android:textSize="26sp"
+                        android:typeface="normal" />
+
+                    <Button
+                        android:id="@+id/buttonStartTimer"
                         style="@style/Button.Number"
-                        android:typeface="normal"
-                        android:textSize="26sp" />
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Start"
+                        android:textSize="26sp"
+                        android:typeface="normal" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -519,294 +537,315 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/spacerTimerBottom"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/trans"
             android:layout_margin="0dp"
-            android:id="@+id/spacerTimerBottom" />
+            android:layout_weight="1"
+            android:background="@color/trans" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/holderCalculator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/trans"
-        android:id="@+id/holderCalculator"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <View
+            android:id="@+id/spacerCalculatorTop"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/trans"
             android:layout_margin="0dp"
-            android:id="@+id/spacerCalculatorTop" />
+            android:layout_weight="1"
+            android:background="@color/trans" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:layout_weight="5"
             android:background="@color/material_black"
-            android:clickable="true">
+            android:clickable="true"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:background="@color/trans"
-                android:layout_margin="1dp">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
                     android:id="@+id/calculatorWork"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="3"
-                    android:gravity="top|right"
-                    android:padding="4dp"
-                    android:maxLines="2"
-                    android:editable="false"
-                    android:enabled="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:clickable="true"
-                    android:layout_marginRight="1dp" />
-
-                <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/calculatorResults"
-                    android:layout_weight="2"
-                    android:gravity="bottom|right"
-                    android:padding="4dp"
-                    android:maxLines="2"
-                    android:editable="false"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_weight="3"
+                    android:clickable="true"
                     android:enabled="true"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:clickable="true"
+                    android:gravity="top|end"
+                    android:maxLines="2"
+                    android:padding="4dp" />
+
+                <TextView
+                    android:id="@+id/calculatorResults"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="1dp" />
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_weight="2"
+                    android:clickable="true"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="bottom|end"
+                    android:maxLines="2"
+                    android:padding="4dp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_margin="1dp"
                 android:layout_weight="7"
                 android:background="@color/trans"
-                android:layout_margin="1dp">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
+
                     <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        style="@style/Button.Number"
-                        android:text="7"
                         android:id="@+id/calc7"
-                        android:tag="7" />
-                    <Button
+                        style="@style/Button.Number"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Number"
-                        android:text="8"
+                        android:tag="7"
+                        android:text="7" />
+
+                    <Button
                         android:id="@+id/calc8"
-                        android:tag="8" />
-                    <Button
+                        style="@style/Button.Number"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Number"
-                        android:text="9"
+                        android:tag="8"
+                        android:text="8" />
+
+                    <Button
                         android:id="@+id/calc9"
-                        android:tag="9" />
-                    <Button
+                        style="@style/Button.Number"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Function"
-                        android:text="("
+                        android:tag="9"
+                        android:text="9" />
+
+                    <Button
                         android:id="@+id/calcLeftParen"
-                        android:textSize="20sp"
-                        android:tag="(" />
-                    <Button
+                        style="@style/Button.Function"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Function"
-                        android:text=")"
+                        android:tag="("
+                        android:text="("
+                        android:textSize="20sp" />
+
+                    <Button
                         android:id="@+id/calcRightParen"
-                        android:textSize="20sp"
-                        android:tag=")" />
+                        style="@style/Button.Function"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:tag=")"
+                        android:text=")"
+                        android:textSize="20sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
+
                     <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        style="@style/Button.Number"
-                        android:text="4"
                         android:id="@+id/calc4"
-                        android:tag="4" />
-                    <Button
+                        style="@style/Button.Number"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Number"
-                        android:text="5"
+                        android:tag="4"
+                        android:text="4" />
+
+                    <Button
                         android:id="@+id/calc5"
-                        android:tag="5" />
-                    <Button
+                        style="@style/Button.Number"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Number"
-                        android:text="6"
+                        android:tag="5"
+                        android:text="5" />
+
+                    <Button
                         android:id="@+id/calc6"
-                        android:tag="6" />
-                    <Button
+                        style="@style/Button.Number"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Function"
-                        android:text="*"
+                        android:tag="6"
+                        android:text="6" />
+
+                    <Button
                         android:id="@+id/calcMultiply"
-                        android:textSize="20sp"
-                        android:tag="*" />
-                    <Button
+                        style="@style/Button.Function"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Function"
-                        android:text="/"
+                        android:tag="*"
+                        android:text="*"
+                        android:textSize="20sp" />
+
+                    <Button
                         android:id="@+id/calcDivide"
-                        android:textSize="20sp"
-                        android:tag="-" />
+                        style="@style/Button.Function"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:tag="-"
+                        android:text="/"
+                        android:textSize="20sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
+
                     <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        style="@style/Button.Number"
-                        android:text="1"
                         android:id="@+id/calc1"
-                        android:tag="1" />
-                    <Button
+                        style="@style/Button.Number"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Number"
-                        android:text="2"
+                        android:tag="1"
+                        android:text="1" />
+
+                    <Button
                         android:id="@+id/calc2"
-                        android:tag="2" />
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
                         style="@style/Button.Number"
-                        android:text="3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:tag="2"
+                        android:text="2" />
+
+                    <Button
                         android:id="@+id/calc3"
-                        android:tag="3" />
-                    <Button
+                        style="@style/Button.Number"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Function"
-                        android:text="+"
+                        android:tag="3"
+                        android:text="3" />
+
+                    <Button
                         android:id="@+id/calcAdd"
-                        android:textSize="20sp"
-                        android:tag="+" />
-                    <Button
+                        style="@style/Button.Function"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Function"
-                        android:text="-"
+                        android:tag="+"
+                        android:text="+"
+                        android:textSize="20sp" />
+
+                    <Button
                         android:id="@+id/calcMinus"
-                        android:textSize="20sp"
-                        android:tag="-" />
+                        style="@style/Button.Function"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:tag="-"
+                        android:text="-"
+                        android:textSize="20sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
+
                     <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        style="@style/Button.Function"
-                        android:text="&lt;"
                         android:id="@+id/calcBackspace"
-                        android:textSize="20sp"
-                        android:tag="backspace" />
-                    <Button
+                        style="@style/Button.Function"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Number"
-                        android:text="0"
+                        android:tag="backspace"
+                        android:text="&lt;"
+                        android:textSize="20sp" />
+
+                    <Button
                         android:id="@+id/calc0"
-                        android:tag="0" />
-                    <Button
+                        style="@style/Button.Number"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Function"
-                        android:text="."
+                        android:tag="0"
+                        android:text="0" />
+
+                    <Button
                         android:id="@+id/calcDecimal"
-                        android:textSize="20sp"
-                        android:tag="." />
-
-                    <Button
+                        style="@style/Button.Function"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Function"
-                        android:text="C"
+                        android:tag="."
+                        android:text="."
+                        android:textSize="20sp" />
+
+                    <Button
                         android:id="@+id/calcClear"
-                        android:textSize="25sp"
-                        android:tag="clear" />
-
-                    <Button
+                        style="@style/Button.Function"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/Button.Function"
-                        android:background="@drawable/button_pressed_accent"
-                        android:text="="
+                        android:tag="clear"
+                        android:text="C"
+                        android:textSize="25sp" />
+
+                    <Button
                         android:id="@+id/calcEquals"
-                        android:textSize="25sp"
-                        android:tag="=" />
+                        style="@style/Button.Function"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_pressed_accent"
+                        android:tag="="
+                        android:text="="
+                        android:textSize="25sp" />
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
 
         <View
+            android:id="@+id/spacerCalculatorBottom"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/trans"
             android:layout_margin="0dp"
-            android:id="@+id/spacerCalculatorBottom" />
+            android:layout_weight="1"
+            android:background="@color/trans" />
 
     </LinearLayout>
 

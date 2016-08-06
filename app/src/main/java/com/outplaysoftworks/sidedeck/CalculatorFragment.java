@@ -29,6 +29,7 @@ import net.sourceforge.jeval.EvaluationException;
 import net.sourceforge.jeval.Evaluator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -41,7 +42,6 @@ import me.grantland.widget.AutofitHelper;
 
 public class CalculatorFragment extends Fragment {
     private final Integer diceRollAnimationDuration = 2000; //In milliseconds
-    private final Integer diceRollAnimationFrameCount = 12;
     //View objects
     public static View view;
     //Sound stuff
@@ -97,10 +97,10 @@ public class CalculatorFragment extends Fragment {
         makePresenter();
     }
 
-    private static void animateTextView(int initialValue, int finalValue, final TextView textview, int duration) {
+    private static void animateTextView(int initialValue, int finalValue, final TextView textview) {
         if (initialValue != finalValue) { //will not do anything if both values are equal
             ValueAnimator valueAnimator = ValueAnimator.ofInt(initialValue, finalValue);
-            valueAnimator.setDuration(duration);
+            valueAnimator.setDuration(AppConstants.LPCHANGEANIMATIONDURATION);
 
             valueAnimator.addUpdateListener(valueAnimator1 -> textview.setText(valueAnimator1.getAnimatedValue().toString()));
             valueAnimator.start();
@@ -137,7 +137,7 @@ public class CalculatorFragment extends Fragment {
 
     @OnClick(R.id.buttonReset)
     void onResetClick() {
-        AlertDialog alertDialog = new AlertDialog.Builder(this.getContext(), R.style.MyDialog)
+        new AlertDialog.Builder(this.getContext(), R.style.MyDialog)
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setTitle(this.getContext().getResources().getString(R.string.reset) + "?")
             .setMessage(this.getContext().getResources().getString(R.string.AreYouSure))
@@ -148,12 +148,6 @@ public class CalculatorFragment extends Fragment {
                 //Do nothing
             })
             .show();
-        TextView message = ButterKnife.findById(alertDialog, android.R.id.message);
-        /*if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
-            message.setTextColor(getResources().getColor(R.color.material_black));
-        } else {
-            message.setTextColor(getResources().getColor(R.color.material_white));
-        }*/
     }
 
     private void reset(){
@@ -166,6 +160,7 @@ public class CalculatorFragment extends Fragment {
         player2Name.setText(mCalculatorPresenter.getPlayer2Name());
     }
 
+    @SuppressWarnings("deprecation")
     private void loadDrawables() {
         diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_1));
         diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_2));
@@ -177,6 +172,7 @@ public class CalculatorFragment extends Fragment {
     }
 
     private void setUpSounds() {
+        //noinspection deprecation
         soundPool = new SoundPool(32, AudioManager.STREAM_MUSIC, 0);
         lpCounterSoundId = soundPool.load(getContext(), R.raw.lpcountersound, 1);
         coinFlipSoundId = soundPool.load(getContext(), R.raw.coinflipsound, 1);
@@ -202,23 +198,11 @@ public class CalculatorFragment extends Fragment {
     }
 
     public void onEnteredValueUpdated(String enteredValue) {
-        String previousEnteredValue = enteredValueView.getText().toString();
-        if (enteredValue.equals("")) {
+        if (enteredValue.equals("") || enteredValue.equals("0")) {
             enteredValueView.setText("");
             return;
         }
-        if (enteredValue.equals("0")) {
-            enteredValueView.setText("");
-            return;
-        }
-        if (enteredValueView != null) {
-            if (previousEnteredValue.equals("")) {
-                previousEnteredValue = "0";
-            }
-            //animateTextView(Integer.parseInt(previousEnteredValue), Integer.parseInt(enteredValue),
-            //        enteredValueView, AppConstants.ENTEREDVALUEVIEWANIMATIONDURATION);
-            enteredValueView.setText(enteredValue);
-        }
+        enteredValueView.setText(enteredValue);
     }
 
     public SharedPreferences getPreferences(){
@@ -236,12 +220,12 @@ public class CalculatorFragment extends Fragment {
     }
 
     private void showSafeValueDialog(int player, boolean add){
-        AlertDialog alertDialog = new AlertDialog.Builder(this.getContext(), R.style.MyDialog)
+        new AlertDialog.Builder(this.getContext(), R.style.MyDialog)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Possible accidental entry")//TODO: Pick better words and localize
-                .setMessage("The entered number " + mCalculatorPresenter.getEnteredValue()
-                    + " seems too large.  Are you sure that this is correct?")
-                .setPositiveButton("Continue", (dialog, which) ->{
+                .setTitle(R.string.possibleAccidentalEntry)//TODO: Pick better words and localize
+                .setMessage(getString(R.string.theEnteredNumber) + mCalculatorPresenter.getEnteredValue()
+                    + getString(R.string.seemsTooLarge))
+                .setPositiveButton(R.string.Continue, (dialog, which) ->{
                     switch(player){
                         case 1:
                             if(add){
@@ -259,15 +243,8 @@ public class CalculatorFragment extends Fragment {
                             break;
                     }
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.cancel, null)
                 .show();
-
-        TextView message = ButterKnife.findById(alertDialog, android.R.id.message);
-        /*if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
-            message.setTextColor(getResources().getColor(R.color.material_black));
-        } else {
-            message.setTextColor(getResources().getColor(R.color.material_white));
-        }*/
     }
 
 
@@ -348,7 +325,7 @@ public class CalculatorFragment extends Fragment {
                             coinFlipButton.setClickable(true);
                         }
                     }catch (NullPointerException e){
-                        Log.d("CF: ", "coin handler crashed");
+                        Log.d("CF: ", "coin handler crashed"); //NON-NLS
                     }
                 }
             },400);
@@ -359,15 +336,13 @@ public class CalculatorFragment extends Fragment {
             try {
                 coinFlipButton.setText(getContext().getString(R.string.coinFlip));
             } catch (NullPointerException e){
-                Log.d("CF: ", "Coin handler 2 crashed");
+                Log.d("CF: ", "Coin handler 2 crashed"); //NON-NLS
             }
         }, 8000);
     }
 
     private Coin makeCoin(){
-        Double toss = Math.random();
-        Coin coin = new Coin(toss, getContext());
-        return coin;
+        return new Coin(Math.random(), getContext());
     }
 
     @OnClick(R.id.buttonTurn)
@@ -383,7 +358,7 @@ public class CalculatorFragment extends Fragment {
 
     @OnClick(R.id.buttonTimer)
     public void onClickTimerShow(){
-        getTimeFromSeconds();
+        getTimeFromSeconds(false);
         holderTimer.setVisibility(View.VISIBLE);
     }
 
@@ -398,10 +373,10 @@ public class CalculatorFragment extends Fragment {
         if (!doNotShowToast) makeToast(toast);
         switch (player) {
             case 1:
-                animateTextView(playerLpPrevious, playerLp, player1Lp, AppConstants.LPCHANGEANIMATIONDURATION);
+                animateTextView(playerLpPrevious, playerLp, player1Lp);
                 break;
             case 2:
-                animateTextView(playerLpPrevious, playerLp, player2Lp, AppConstants.LPCHANGEANIMATIONDURATION);
+                animateTextView(playerLpPrevious, playerLp, player2Lp);
                 break;
         }
     }
@@ -437,13 +412,14 @@ public class CalculatorFragment extends Fragment {
     }
 
     public void onTurnUpdated(Integer turn) {
-        buttonTurn.setText(view.getResources().getString(R.string.turn) + turn.toString());
+        buttonTurn.setText(String.format("%s%s", view.getResources().getString(R.string.turn), turn.toString())); //NON-NLS
     }
 
     //TODO: Make sure this scales correctly across multiple screen dpi settings
     public void onDiceRollComplete(final int lastDiceRoll) {
         buttonDiceRoll.setClickable(false);
         final Drawable originalBackgroundDrawable = diceRollBackgroundDrawable;
+        Integer diceRollAnimationFrameCount = 12;
         RandomAnimationBuilder randomAnimationBuilder = new RandomAnimationBuilder(diceDrawables,
                 diceRollAnimationDuration, diceRollAnimationFrameCount);
         AnimationDrawable animation = randomAnimationBuilder.makeAnimation(false);
@@ -454,10 +430,11 @@ public class CalculatorFragment extends Fragment {
         handler.postDelayed(() -> {
             try {
                 buttonDiceRoll.setAlpha(1f);
+                //noinspection deprecation
                 buttonDiceRoll.setBackgroundDrawable(diceDrawables.get(lastDiceRoll));
                 buttonDiceRoll.setClickable(true);
             } catch (NullPointerException e){
-                Log.d("CF: ", "Dice handler crashed");
+                Log.d("CF: ", "Dice handler crashed"); //NON-NLS
             }
         }, diceRollAnimationDuration + (randomAnimationBuilder.getFrameDuration() * 2));
         resetDiceRollButtonAfterDelay(originalBackgroundDrawable);
@@ -470,7 +447,7 @@ public class CalculatorFragment extends Fragment {
                 buttonDiceRoll.setText(view.getResources().getString(R.string.diceRoll));
                 buttonDiceRoll.setBackground(originalBackground);
             } catch (NullPointerException e){
-                Log.d("CF: ", "Dice reset handler crashed");
+                Log.d("CF: ", "Dice reset handler crashed"); //NON-NLS
             }
         }, diceRollAnimationDuration + 6000);
     }
@@ -483,6 +460,7 @@ public class CalculatorFragment extends Fragment {
         Toast toast = Toast.makeText(this.getContext(), toastText, Toast.LENGTH_LONG);
         lpToasts.add(toast);
         View view = toast.getView();
+        //noinspection deprecation
         view.setBackgroundColor(getResources().getColor(R.color.material_light_dark));
         TextView textView = ButterKnife.findById(view, android.R.id.message);
         textView.setGravity(Gravity.CENTER);
@@ -543,6 +521,7 @@ public class CalculatorFragment extends Fragment {
                 if (currentTimeInSeconds == 0) {
                     timerFinished();
                     timerBeep();
+                    holderTimer.setVisibility(View.VISIBLE);
                     return;
                 }
                 if (currentTimeInSeconds == 301) {
@@ -551,7 +530,7 @@ public class CalculatorFragment extends Fragment {
                 decrementTimeOnUiThread();
                 timerHandler.postDelayed(this, 999);
             } catch (NullPointerException e){
-                Log.d("CF: ", "timerTask continued after activity was destroyed");
+                Log.d("CF: ", "timerTask continued after activity was destroyed"); //NON-NLS
             }
         }
     };
@@ -586,7 +565,7 @@ public class CalculatorFragment extends Fragment {
     private void decrementTime() {
         currentTimeInSeconds--;
         picker.setValue(currentTimeInSeconds);
-        getTimeFromSeconds();
+        getTimeFromSeconds(true);
         //Log.d("TIMER", "decrementTime: " + currentTimeInSeconds);
 
     }
@@ -612,7 +591,8 @@ public class CalculatorFragment extends Fragment {
     public void startTimer(){
         if(!timerRunning) {
             initializeTimerTask();
-        }else if(timerRunning){
+        }else //noinspection ConstantConditions
+            if(timerRunning){
             stopTimer();
         }
     }
@@ -620,7 +600,7 @@ public class CalculatorFragment extends Fragment {
     public void stopTimer(){
         timerRunning = false;
         timerHandler.removeCallbacksAndMessages(null);
-        buttonStartTimer.setText("START");
+        buttonStartTimer.setText(R.string.start);
     }
 
     @OnClick(R.id.buttonResetTimer)
@@ -628,17 +608,17 @@ public class CalculatorFragment extends Fragment {
         stopTimer();
         picker.setValue(defaultTimeInSeconds);
         currentTimeInSeconds = defaultTimeInSeconds;
-        getTimeFromSeconds();
-        buttonTimer.setText("Timer");
+        getTimeFromSeconds(false);
+        buttonTimer.setText(R.string.timer);
     }
 
     public void initializeTimerTask(){
         timerHandler.removeCallbacksAndMessages(null);
         timerHandler.postDelayed(timerTask, 999);
-        buttonStartTimer.setText("STOP");
+        buttonStartTimer.setText(R.string.stop);
 
     }
-    private void getTimeFromSeconds(){
+    private void getTimeFromSeconds(Boolean setButtonTimerText){
         Integer time1 = currentTimeInSeconds / 60;
         Integer time2 = currentTimeInSeconds % 60;
         String timeMinutes = time1.toString();
@@ -651,8 +631,9 @@ public class CalculatorFragment extends Fragment {
         }
         String theTime = timeMinutes + ":" + timeSeconds;
         textTime.setText(theTime);
-        buttonTimer.setText(theTime);
-
+        if(setButtonTimerText) {
+            buttonTimer.setText(theTime);
+        }
     }
     public void setPickerListener(){
         picker.setValue(defaultTimeInSeconds);
@@ -660,19 +641,19 @@ public class CalculatorFragment extends Fragment {
             @Override
             public void onProgressChanged(HoloCircleSeekBar holoCircleSeekBar, int i, boolean b) {
                 currentTimeInSeconds = holoCircleSeekBar.getValue();
-                getTimeFromSeconds();
+                getTimeFromSeconds(true);
             }
 
             @Override
             public void onStartTrackingTouch(HoloCircleSeekBar holoCircleSeekBar) {
                 currentTimeInSeconds = holoCircleSeekBar.getValue();
-                getTimeFromSeconds();
+                getTimeFromSeconds(false);
             }
 
             @Override
             public void onStopTrackingTouch(HoloCircleSeekBar holoCircleSeekBar) {
                 currentTimeInSeconds = holoCircleSeekBar.getValue();
-                getTimeFromSeconds();
+                getTimeFromSeconds(false);
             }
         });
     }
@@ -696,7 +677,6 @@ public class CalculatorFragment extends Fragment {
     public void hideCalculator(){
         holderCalculator.setVisibility(View.GONE);
     }
-    private String calcLastEntered = "";
     @OnClick({R.id.calc0, R.id.calc1, R.id.calc2, R.id.calc3, R.id.calc4, R.id.calc5, R.id.calc6,
             R.id.calc7, R.id.calc8, R.id.calc9, R.id.calcAdd, R.id.calcMinus, R.id.calcMultiply,
             R.id.calcDivide, R.id.calcDecimal, R.id.calcLeftParen, R.id.calcRightParen})
@@ -704,21 +684,20 @@ public class CalculatorFragment extends Fragment {
         String tag = view.getTag().toString();
         calcWork += tag;
         calculatorWork.setText(calcWork);
-        calcLastEntered = tag;
     }
 
     @OnClick(R.id.calcEquals)
     public void onClickCalculatorEquals(){
-        String results = "";
+        String results;
         try {
             results = evaluator.evaluate(calcCorrectParens(calcWork));
             calculatorResults.setText(results);
         } catch (EvaluationException e) {
-            Log.e("JEVAL: ", calcWork);
+            Log.e("JEVAL: ", calcWork); //NON-NLS
             calculatorResults.setText(R.string.error);
             e.printStackTrace();
             if(calcCheckIsParenMismatch(calcWork)){
-                calculatorResults.setText("Parenthesis Mismatch");
+                calculatorResults.setText(R.string.parenMismatch);
             }
         }
     }
@@ -733,10 +712,7 @@ public class CalculatorFragment extends Fragment {
                 closeCount++;
             }
         }
-        if(closeCount != openCount){
-            return true;
-        }
-        return false;
+        return closeCount != openCount;
     }
 
     @OnClick(R.id.calcBackspace)
@@ -762,9 +738,7 @@ public class CalculatorFragment extends Fragment {
         }
         String[] temp = expression.split("");
         ArrayList<String> chars = new ArrayList<>();
-        for(String s : temp){
-            chars.add(s);
-        }
+        Collections.addAll(chars, temp);
         for(int i = 1; i < chars.size() - 1; i++) {
             if(chars.get(i).equals("(") && (chars.get(i-1).matches("^[0-9]") || chars.get(i-1).equals(")"))){
                 chars.add(i, "*");

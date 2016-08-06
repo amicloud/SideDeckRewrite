@@ -16,9 +16,7 @@ import me.grantland.widget.AutofitHelper;
 
 public class LogFragment extends Fragment {
 
-    private static final String TAG = "Log Fragment";
     public static View view;
-    private static ArrayList<LinearLayout> layouts = new ArrayList<>();
     private static ArrayList<LinearLayout> sections = new ArrayList<>();
     public LogPresenter mLogPresenter;
     /*@BindView(R.id.layoutHolder)*/
@@ -59,6 +57,7 @@ public class LogFragment extends Fragment {
         addCalculationToSection(turn - 1, layout);
     }
 
+    @SuppressWarnings("deprecation")
     private LinearLayout makeLayoutForCalculation(Calculation calculation) {
         LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
         LinearLayout calculationLayout = (LinearLayout) layoutInflater.inflate(R.layout.calculation, layoutHolder, false);
@@ -101,16 +100,6 @@ public class LogFragment extends Fragment {
         return name;
     }
 
-    private void addLayoutToList(LinearLayout layout) {
-        layouts.add(layout);
-        addLayoutToHolder(layout);
-    }
-
-    private void addLayoutToHolder(LinearLayout layout) {
-        layoutHolder = ButterKnife.findById(view, R.id.layoutHolder);
-        layoutHolder.addView(layout, 0);
-    }
-
     private LinearLayout createSection(Integer turnNumber) {
         LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
         LinearLayout section = (LinearLayout) layoutInflater.inflate(R.layout.section, layoutHolder, false);
@@ -132,33 +121,25 @@ public class LogFragment extends Fragment {
 
     private RelativeLayout createHorizontalRule() {
         LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
-        RelativeLayout rule = (RelativeLayout) layoutInflater.inflate(R.layout.log_horizontal_rule,
+        return (RelativeLayout) layoutInflater.inflate(R.layout.log_horizontal_rule,
                 layoutHolder, false);
-        return rule;
     }
 
     public void onTurnIncremented(Integer turn) {
         if (sections.size() < turn) {
             addSectionToLayout(createSection(turn));
         }
-        /*if(sections.get(turn - 2) != null){
-            addSectionToLayout(createSection(turn));
-        }*/
     }
 
-    public void onTurnDecremented(Integer turn) {
-        if (sections.get(turn - 1) != null) {
-            //sections.remove(turn - 1);
-        }
+    public void onTurnDecremented() {
+        //Maybe clear the turn I don't know maybe
     }
 
     public void reset() {
-        //layoutHolder = ButterKnife.findById(view, R.id.layoutHolder);
         if(view != null) {
             layoutHolder = (LinearLayout) view.findViewById(R.id.layoutHolder);
             if (layoutHolder.getChildCount() > 0) {
                 layoutHolder.removeAllViews();
-                layouts.clear();
                 sections.clear();
                 addSectionToLayout(createSection(1));
             }

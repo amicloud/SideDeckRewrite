@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
+/** Model for the calculator, hooks up to the calculator presenter and the log presenter
  * Created by Billy on 5/13/2016.
  */
 public class CalculatorModel {
@@ -13,18 +13,15 @@ public class CalculatorModel {
     private Integer enteredValue;
     private String player1Name;
     private Random random = new Random(System.nanoTime());
-    private int lastDiceRoll;
     private String player2Name;
     private ArrayList<Calculation> calculations;
     private String enteredValueString;
-    private String appendedString;
     private Integer player1Lp;
     private Integer player1LpPrevious;
     private Integer player2Lp;
     private Integer player2LpPrevious;
     public Integer defaultLp;
     private Integer currentTurn;
-    private boolean allowNegativeLp;
 
     public Integer getEnteredValue(){
         return this.enteredValue;
@@ -34,16 +31,8 @@ public class CalculatorModel {
         return player1Name;
     }
 
-    public void setPlayer1Name(String player1Name) {
-        this.player1Name = player1Name;
-    }
-
     public String getPlayer2Name() {
         return player2Name;
-    }
-
-    public void setPlayer2Name(String player2Name) {
-        this.player2Name = player2Name;
     }
 
     public void setPlayer1Lp(int lp){
@@ -73,7 +62,7 @@ public class CalculatorModel {
         enteredValue = 0;
         currentTurn = 1;
         initializeLp();
-        calculations = new ArrayList<Calculation>();
+        calculations = new ArrayList<>();
         player1Name = getPlayerOneNameFromPreferences();
         player2Name = getPlayerTwoNameFromPreferences();
     }
@@ -120,7 +109,7 @@ public class CalculatorModel {
 
     public void doNumbers(String tag) {
         enteredValueString = enteredValue.toString();
-        appendedString = "";
+        String appendedString;
         if(tag.length() + enteredValueString.length() < 7) {
             appendedString = enteredValueString + tag;
         } else{
@@ -238,13 +227,13 @@ public class CalculatorModel {
         if(currentTurn > 1) {
             currentTurn--;
             mCalculatorPresenter.onTurnUpdated(currentTurn);
-            mLogPresenter.onTurnDecremented(currentTurn);
+            mLogPresenter.onTurnDecremented();
         }
 
     }
 
     public void doDiceRoll() {
-        lastDiceRoll = random.nextInt(6);
+        int lastDiceRoll = random.nextInt(6);
         mCalculatorPresenter.onDiceRollComplete(lastDiceRoll);
     }
 

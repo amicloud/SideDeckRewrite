@@ -1,6 +1,6 @@
 package com.outplaysoftworks.sidedeck;
 
-/**
+/** Handles communication between the calculator model and the calculator fragment/view
  * Created by Billy on 5/13/2016.
  */
 public class CalculatorPresenter {

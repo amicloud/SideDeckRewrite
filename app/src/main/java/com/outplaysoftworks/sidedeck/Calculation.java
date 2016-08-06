@@ -1,8 +1,7 @@
 package com.outplaysoftworks.sidedeck;
 
-import android.view.View;
-
-/**
+/** This class is used to create an object to hold information about a calculation that the user
+ * performed.  The object is capable of undoing itself, but only with a linear undo system
  * Created by Billy on 5/14/2016.
  */
 public class Calculation {
@@ -10,8 +9,6 @@ public class Calculation {
     private Integer lpAfter;
     private Integer player;
     private Integer lpPrevious;
-    private View view;
-    private View viewForContext;
     private CalculatorModel mCalculatorModel;
     private Integer lpDifference;
     private boolean isLpLoss;
@@ -24,10 +21,6 @@ public class Calculation {
         isLpLoss = lpAfter < previousLp;
         this.lpDifference = lpAfter - previousLp;
         this.mCalculatorModel = model;
-    }
-
-    public Integer getLpPrevious() {
-        return lpPrevious;
     }
 
     public Integer getLpAfter() {

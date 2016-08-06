@@ -13,7 +13,7 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Log.d("Splash", "Main activity should launch in " + delay + " milliseconds");
+            Log.d("Splash", "Main activity should launch in " + delay + " milliseconds"); //NON-NLS
             //Intent intent = new Intent(this, MainActivity.class);
             startActivity(new Intent(this, MainActivity.class));
             finish();

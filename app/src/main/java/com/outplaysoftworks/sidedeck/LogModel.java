@@ -1,16 +1,13 @@
 package com.outplaysoftworks.sidedeck;
 
-import android.widget.LinearLayout;
-
 import java.util.ArrayList;
 
-/**
+/** A model for all log related information.  Might be useless
  * Created by Billy on 5/30/2016.
  */
 public class LogModel {
 
     private LogPresenter mLogPresenter;
-    private ArrayList<LinearLayout> layouts;
     private ArrayList<Calculation> calculationList = new ArrayList<>();
     public LogModel(LogPresenter logPresenter) {
         mLogPresenter = logPresenter;

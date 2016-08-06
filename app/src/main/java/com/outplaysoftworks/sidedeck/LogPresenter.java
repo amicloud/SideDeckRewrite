@@ -1,6 +1,6 @@
 package com.outplaysoftworks.sidedeck;
 
-/**
+/** Hooks the log model up to the log fragment/view
  * Created by Billy on 6/13/2016.
  */
 public class LogPresenter {
@@ -27,8 +27,8 @@ public class LogPresenter {
         mLogFragment.onTurnIncremented(currentTurn);
     }
 
-    public void onTurnDecremented(Integer currentTurn) {
-        mLogFragment.onTurnDecremented(currentTurn);
+    public void onTurnDecremented() {
+        mLogFragment.onTurnDecremented();
     }
 
     public void reset() {
