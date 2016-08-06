@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar;
 
 import net.sourceforge.jeval.EvaluationException;
@@ -92,6 +93,12 @@ public class CalculatorFragment extends Fragment {
     //Calculator stuff
     private String calcWork = "";
     Evaluator evaluator = new Evaluator();
+    private Integer timesCalculatorOpened = 0;
+
+    //Timer stuff
+    private Integer timesTimerOpened = 0;
+
+    FirebaseAnalytics mFirebaseAnalytics;
 
     public CalculatorFragment() {
         makePresenter();
@@ -123,6 +130,7 @@ public class CalculatorFragment extends Fragment {
         reset();
         createAutoFitTextHelpers();
         setPickerListener();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this.getContext());
         // Inflate the layout for this fragment
         return view;
     }
@@ -360,6 +368,7 @@ public class CalculatorFragment extends Fragment {
     public void onClickTimerShow(){
         getTimeFromSeconds(false);
         holderTimer.setVisibility(View.VISIBLE);
+        timesTimerOpened++;
     }
 
     @OnClick({R.id.buttonTimerClose, R.id.spacerTimerBottom, R.id.spacerTimerTop})
@@ -660,6 +669,12 @@ public class CalculatorFragment extends Fragment {
 
     @Override
     public void onDestroy(){
+        Bundle bundle = new Bundle();
+        bundle.putString("times_calculator_opened", timesCalculatorOpened.toString());//NON-NLS
+        bundle.putString("times_timer_opened", timesTimerOpened.toString());//NON-NLS
+        mFirebaseAnalytics.logEvent("timer_calculator_tracker", bundle);//NON-NLS
+        Log.d("Analytics ", "times calc opened: " + timesCalculatorOpened + "; times " + //NON-NLS
+                "timer opened: " + timesTimerOpened); //NON-NLS
         super.onDestroy();
         coinHandler.removeCallbacksAndMessages(null);
         diceResetHandler.removeCallbacksAndMessages(null);
@@ -671,6 +686,7 @@ public class CalculatorFragment extends Fragment {
     @OnClick(R.id.buttonShowCalc)
     public void showCalculator(){
         holderCalculator.setVisibility(View.VISIBLE);
+        timesCalculatorOpened++;
     }
 
     @OnClick({R.id.spacerCalculatorTop, R.id.spacerCalculatorBottom})

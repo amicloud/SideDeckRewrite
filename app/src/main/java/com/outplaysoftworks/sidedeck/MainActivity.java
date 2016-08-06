@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity{
 
     public FirebaseDatabase database = FirebaseDatabase.getInstance();
     public DatabaseReference databaseReference = database.getReference();
-
+    public FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity{
         mCalculatorFragment = new CalculatorFragment();
         mLogFragment = new LogFragment();
         context = this;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         IS_BETA_RELEASE = checkIfIsBeta();
 
@@ -165,14 +167,17 @@ public class MainActivity extends AppCompatActivity{
 
     private void onGotNewVersionBeta(Version newVersion) {
         Version localVersion = new Version(System.currentTimeMillis()/1000L,BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
-        /*Log.d("Got version: ", "current release is " + newVersion.getVersionCode());
-        Log.d("Got version: ", "current beta is " + newVersion.getVersionCode());*/
+        Log.d("Got version: ", "newest beta version is " + newVersion.getVersionCode()); //NON-NLS
+        //Log.d("Got version: ", "current beta is " + newVersion.getVersionCode());
         int remoteVersionCode = newVersion.getVersionCode();
         String remoteVersionName = newVersion.getVersionName();
         Long remoteVersionAvailableAt = newVersion.getAvailableAt();
         Log.d("FB: ", "Remote avail: " + remoteVersionAvailableAt.toString() + ", local time: " + System.currentTimeMillis()/1000L); //NON-NLS
         if(localVersion.getVersionCode() < remoteVersionCode  &&
                System.currentTimeMillis()/1000L > remoteVersionAvailableAt){
+            Bundle bundle = new Bundle();
+            bundle.putString("got_new_version", remoteVersionName); //NON-NLS
+            bundle.putString("old_version", BuildConfig.VERSION_NAME); //NON-NLS
             new AlertDialog.Builder(this, R.style.MyDialog)
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .setTitle(R.string.newVersionAvailable)
@@ -181,21 +186,29 @@ public class MainActivity extends AppCompatActivity{
                             getString(R.string.goToPlayStore))
                     .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
                         takeUserToPlayStore();
+                        bundle.putString("user_accepted", "yes");//NON-NLS
+                        mFirebaseAnalytics.logEvent("beta_user_checked_update", bundle);//NON-NLS
                     })
-                    .setNegativeButton(getString(R.string.noThanks), null)
+                    .setNegativeButton(getString(R.string.noThanks), (dialog, which) -> {
+                        bundle.putString("user_accepted", "no");//NON-NLS
+                        mFirebaseAnalytics.logEvent("beta_user_checked_update", bundle);//NON-NLS
+                    })
                     .show();
         }
     }
 
     private void onGotNewVersion(Version newVersion){
         Version localVersion = new Version(System.currentTimeMillis()/1000L, BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
-        /*Log.d("Got version: ", "current release is " + newVersion.getVersionCode());
-        Log.d("Got version: ", "current beta is " + newVersion.getVersionCode());*/
+        Log.d("Got version: ", "newest release version: " + newVersion.getVersionCode()); //NON-NLS
+        //Log.d("Got version: ", "current beta is " + newVersion.getVersionCode());
         int remoteVersionCode = newVersion.getVersionCode();
         String remoteVersionName = newVersion.getVersionName();
         Long remoteVersionAvailableAt = newVersion.getAvailableAt();
         if(localVersion.getVersionCode() < remoteVersionCode &&
                 System.currentTimeMillis()/1000L > remoteVersionAvailableAt){
+            Bundle bundle = new Bundle();
+            bundle.putString("got_new_version", remoteVersionName);//NON-NLS
+            bundle.putString("old_version", BuildConfig.VERSION_NAME);//NON-NLS
             new AlertDialog.Builder(this, R.style.MyDialog)
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .setTitle(getString(R.string.newVersionAvailable))
@@ -204,8 +217,13 @@ public class MainActivity extends AppCompatActivity{
                             getString(R.string.goToPlayStore))
                     .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
                         takeUserToPlayStore();
+                        bundle.putString("user_accepted", "yes");//NON-NLS
+                        mFirebaseAnalytics.logEvent("user_checked_update", bundle);//NON-NLS
                     })
-                    .setNegativeButton(getString(R.string.noThanks), null)
+                    .setNegativeButton(getString(R.string.noThanks), (dialog, which) -> {
+                        bundle.putString("user_accepted", "no");//NON-NLS
+                        mFirebaseAnalytics.logEvent("user_checked_update", bundle);//NON-NLS
+                    })
                     .show();
         }
     }
@@ -241,13 +259,6 @@ class Version{
     public int getVersionCode() {
         return versionCode;
     }
-
-    /*public void setVersionCode(int versionCode) {
-        this.versionCode = versionCode;
-    }
-    public void setVersionName(String versionName) {
-        this.versionName = versionName;
-    }*/
 
     public String getVersionName() {
         return versionName;
