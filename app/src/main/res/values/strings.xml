@@ -6,13 +6,8 @@
     <string name="KEYplayerTwoDefaultNameSetting" translatable="false">KEYplayerTwoDefaultNameSetting</string>
     <string name="KEYsoundOnOff" translatable="false">KEYsoundOnOff</string>
     <string name="KEYdefaultLpSetting" translatable="false">KEYdefaultLpSetting</string>
-    <string name="KEYamoledNightModeSetting" translatable="false">KEYamoledNightModeSetting</string>
-    <string name="KEYhasUserRatedAppYet" translatable="false">KEYhasUserRatedAppYet</string>
-    <string name="KEYlaunchWhenUserPressedRemind" translatable="false">KEYlaunchWhenUserPressedRemind</string>
     <string name="KEYcheckSafeEntry">KEYcheckSafeEntry</string>
-    <string name="KEYstopAtZero">KEYstopAtZero</string>
 
-    <string name="action_settings">Settings</string>
     <string name="reset">Reset</string>
     <string name="settings">Settings</string>
     <string name="diceRoll">Dice Roll</string>
@@ -22,7 +17,6 @@
     <string name="turn1">"Turn\n1"</string>
     <string name="turn">"Turn\n"</string>
     <string name="logTurn">Turn</string>
-    <string name="turnColon">"Turn: "</string>
     <string name="playerOne">Player 1</string>
     <string name="playerTwo">Player 2</string>
     <string name="defaultLifepoints">Default Lifepoins</string>
@@ -32,108 +26,31 @@
     <string name="soundSettingSummary">Enable sound effects</string>
     <string name="lpAddedTo">" LP added to "</string>
     <string name="lpSubtracedFrom">" LP subtracted from "</string>
-    <string name="x" translatable="false">x</string>
-    <string name="blankSpace" translatable="false">" "</string>
     <string name="duelLog">Duel Log</string>
-    <string name="lifePoints">Lifepoints</string>
     <string name="calculator">Calculator</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-8255332778135768/4126997531</string>
-    <string name="test_banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="amoledBlackTheme">AMOLED Black theme</string>
-    <string name="amoledBlackThemeSummary">Reduces battery consumption on AMOLED display devices</string>
-    <string name="gotIt">Got it!</string>
-    <string name="clearButtonTutorialMessage">You can tap on the number to clear it</string>
 
 
-    <string name="rateMe">Rate Me!</string>
-    <string name="noThanksAndDoNotAskAgain">No Thanks and Do Not Ask Me Again</string>
-    <string name="remindMeLater">Remind Me Later</string>
-    <string name="playStoreMarketLink" translatable="false">"market://details?id=</string>
-    <string name="playStoreHttpLink" translatable="false">http://play.google.com/store/apps/details?id=</string>
-    <string name="rateMeText">If you like SideDeck, please rate it on the Google Play Store!</string>
-    <string name="enjoyingSidedeck">Enjoying SideDeck?</string>
     <string name="yes">Yes!</string>
     <string name="notReally">Not really</string>
-    <string name="giveFeedback">Would you mind giving us some feedback?</string>
-    <string name="okSure">OK, sure</string>
-    <string name="mailTo" translatable="false">mailto:outplaysoftworks@gmail.com?subject=SideDeck%20Feedback</string>
     <string name="noThanks">No, thanks</string>
 
-    <string name="TutorialMessage1">When you enter a number, it will appear here.  Simply tap the number to clear your entry</string>
-    <string name="TutorialMessage2">Whenever you perform actions, they will be grouped by turn in the duel log. Tap this button to increase the turn, and long-press it to decrease the turn</string>
-    <string name="TutorialMessage3">Press the menu button to find the Reset, Calculator, and Settings buttons.  You may want to go ahead and change your default name in the Settings</string>
     <string name="AreYouSure">Are you sure?</string>
-    <string name="Resetting">Resetting</string>
-    <string name="Cancel">Cancel</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_tests">Tests</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="undo">Undo</string>
 
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
-
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
 
     <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
 
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
     <string name="checkForSafeEntrySummary">If the entered number doesn\'t seem correct, ask for confirmation.  Prevents accidentally adding 100,000 LP</string>
     <string name="checkForSafeEntryTitle">Check for Safe Entered Number</string>
     <string name="stopAtZeroSummary">Allow Lifepoints to become negative</string>
     <string name="stopAtZeroTitle">Allow Negative Lifepoints</string>
     <string name="KEYallowNegativeLp">KEYallowNegativeLp</string>
-    <string name="tapToClear">TAP TO CLEAR</string>
     <string name="error">ERROR</string>
     <string name="overflow">Overflow</string>
     <string name="plusSign">+</string>
@@ -151,4 +68,6 @@
     <string name="newestVersionIs">"The newest beta version of SideDeck is "</string>
     <string name="youHaveVersion">"You have version "</string>
     <string name="goToPlayStore">Would you like to go to the Google Play Store to update?</string>
+    <string name="rateMe">Rate Me?</string>
+    <string name="rateMeMessage">Care to rate SideDeck on the Google Play store?</string>
 </resources>

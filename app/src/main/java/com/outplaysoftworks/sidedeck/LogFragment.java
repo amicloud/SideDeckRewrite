@@ -16,11 +16,11 @@ import me.grantland.widget.AutofitHelper;
 
 public class LogFragment extends Fragment {
 
-    public static View view;
-    private static ArrayList<LinearLayout> sections = new ArrayList<>();
+    private static View view;
+    private static final ArrayList<LinearLayout> sections = new ArrayList<>();
     public LogPresenter mLogPresenter;
     /*@BindView(R.id.layoutHolder)*/
-    static LinearLayout layoutHolder;
+    private static LinearLayout layoutHolder;
 
     public LogFragment() {
         makePresenter();
@@ -30,11 +30,6 @@ public class LogFragment extends Fragment {
         if (mLogPresenter == null) {
             mLogPresenter = new LogPresenter(this);
         }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -129,10 +124,6 @@ public class LogFragment extends Fragment {
         if (sections.size() < turn) {
             addSectionToLayout(createSection(turn));
         }
-    }
-
-    public void onTurnDecremented() {
-        //Maybe clear the turn I don't know maybe
     }
 
     public void reset() {

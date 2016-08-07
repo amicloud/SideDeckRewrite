@@ -16,9 +16,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         tools:targetApi="lollipop">
-
-        <!--Horizontal Rule-->
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -64,11 +61,5 @@
                 android:maxLines="1" />
 
         </LinearLayout>
-
-
-        <!--Player 1 holder-->
-
-        <!--Player 2 holder-->
-
     </LinearLayout>
 </LinearLayout>

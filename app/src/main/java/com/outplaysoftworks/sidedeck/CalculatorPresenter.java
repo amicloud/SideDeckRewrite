@@ -3,10 +3,11 @@ package com.outplaysoftworks.sidedeck;
 /** Handles communication between the calculator model and the calculator fragment/view
  * Created by Billy on 5/13/2016.
  */
-public class CalculatorPresenter {
+class CalculatorPresenter {
 
-    CalculatorModel mCalculatorModel;
-    CalculatorFragment mCalculatorFragment;
+    @SuppressWarnings("WeakerAccess")
+    public CalculatorModel mCalculatorModel;
+    final CalculatorFragment mCalculatorFragment;
     public CalculatorPresenter(CalculatorFragment calculatorFragment){
         mCalculatorFragment = calculatorFragment;
         if(mCalculatorModel == null){
@@ -63,9 +64,9 @@ public class CalculatorPresenter {
             subOrAdd = mCalculatorFragment.getString(R.string.lpSubtracedFrom);
         }
         if(player == 1){
-            playerName = mCalculatorModel.getPlayer1Name();
+            playerName = mCalculatorFragment.getPlayer1Name();
         }else if(player == 2){
-            playerName = mCalculatorModel.getPlayer2Name();
+            playerName = mCalculatorFragment.getPlayer2Name();
         }
         Integer changeAbs = Math.abs(change);
         text = changeAbs.toString() + subOrAdd + " " + playerName;
@@ -92,11 +93,11 @@ public class CalculatorPresenter {
     }
 
     public String getPlayer1Name(){
-        return mCalculatorModel.getPlayer1Name();
+        return mCalculatorFragment.getPlayer1Name();
     }
 
     public String getPlayer2Name(){
-        return mCalculatorModel.getPlayer2Name();
+        return mCalculatorFragment.getPlayer2Name();
     }
 
     public void onPlayerNameChanged(String name, int i) {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menuItemUndo"
-        android:title="@string/undo"/>
-    <item android:id="@+id/menuItemReset"
-        android:title="@string/reset"/>
-    <item android:id="@+id/menuItemCalculator"
-        android:title="@string/calculator"/>
-    <item android:id="@+id/menuItemSettings"
-        android:title="@string/settings"/>
+    <item android:title="@string/undo"
+        android:id="@+id/menuItemUndo"/>
+    <item android:title="@string/reset"
+        android:id="@+id/menuItemReset"/>
+    <item android:title="@string/calculator"
+        android:id="@+id/menuItemCalculator"/>
+    <item android:title="@string/settings"
+        android:id="@+id/menuItemSettings"/>
 </menu>

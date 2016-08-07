@@ -5,7 +5,7 @@ package com.outplaysoftworks.sidedeck;
  */
 public class LogPresenter {
 
-    private LogFragment mLogFragment;
+    private final LogFragment mLogFragment;
     private LogModel mLogModel;
 
     public LogPresenter(LogFragment logFragment) {
@@ -25,10 +25,6 @@ public class LogPresenter {
 
     public void onTurnIncremented(Integer currentTurn) {
         mLogFragment.onTurnIncremented(currentTurn);
-    }
-
-    public void onTurnDecremented() {
-        mLogFragment.onTurnDecremented();
     }
 
     public void reset() {

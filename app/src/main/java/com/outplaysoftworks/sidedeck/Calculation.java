@@ -4,15 +4,15 @@ package com.outplaysoftworks.sidedeck;
  * performed.  The object is capable of undoing itself, but only with a linear undo system
  * Created by Billy on 5/14/2016.
  */
-public class Calculation {
-
-    private Integer lpAfter;
-    private Integer player;
-    private Integer lpPrevious;
-    private CalculatorModel mCalculatorModel;
-    private Integer lpDifference;
-    private boolean isLpLoss;
-    private int turn;
+class Calculation {
+    //TODO: See if making these final actually broke anything
+    private final Integer lpAfter;
+    private final Integer player;
+    private final Integer lpPrevious;
+    private final CalculatorModel mCalculatorModel;
+    private final Integer lpDifference;
+    private final boolean isLpLoss;
+    private final int turn;
     public Calculation(int previousLp, int lpAfter, int player, int turn, CalculatorModel model) {
         this.lpPrevious = previousLp;
         this.lpAfter = lpAfter;

@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#ffffff</color>
-    <color name="primary_dark">#616161</color>
-    <color name="primary_light">#9c9c9c</color>
     <color name="accent">#ff5722</color>
-    <color name="primary_text">#ebffffff</color>
-    <color name="secondary_text">#b3b3b3</color>
-    <color name="icons">#ffffff</color>
-    <color name="divider">#B6B6B6</color>
 
     <color name="trans">#00b3e5fc</color>
-    <color name="accenttranslucent">#c3ff5722</color>
     <color name="material_dark">#252525</color>
-    <color name="material_dark_tinted">#535E69</color>
-    <color name="material_dark_trans">#86252525</color>
     <color name="material_dark_opaque">#d4252525</color>
-    <color name="material_dark_tinted_dark">#212c37</color>
     <color name="material_light">#787878</color>
     <color name="material_light_pressed">#6e6e6e</color>
     <color name="material_light_dark">#505050</color>

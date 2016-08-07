@@ -9,7 +9,6 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -37,11 +36,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
-import butterknife.OnTextChanged;
 import me.grantland.widget.AutofitHelper;
 
 
+@SuppressWarnings("WeakerAccess")
 public class CalculatorFragment extends Fragment {
+
+    //TODO: Add a sound for when lp hits zero
+
     private final Integer diceRollAnimationDuration = 2000; //In milliseconds
     //View objects
     public static View view;
@@ -55,10 +57,12 @@ public class CalculatorFragment extends Fragment {
     private Integer timerWarning3SoundId;
     private int timerBeepSoundId;
     //Drawable stuff
-    private ArrayList<Drawable> diceDrawables = new ArrayList<>();
+    @SuppressWarnings("CanBeFinal")
+    private final ArrayList<Drawable> diceDrawables = new ArrayList<>();
     private Drawable diceRollBackgroundDrawable;
-    final Handler diceResetHandler = new Handler();
-    final Handler coinHandler = new Handler();
+    private final Handler diceResetHandler = new Handler();
+    private final Handler coinHandler = new Handler();
+    @SuppressWarnings("unused")
     @BindView(R.id.enteredValue)
     TextView enteredValueView;
     @BindView(R.id.player1Lp)
@@ -87,12 +91,13 @@ public class CalculatorFragment extends Fragment {
     LinearLayout holderCalculator;
 
     Integer lpSoundStreamId;
-    private CalculatorPresenter mCalculatorPresenter;
-    private ArrayList<Toast> lpToasts = new ArrayList<>();
+    public CalculatorPresenter mCalculatorPresenter;
+    @SuppressWarnings("CanBeFinal")
+    private final ArrayList<Toast> lpToasts = new ArrayList<>();
 
     //Calculator stuff
     private String calcWork = "";
-    Evaluator evaluator = new Evaluator();
+    final Evaluator evaluator = new Evaluator();
     private Integer timesCalculatorOpened = 0;
 
     //Timer stuff
@@ -112,11 +117,6 @@ public class CalculatorFragment extends Fragment {
             valueAnimator.addUpdateListener(valueAnimator1 -> textview.setText(valueAnimator1.getAnimatedValue().toString()));
             valueAnimator.start();
         }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -215,11 +215,6 @@ public class CalculatorFragment extends Fragment {
 
     public SharedPreferences getPreferences(){
         return PreferenceManager.getDefaultSharedPreferences(this.getContext());
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
     @OnClick({R.id.enteredValue, R.id.buttonClear})
@@ -358,6 +353,7 @@ public class CalculatorFragment extends Fragment {
         mCalculatorPresenter.relayTurnClick();
     }
 
+    @SuppressWarnings("SameReturnValue")
     @OnLongClick(R.id.buttonTurn)
     public boolean onLongClickTurn() {
         mCalculatorPresenter.relayTurnLongClick();
@@ -476,8 +472,9 @@ public class CalculatorFragment extends Fragment {
         textView.setBackgroundColor(view.getSolidColor());
         toast.show();
     }
-    int debounceTime = 3000;
-    Handler p1NameHandler = new Handler();
+
+    /*final int debounceTime = 5000;
+    final Handler p1NameHandler = new Handler();
     @OnTextChanged(R.id.player1Name)
     public void onPlayer1NameChanged() {
         p1NameHandler.removeCallbacksAndMessages(null);
@@ -485,15 +482,14 @@ public class CalculatorFragment extends Fragment {
         String name = player1Name.getText().toString();
         mCalculatorPresenter.onPlayerNameChanged(name, 1);
     }
-    Handler p2NameHandler = new Handler();
+    final Handler p2NameHandler = new Handler();
     @OnTextChanged(R.id.player2Name)
     public void onPlayer2NameChanged() {
         p2NameHandler.removeCallbacksAndMessages(null);
         p2NameHandler.postDelayed(()-> player2Name.clearFocus(), debounceTime);
         String name = player2Name.getText().toString();
         mCalculatorPresenter.onPlayerNameChanged(name, 2);
-    }
-
+    }*/
 
     @OnClick(R.id.buttonUndo)
     public void onUndoClicked(){
@@ -509,11 +505,13 @@ public class CalculatorFragment extends Fragment {
     }
 
     public String getPlayer1Name(){
-        return mCalculatorPresenter.getPlayer1Name();
+        return getPreferences().getString(getString(R.string.KEYplayerOneDefaultNameSetting),
+                getString(R.string.playerOne));
     }
 
     public String getPlayer2Name(){
-        return mCalculatorPresenter.getPlayer2Name();
+        return getPreferences().getString(getString(R.string.KEYplayerTwoDefaultNameSetting),
+                getString(R.string.playerTwo));
     }
 
     public boolean getPreferenceAllowNegativeLp(){
@@ -521,8 +519,8 @@ public class CalculatorFragment extends Fragment {
         return prefs.getBoolean(getContext().getString(R.string.KEYallowNegativeLp), false);
     }
 
-    Handler timerHandler = new Handler();
-    Runnable timerTask = new Runnable(){
+    final Handler timerHandler = new Handler();
+    final Runnable timerTask = new Runnable(){
         @Override
         public void run() {
             try {
@@ -594,7 +592,7 @@ public class CalculatorFragment extends Fragment {
 
 
     private boolean timerRunning = false;
-    private Integer defaultTimeInSeconds = 2400;
+    private final Integer defaultTimeInSeconds = 2400;
     private Integer currentTimeInSeconds = defaultTimeInSeconds;
     @OnClick(R.id.buttonStartTimer)
     public void startTimer(){
@@ -670,17 +668,19 @@ public class CalculatorFragment extends Fragment {
     @Override
     public void onDestroy(){
         Bundle bundle = new Bundle();
-        bundle.putString("times_calculator_opened", timesCalculatorOpened.toString());//NON-NLS
-        bundle.putString("times_timer_opened", timesTimerOpened.toString());//NON-NLS
-        mFirebaseAnalytics.logEvent("timer_calculator_tracker", bundle);//NON-NLS
+        bundle.putInt("times_calculator_opened", timesCalculatorOpened);//NON-NLS
+        mFirebaseAnalytics.logEvent("calculator_opened", bundle);//NON-NLS
+        Bundle bundle2 = new Bundle();
+        bundle2.putInt("times_timer_opened", timesTimerOpened);//NON-NLS
+        mFirebaseAnalytics.logEvent("timer_opened", bundle2);//NON-NLS
         Log.d("Analytics ", "times calc opened: " + timesCalculatorOpened + "; times " + //NON-NLS
                 "timer opened: " + timesTimerOpened); //NON-NLS
-        super.onDestroy();
         coinHandler.removeCallbacksAndMessages(null);
         diceResetHandler.removeCallbacksAndMessages(null);
-        p1NameHandler.removeCallbacksAndMessages(null);
-        p2NameHandler.removeCallbacksAndMessages(null);
+        /*p1NameHandler.removeCallbacksAndMessages(null);
+        p2NameHandler.removeCallbacksAndMessages(null);*/
         timerHandler.removeCallbacksAndMessages(null);
+        super.onDestroy();
     }
 
     @OnClick(R.id.buttonShowCalc)

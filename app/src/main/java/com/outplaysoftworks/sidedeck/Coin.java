@@ -3,9 +3,10 @@ package com.outplaysoftworks.sidedeck;
 import android.content.Context;
 
 
-public class Coin {
+class Coin {
     private Face face;
-    protected Context context;
+    @SuppressWarnings("unused")
+    private final Context context;
     public Coin(Double number, Context context){
         this.context = context;
         if(number >0.5d){
@@ -20,7 +21,7 @@ public class Coin {
 }
 
 class Face{
-    public String getFaceString() {
+    private String getFaceString() {
         return faceString;
     }
 

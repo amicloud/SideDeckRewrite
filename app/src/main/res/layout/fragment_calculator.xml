@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/material_dark"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:padding="2dp"
@@ -448,7 +447,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/timerHolder"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center"

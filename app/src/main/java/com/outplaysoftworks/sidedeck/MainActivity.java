@@ -31,14 +31,14 @@ public class MainActivity extends AppCompatActivity{
 
     public static CalculatorFragment mCalculatorFragment;
     public static LogFragment mLogFragment;
-    ViewPager mViewPager;
-    static Context context;
-    static PopupMenu popupMenu;
+    private ViewPager mViewPager;
+    private static Context context;
+    private static PopupMenu popupMenu;
     public static SharedPreferences sharedPreferences;
 
-    public FirebaseDatabase database = FirebaseDatabase.getInstance();
-    public DatabaseReference databaseReference = database.getReference();
-    public FirebaseAnalytics mFirebaseAnalytics;
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = database.getReference();
+    FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,33 @@ public class MainActivity extends AppCompatActivity{
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         assert tabLayout != null;
         tabLayout.setupWithViewPager(mViewPager);
+        trackAppOpens();
         checkFirebaseForUpdate();
+    }
+
+    private void trackAppOpens(){
+        int timesOpened = sharedPreferences.getInt("TIMES_OPENED", 0); //NON-NLS
+        timesOpened++;
+        sharedPreferences.edit().putInt("TIMES_OPENED", timesOpened).apply();//NON-NLS
+        boolean shouldAskUser = sharedPreferences.getBoolean("KEY_ASK_USER_TO_RATE", true);//NON-NLS
+        if(timesOpened > 10 && shouldAskUser){
+            askUserToRate();
+        }
+    }
+
+    private void askUserToRate() {
+        new AlertDialog.Builder(this, R.style.MyDialog)
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setTitle(R.string.rateMe)
+                .setMessage(R.string.rateMeMessage)
+                .setPositiveButton(getString(R.string.ok), (dialog, which)->{
+                    takeUserToPlayStore();
+                    sharedPreferences.edit().putBoolean("KEY_ASK_USER_TO_RATE", false).apply();//NON-NLS
+                })
+                .setNegativeButton(getString(R.string.noThanks), (dialog, which)->{
+                    sharedPreferences.edit().putBoolean("KEY_ASK_USER_TO_RATE", false).apply();//NON-NLS
+                })
+                .show();
     }
 
     private boolean checkIfIsBeta() {
@@ -110,6 +136,7 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    @SuppressWarnings("unused")
     public void showPopupMenu(View view){
         final Intent preferencesIntent = new Intent(this, SettingsActivity.class);
         popupMenu = new PopupMenu(context, view);
@@ -135,7 +162,7 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    public void checkFirebaseForUpdate(){
+    private void checkFirebaseForUpdate(){
         Log.d("DB: ", "CHECKING FOR NEW VERSION"); //NON-NLS
         databaseReference.child("currentRelease").addListenerForSingleValueEvent(new ValueEventListener() { //NON-NLS
             @Override
@@ -243,7 +270,12 @@ public class MainActivity extends AppCompatActivity{
             mCalculatorFragment.holderCalculator.setVisibility(View.GONE);
         } else if( mCalculatorFragment.holderTimer.getVisibility() ==  View.VISIBLE){
             mCalculatorFragment.holderTimer.setVisibility(View.GONE);
-        } else{
+        } else if(mCalculatorFragment.player1Name.isFocused()){
+            mCalculatorFragment.player1Name.clearFocus();
+        } else if(mCalculatorFragment.player2Name.isFocused()){
+            mCalculatorFragment.player2Name.clearFocus();
+        }
+        else{
             super.onBackPressed();
         }
 

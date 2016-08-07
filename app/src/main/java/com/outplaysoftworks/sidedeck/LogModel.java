@@ -5,10 +5,10 @@ import java.util.ArrayList;
 /** A model for all log related information.  Might be useless
  * Created by Billy on 5/30/2016.
  */
-public class LogModel {
+class LogModel {
 
-    private LogPresenter mLogPresenter;
-    private ArrayList<Calculation> calculationList = new ArrayList<>();
+    private final LogPresenter mLogPresenter;
+    private final ArrayList<Calculation> calculationList = new ArrayList<>();
     public LogModel(LogPresenter logPresenter) {
         mLogPresenter = logPresenter;
     }

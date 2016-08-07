@@ -8,19 +8,19 @@ import java.util.Random;
 /** Model for the calculator, hooks up to the calculator presenter and the log presenter
  * Created by Billy on 5/13/2016.
  */
-public class CalculatorModel {
+class CalculatorModel {
 
     private Integer enteredValue;
     private String player1Name;
-    private Random random = new Random(System.nanoTime());
+    private final Random random = new Random(System.nanoTime());
     private String player2Name;
-    private ArrayList<Calculation> calculations;
+    private final ArrayList<Calculation> calculations;
     private String enteredValueString;
     private Integer player1Lp;
     private Integer player1LpPrevious;
     private Integer player2Lp;
     private Integer player2LpPrevious;
-    public Integer defaultLp;
+    private Integer defaultLp;
     private Integer currentTurn;
 
     public Integer getEnteredValue(){
@@ -47,7 +47,7 @@ public class CalculatorModel {
         mCalculatorPresenter.onP2LpSet(lp);
     }
 
-    private CalculatorPresenter mCalculatorPresenter;
+    private final CalculatorPresenter mCalculatorPresenter;
 
     public LogPresenter getmLogPresenter(){
         if(this.mLogPresenter == null){
@@ -63,8 +63,8 @@ public class CalculatorModel {
         currentTurn = 1;
         initializeLp();
         calculations = new ArrayList<>();
-        player1Name = getPlayerOneNameFromPreferences();
-        player2Name = getPlayerTwoNameFromPreferences();
+        /*player1Name = getPlayerOneNameFromPreferences();
+        player2Name = getPlayerTwoNameFromPreferences();*/
     }
 
     private void makeLogPresenter(){
@@ -90,22 +90,22 @@ public class CalculatorModel {
         return Integer.parseInt(defaultLpString);
     }
 
-    private String getPlayerOneNameFromPreferences(){
+    /*private String getPlayerOneNameFromPreferences(){
         if(mCalculatorPresenter.mCalculatorFragment != null){
             SharedPreferences sharedPreferences = MainActivity.sharedPreferences;
-            return sharedPreferences.getString(AppConstants.KEY_PLAYER_ONE_DEF_NAME, "Player 1");
-        }else {
-            return "Player 1";
+            return sharedPreferences.getString(AppConstants.KEY_PLAYER_ONE_DEF_NAME, "");
+        }else { //TODO: See if changing these to empty strings broke anything
+            return "";
         }
     }
     private String getPlayerTwoNameFromPreferences(){
         if(mCalculatorPresenter.mCalculatorFragment != null){
             SharedPreferences sharedPreferences = MainActivity.sharedPreferences;
-            return sharedPreferences.getString(AppConstants.KEY_PLAYER_TWO_DEF_NAME, "Player 2");
+            return sharedPreferences.getString(AppConstants.KEY_PLAYER_TWO_DEF_NAME, "");
         }else {
-            return "Player 2";
+            return "";
         }
-    }
+    }*/
 
     public void doNumbers(String tag) {
         enteredValueString = enteredValue.toString();
@@ -113,7 +113,7 @@ public class CalculatorModel {
         if(tag.length() + enteredValueString.length() < 7) {
             appendedString = enteredValueString + tag;
         } else{
-            appendedString = "999999";
+            appendedString = "999999";  //NON-NLS
         }
         enteredValue = Integer.parseInt(appendedString);
         mCalculatorPresenter.onEnteredValueUpdated(enteredValue.toString());
@@ -227,7 +227,7 @@ public class CalculatorModel {
         if(currentTurn > 1) {
             currentTurn--;
             mCalculatorPresenter.onTurnUpdated(currentTurn);
-            mLogPresenter.onTurnDecremented();
+            //mLogPresenter.onTurnDecremented();
         }
 
     }
@@ -263,7 +263,7 @@ public class CalculatorModel {
         }
     }
 
-    public boolean getAllowNegativeLp(){
+    private boolean getAllowNegativeLp(){
         return mCalculatorPresenter.getAllowedNegativeLp();
     }
 }
