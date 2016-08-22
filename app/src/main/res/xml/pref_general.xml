@@ -19,6 +19,12 @@
         android:summary="@string/stopAtZeroSummary"
         android:title="@string/stopAtZeroTitle"
         android:textColorSecondary="@color/material_white"/>
+    <com.outplaysoftworks.sidedeck.CustomViews.ThemedListPreference
+        android:entries="@array/timerDefaultTimeStrings"
+        android:entryValues="@array/timerDefaultTimeIntegers"
+        android:key="@string/KEYdefaultTimer"
+        android:summary="The initial timer duration in minutes"
+        android:title="Default Timer Length" />
     <EditTextPreference
         android:capitalize="words"
         android:defaultValue="@string/playerOne"

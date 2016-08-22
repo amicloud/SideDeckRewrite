@@ -263,6 +263,7 @@ class CalculatorModel {
         }
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean getAllowNegativeLp(){
         return mCalculatorPresenter.getAllowedNegativeLp();
     }

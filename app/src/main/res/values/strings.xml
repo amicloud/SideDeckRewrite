@@ -1,73 +1,145 @@
 <resources>
-    <string name="app_name">SideDeck</string>
+    <string name="app_name" translatable="false">SideDeck</string>
 
     <!--Key strings go here-->
     <string name="KEYplayerOneDefaultNameSetting" translatable="false">KEYplayerOneDefaultNameSetting</string>
     <string name="KEYplayerTwoDefaultNameSetting" translatable="false">KEYplayerTwoDefaultNameSetting</string>
     <string name="KEYsoundOnOff" translatable="false">KEYsoundOnOff</string>
     <string name="KEYdefaultLpSetting" translatable="false">KEYdefaultLpSetting</string>
-    <string name="KEYcheckSafeEntry">KEYcheckSafeEntry</string>
+    <string name="KEYcheckSafeEntry" translatable="false">KEYcheckSafeEntry</string>
+    <string name="KEYdefaultTimer" translatable="false">KEY_DEFAULT_TIMER</string>
+    <string name="KEYallowNegativeLp" translatable="false">KEYallowNegativeLp</string>
+    <string name="plusSign" translatable="false">+</string>
+    <string name="minusSign" translatable="false">-</string>
 
+    <string name="duelLog">Duel Log</string>
+    <string name="calculator">Calculator</string>
     <string name="reset">Reset</string>
     <string name="settings">Settings</string>
     <string name="diceRoll">Dice Roll</string>
+    <string name="coinFlip">Coin Flip</string>
     <string name="coinHeads">Heads</string>
     <string name="coinsTails">Tails</string>
-    <string name="coinFlip">Coin Flip</string>
     <string name="turn1">"Turn\n1"</string>
     <string name="turn">"Turn\n"</string>
     <string name="logTurn">Turn</string>
     <string name="playerOne">Player 1</string>
     <string name="playerTwo">Player 2</string>
-    <string name="defaultLifepoints">Default Lifepoins</string>
-    <string name="playerOneDefaultName">Player 1 default name</string>
-    <string name="playerTwoDefaultName">Player 2 default name</string>
-    <string name="sound">Sound</string>
-    <string name="soundSettingSummary">Enable sound effects</string>
     <string name="lpAddedTo">" LP added to "</string>
     <string name="lpSubtracedFrom">" LP subtracted from "</string>
-    <string name="duelLog">Duel Log</string>
-    <string name="calculator">Calculator</string>
-
 
     <string name="yes">Yes!</string>
     <string name="notReally">Not really</string>
     <string name="noThanks">No, thanks</string>
-
     <string name="AreYouSure">Are you sure?</string>
-
     <string name="undo">Undo</string>
+    <string name="Continue">Continue</string>
 
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
-
-    <!-- Example settings for Data & Sync -->
-
-    <!-- Example settings for Notifications -->
-
-    <string name="checkForSafeEntrySummary">If the entered number doesn\'t seem correct, ask for confirmation.  Prevents accidentally adding 100,000 LP</string>
-    <string name="checkForSafeEntryTitle">Check for Safe Entered Number</string>
-    <string name="stopAtZeroSummary">Allow Lifepoints to become negative</string>
-    <string name="stopAtZeroTitle">Allow Negative Lifepoints</string>
-    <string name="KEYallowNegativeLp">KEYallowNegativeLp</string>
     <string name="error">ERROR</string>
+    <string name="parenMismatch">Parenthesis Mismatch</string>
     <string name="overflow">Overflow</string>
-    <string name="plusSign">+</string>
-    <string name="minusSign">-</string>
     <string name="timer">Timer</string>
     <string name="start">START</string>
     <string name="stop">STOP</string>
-    <string name="parenMismatch">Parenthesis Mismatch</string>
+    <string name="fiveMinutesRemaining">Five minutes remaining</string>
     <string name="cancel">Cancel</string>
+    <string name="possibleAccidentalEntry">Possible accidental entry</string>
     <string name="theEnteredNumber">"The entered number "</string>
     <string name="seemsTooLarge">" seems too large.  Are you sure that this is correct?"</string>
-    <string name="possibleAccidentalEntry">Possible accidental entry</string>
-    <string name="Continue">Continue</string>
+
     <string name="newVersionAvailable">A New Version is Available</string>
     <string name="newestVersionIs">"The newest beta version of SideDeck is "</string>
     <string name="youHaveVersion">"You have version "</string>
     <string name="goToPlayStore">Would you like to go to the Google Play Store to update?</string>
     <string name="rateMe">Rate Me?</string>
     <string name="rateMeMessage">Care to rate SideDeck on the Google Play store?</string>
+
+    <string name="checkForSafeEntrySummary">If the entered number doesn\'t seem correct, ask for confirmation.  Prevents accidentally adding 100,000 LP</string>
+    <string name="checkForSafeEntryTitle">Check for Safe Entered Number</string>
+    <string name="stopAtZeroSummary">Allow Lifepoints to become negative</string>
+    <string name="stopAtZeroTitle">Allow Negative Lifepoints</string>
+    <string name="defaultLifepoints">Default Lifepoints</string>
+    <string name="playerOneDefaultName">Player 1 default name</string>
+    <string name="playerTwoDefaultName">Player 2 default name</string>
+    <string name="sound">Sound</string>
+    <string name="soundSettingSummary">Enable sound effects</string>
+
 </resources>
+<!-- Everything arranged nicely for manual translations
+
+Duel Log
+Calculator
+Reset
+Settings
+Dice Roll
+Coin Flip
+Heads
+Tails
+"Turn\n1"
+"Turn\n"
+Turn
+Player 1
+Player 2
+" LP added to "
+" LP subtracted from "
+
+Yes!
+Not really
+No, thanks
+Are you sure?
+Undo
+Continue
+
+ERROR
+Parenthesis Mismatch
+Overflow
+Timer
+START
+STOP
+Five minutes remaining
+Cancel
+Possible accidental entry
+"The entered number "
+" seems too large.  Are you sure that this is correct?"
+
+A New Version is Available
+"The newest beta version of SideDeck is "
+"You have version "
+Would you like to go to the Google Play Store to update?
+Rate Me?
+Care to rate SideDeck on the Google Play store?
+
+If the entered number doesn\'t seem correct, ask for confirmation.  Prevents accidentally adding 100,000 LP
+Check for Safe Entered Number
+Allow Lifepoints to become negative
+Allow Negative Lifepoints
+Default Lifepoints
+Player 1 default name
+Player 2 default name
+Sound
+Enable sound effects
+
+
+SideDeck Life Point Calculator
+
+An elegantly simple life point calculator for the Yu-Gi-Oh! Trading Card Game.
+
+<b><u>SideDeck is:</u></b></br>
+An elegantly simple life point calculator for the Yu-Gi-Oh! Trading Card Game.  You can easily keep track of life points in your Yu-Gi-Oh! duels.</br>
+With a life point calculator and a duel log, never will a victory be contested.</br>
+No ads of any kind.</br>
+<b><u>SideDeck includes:</u></b></br>
+• An easy to use life point calculator.</br>
+• A duel log to keep track of what happened in your duel each turn.</br>
+• A turn counter.</br>
+• An easy to use tournament timer with alerts.</br>
+• An undo function.</br>
+• A system to prevent you from entering a massive number by mistake.</br>
+• A truly random dice roll simulator.</br>
+• A truly random coin flip simulator.</br>
+• A built in standard 4-function calculator.</br>
+• <u>No advertisements of any kind</u>.</br>
+<u>Upcoming Features:</u></br>
+• 3 and 4 player support</br>
+
+-->

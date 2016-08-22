@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity{
 
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final DatabaseReference databaseReference = database.getReference();
-    FirebaseAnalytics mFirebaseAnalytics;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

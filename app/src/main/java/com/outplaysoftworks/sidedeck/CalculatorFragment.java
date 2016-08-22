@@ -9,6 +9,8 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.Voice;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -57,7 +59,6 @@ public class CalculatorFragment extends Fragment {
     private Integer timerWarning3SoundId;
     private int timerBeepSoundId;
     //Drawable stuff
-    @SuppressWarnings("CanBeFinal")
     private final ArrayList<Drawable> diceDrawables = new ArrayList<>();
     private Drawable diceRollBackgroundDrawable;
     private final Handler diceResetHandler = new Handler();
@@ -98,12 +99,20 @@ public class CalculatorFragment extends Fragment {
     //Calculator stuff
     private String calcWork = "";
     final Evaluator evaluator = new Evaluator();
-    private Integer timesCalculatorOpened = 0;
 
     //Timer stuff
-    private Integer timesTimerOpened = 0;
 
+    //Firebase stuff
     FirebaseAnalytics mFirebaseAnalytics;
+    private Long timesTimerOpened = 0L;
+    private Long timesCalculatorOpened = 0L;
+    private Long timesUndoPressed = 0L;
+    private Long timesResetPressed = 0L;
+    private Long timesCoinPressed = 0L;
+    private Long timesDicePressed = 0L;
+    //Text-to-speach
+    TextToSpeech tts;
+    boolean ttsIsInitialized = false;
 
     public CalculatorFragment() {
         makePresenter();
@@ -130,9 +139,43 @@ public class CalculatorFragment extends Fragment {
         reset();
         createAutoFitTextHelpers();
         setPickerListener();
+        //initializeTextToSpeechEngine(0);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this.getContext());
+        currentTimeInSeconds = getDefaultTimerTime();
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void debugVoice() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {;
+            for(Voice v : tts.getVoices()){
+                System.out.println(v.getName());
+                System.out.println(v.getLocale());
+                System.out.println(v.getQuality());
+                System.out.println("\n");
+            }
+        }
+    }
+
+    private void initializeTextToSpeechEngine(int timesTried) {
+        final int finalTimesTried = timesTried + 1;
+        tts = new TextToSpeech(getContext(), i -> {
+            if(i == 0){
+                ttsIsInitialized = true;
+                //debugVoice();
+            } else if(i == -1){
+                ttsIsInitialized = false;
+                if(finalTimesTried < 100) {
+                    initializeTextToSpeechEngine(finalTimesTried);
+                } else{
+                    try {
+                        throw new Throwable("Text to speech init failed");
+                    } catch (Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private void createAutoFitTextHelpers(){
@@ -151,6 +194,7 @@ public class CalculatorFragment extends Fragment {
             .setMessage(this.getContext().getResources().getString(R.string.AreYouSure))
             .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
                 reset();
+                timesResetPressed++;
             })
             .setNegativeButton(getString(R.string.notReally), (dialog, which) ->{
                 //Do nothing
@@ -294,6 +338,7 @@ public class CalculatorFragment extends Fragment {
 
     @OnClick(R.id.buttonDiceRoll)
     public void onClickDiceRoll() {
+        timesDicePressed++;
         playDiceSound();
         mCalculatorPresenter.relayDiceRoll();
     }
@@ -304,6 +349,7 @@ public class CalculatorFragment extends Fragment {
     private void setCurrentFrame(int cf){ currentFrame = cf; }
     @OnClick(R.id.buttonCoinFlip)
     public void onClickCoinFlip() {
+        timesCoinPressed++;
         mCalculatorPresenter.relayCoinFlip();
         playCoinSound();
             currentFrame = 0;
@@ -362,6 +408,7 @@ public class CalculatorFragment extends Fragment {
 
     @OnClick(R.id.buttonTimer)
     public void onClickTimerShow(){
+
         getTimeFromSeconds(false);
         holderTimer.setVisibility(View.VISIBLE);
         timesTimerOpened++;
@@ -473,27 +520,10 @@ public class CalculatorFragment extends Fragment {
         toast.show();
     }
 
-    /*final int debounceTime = 5000;
-    final Handler p1NameHandler = new Handler();
-    @OnTextChanged(R.id.player1Name)
-    public void onPlayer1NameChanged() {
-        p1NameHandler.removeCallbacksAndMessages(null);
-        p1NameHandler.postDelayed(()-> player1Name.clearFocus(), debounceTime);
-        String name = player1Name.getText().toString();
-        mCalculatorPresenter.onPlayerNameChanged(name, 1);
-    }
-    final Handler p2NameHandler = new Handler();
-    @OnTextChanged(R.id.player2Name)
-    public void onPlayer2NameChanged() {
-        p2NameHandler.removeCallbacksAndMessages(null);
-        p2NameHandler.postDelayed(()-> player2Name.clearFocus(), debounceTime);
-        String name = player2Name.getText().toString();
-        mCalculatorPresenter.onPlayerNameChanged(name, 2);
-    }*/
-
     @OnClick(R.id.buttonUndo)
     public void onUndoClicked(){
         mCalculatorPresenter.onUndoClicked();
+        timesUndoPressed++;
     }
 
     public void setPlayer1Lp(Integer lp){
@@ -549,6 +579,7 @@ public class CalculatorFragment extends Fragment {
     }
 
     private void timerAlert() {
+        //noinspection deprecation
         if(getIsSoundEnabled()){
             Random random = new Random();
             int rand = random.nextInt(2);
@@ -592,8 +623,7 @@ public class CalculatorFragment extends Fragment {
 
 
     private boolean timerRunning = false;
-    private final Integer defaultTimeInSeconds = 2400;
-    private Integer currentTimeInSeconds = defaultTimeInSeconds;
+    private Integer currentTimeInSeconds;// = getDefaultTimerTime();
     @OnClick(R.id.buttonStartTimer)
     public void startTimer(){
         if(!timerRunning) {
@@ -613,8 +643,8 @@ public class CalculatorFragment extends Fragment {
     @OnClick(R.id.buttonResetTimer)
     public void resetTimer(){
         stopTimer();
-        picker.setValue(defaultTimeInSeconds);
-        currentTimeInSeconds = defaultTimeInSeconds;
+        picker.setValue(getDefaultTimerTime());
+        currentTimeInSeconds = getDefaultTimerTime();
         getTimeFromSeconds(false);
         buttonTimer.setText(R.string.timer);
     }
@@ -642,8 +672,15 @@ public class CalculatorFragment extends Fragment {
             buttonTimer.setText(theTime);
         }
     }
+    
+    public Integer getDefaultTimerTime(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        String timeInMinutes = sharedPreferences.getString(getString(R.string.KEYdefaultTimer), "40");
+        return Integer.parseInt(timeInMinutes)*60; //Converts to seconds
+    }
+    
     public void setPickerListener(){
-        picker.setValue(defaultTimeInSeconds);
+        picker.setValue(getDefaultTimerTime());
         picker.setOnSeekBarChangeListener(new HoloCircleSeekBar.OnCircleSeekBarChangeListener() {
             @Override
             public void onProgressChanged(HoloCircleSeekBar holoCircleSeekBar, int i, boolean b) {
@@ -667,20 +704,37 @@ public class CalculatorFragment extends Fragment {
 
     @Override
     public void onDestroy(){
-        Bundle bundle = new Bundle();
-        bundle.putInt("times_calculator_opened", timesCalculatorOpened);//NON-NLS
-        mFirebaseAnalytics.logEvent("calculator_opened", bundle);//NON-NLS
-        Bundle bundle2 = new Bundle();
-        bundle2.putInt("times_timer_opened", timesTimerOpened);//NON-NLS
-        mFirebaseAnalytics.logEvent("timer_opened", bundle2);//NON-NLS
-        Log.d("Analytics ", "times calc opened: " + timesCalculatorOpened + "; times " + //NON-NLS
-                "timer opened: " + timesTimerOpened); //NON-NLS
+        logAnalytics();
         coinHandler.removeCallbacksAndMessages(null);
         diceResetHandler.removeCallbacksAndMessages(null);
         /*p1NameHandler.removeCallbacksAndMessages(null);
         p2NameHandler.removeCallbacksAndMessages(null);*/
         timerHandler.removeCallbacksAndMessages(null);
+        //tts.shutdown();
         super.onDestroy();
+    }
+
+    public void logAnalytics(){
+        Bundle params_calc = new Bundle();
+        params_calc.putLong(FirebaseAnalytics.Param.VALUE, timesCalculatorOpened);
+        Bundle params_timer = new Bundle();
+        params_timer.putLong(FirebaseAnalytics.Param.VALUE, timesTimerOpened);
+        Bundle params_undo = new Bundle();
+        params_undo.putLong(FirebaseAnalytics.Param.VALUE, timesUndoPressed);
+        Bundle params_reset = new Bundle();
+        params_reset.putLong(FirebaseAnalytics.Param.VALUE, timesResetPressed);
+        Bundle params_coin = new Bundle();
+        params_coin.putLong(FirebaseAnalytics.Param.VALUE, timesCoinPressed);
+        Bundle params_dice = new Bundle();
+        params_dice.putLong(FirebaseAnalytics.Param.VALUE, timesDicePressed);
+        mFirebaseAnalytics.logEvent("calculator_opened", params_calc);//NON-NLS
+        mFirebaseAnalytics.logEvent("timer_opened", params_timer);//NON-NLS
+        mFirebaseAnalytics.logEvent("undo_pressed", params_undo);//NON-NLS
+        mFirebaseAnalytics.logEvent("reset_pressed", params_reset);//NON-NLS
+        mFirebaseAnalytics.logEvent("coin_pressed", params_coin);//NON-NLS
+        mFirebaseAnalytics.logEvent("dice_pressed", params_dice);//NON-NLS
+        Log.d("Analytics ", "times calc opened: " + timesCalculatorOpened + "; times " + //NON-NLS
+                "timer opened: " + timesTimerOpened); //NON-NLS
     }
 
     @OnClick(R.id.buttonShowCalc)
