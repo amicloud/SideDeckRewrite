@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="duelLog">Duel Logboek</string>
+    <string name="calculator">Rekenmachine</string>
+    <string name="reset">Reset</string>
+    <string name="settings">Opties</string>
+    <string name="diceRoll">Dobbelsteen Rol</string>
+    <string name="coinFlip">Kop of Munt</string>
+    <string name="coinHeads">Kop</string>
+    <string name="coinsTails">Munt</string>
+    <string name="turn1">"Beurt\n1"</string>
+    <string name="turn">"Beurt\n"</string>
+    <string name="logTurn">Beurt</string>
+    <string name="playerOne">Speler 1</string>
+    <string name="playerTwo">Speler 2</string>
+    <string name="lpAddedTo">" LP gevoegd bij "</string>
+    <string name="lpSubtracedFrom">" LP afgetrokken van "</string>
+
+    <string name="yes">Ja!</string>
+    <string name="notReally">Niet echt</string>
+    <string name="noThanks">Nee, Bedankt</string>
+    <string name="AreYouSure">Ben je zeker?</string>
+    <string name="undo">Stap terug</string>
+    <string name="Continue">Verder doen</string>
+
+    <string name="error">ERROR</string>
+    <string name="parenMismatch">Haakjes verkeerd gecombineerd</string>
+    <string name="overflow">Overvloed</string>
+    <string name="timer">Timer</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="fiveMinutesRemaining">Nog maar vijf minuten</string>
+    <string name="cancel">Annuleer</string>
+    <string name="possibleAccidentalEntry">Mogenlijk dat de invoeging perongeluk verkeerd is</string>
+    <string name="theEnteredNumber">"Het ingevoegde nummer "</string>
+    <string name="seemsTooLarge">" kan te hoog zijn. Ben je zeker dat dit correct is?"</string>
+
+    <string name="newVersionAvailable">Een nieuwe versie is beschikbaar</string>
+    <string name="newestVersionIs">"De nieuwe beta versie van SideDeck is "</string>
+    <string name="youHaveVersion">"Jij hebt versie "</string>
+    <string name="goToPlayStore">Wil je naar de Google Play Store gaan voor een update?</string>
+    <string name="rateMe">Waardeer Mij?</string>
+    <string name="rateMeMessage">Kan je SideDeck alsjeblieft een waardering geven op de Google Play Store?</string>
+
+    <string name="checkForSafeEntrySummary">Als het ingegeven nummer niet correct lijkt, vraag voor confirmatie.  Dit voorkomt om perongeluk met 100,000 LP te starten.</string>
+    <string name="checkForSafeEntryTitle">Check voor een veilig ingevoegd nummer.</string>
+    <string name="stopAtZeroSummary">Sta toe om Levenspunten in de negatieven te laten gaan</string>
+    <string name="stopAtZeroTitle">Sta Negatieve Levenspunten toe</string>
+    <string name="defaultLifepoints">Standaard Levenspunten</string>
+    <string name="playerOneDefaultName">Speler 1 standaard naam</string>
+    <string name="playerTwoDefaultName">Speler 2 standaard naam</string>
+    <string name="sound">Geluid</string>
+    <string name="soundSettingSummary">Sta Geluidseffecten toe</string>
+    <string name="clear">Ontruimen</string>
+    <string name="calc">Calc</string>
+    <string name="defaultTimerLength">Standaard Timer Duratie</string>
+    <string name="defaultTimerLengthSummary">Standaard Timer Duratie in Minuten</string>
+</resources>
+
+<!--
+//Store listing Page
+
+//Title
+SideDeck Levenspunten rekenmachine
+
+//Summary
+Een elegante en simpele manier om je levenspunten bij te houden voor de Yu-Gi-Oh! Trading Card Game.
+
+//Description
+<b><u>SideDeck is:</u></b></br>
+Een simpele en elegante Rekenmachine voor je Levenspunten in de Yu-Gi-Oh! Trading Card Game.  Je kunt met gemak je LP bijhouden in Yu-Gi-Oh!</br>
+Met een Levenspunten rekenmachine zullen je overwinningen nooit meer betwijfelt worden.</br>
+Geen Advertisementen.</br>
+<b><u>SideDeck bevat:</u></b></br>
+• Een gemakkelijk te gebruiken Rekenmachine.</br>
+• Een Logboek om alles wat er in de Duel is gebeurd bij te houden.</br>
+• Een beurten teller.</br>
+• Een gemak gebruikbare tournamenten timer met waarschuwingen.</br>
+• Mogenlijkheid om een stap terug te gaan en iets opnieuw in te geven.</br>
+• Een systeem om te voorkomen dat je een gigantisch nummer perongeluk ingeeft.</br>
+• Een dobbelsteen dat compleet lukraak is.</br>
+• Een 'Kop of Munt' worp dat compleet lukraak is.</br>
+• Een ingebouwde 4-functie rekenmachine.</br>
+• <u>Geen Advertisementen</u>.</br>
+<u>Toekomstige functies:</u></br>
+• 3 en 4 speler mogenlijkheden</br>
+
+Dutch translation provided by Ammokkx.
+-->

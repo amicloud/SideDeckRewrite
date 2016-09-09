@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="duelLog">Historique du Duel</string>
+    <string name="calculator">Calculatrice</string>
+    <string name="reset">Réinitialisation</string>
+    <string name="settings">Options</string>
+    <string name="diceRoll">Lancer de Dé</string>
+    <string name="coinFlip">Pile ou Face</string>
+    <string name="coinHeads">Face</string>
+    <string name="coinsTails">Pile</string>
+    <string name="turn1">"Tour\n1"</string>
+    <string name="turn">"Tour\n"</string>
+    <string name="logTurn">Tour</string>
+    <string name="playerOne">Joueur 1</string>
+    <string name="playerTwo">Joueur 2</string>
+    <string name="lpAddedTo">" LP ajoutés à "</string>
+    <string name="lpSubtracedFrom">" LP soustraits de "</string>
+
+    <string name="yes">Oui!</string>
+    <string name="notReally">Pas vraiment</string>
+    <string name="noThanks">Non, merci</string>
+    <string name="AreYouSure">Êtes-vous sûr ?</string>
+    <string name="undo">Retour</string>
+    <string name="Continue">Continuer</string>
+
+    <string name="error">ERREUR</string>
+    <string name="parenMismatch">Parenthèses décalées</string>
+    <string name="overflow">Débordement</string>
+    <string name="timer">Chrono</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="fiveMinutesRemaining">Cinq minutes restantes</string>
+    <string name="cancel">Annuler</string>
+    <string name="possibleAccidentalEntry">Entrée possiblement accidentelle</string>
+    <string name="theEnteredNumber">"Le nombre entré "</string>
+    <string name="seemsTooLarge">" semble trop grand. Êtes-vous sûr qu'il soit correct ?"</string>
+
+    <string name="newVersionAvailable">Une nouvelle version est disponible</string>
+    <string name="newestVersionIs">"La version bêta de SideDeck la plus récente est "</string>
+    <string name="youHaveVersion">"Vous avez la version "</string>
+    <string name="goToPlayStore">Voulez-vous le mettre à jour ?</string>
+    <string name="rateMe">Notez moi ?</string>
+    <string name="rateMeMessage">Voulez-vous noter SideDeck sur le Google Play Store ?</string>
+
+    <string name="checkForSafeEntrySummary">"Si le nombre entré ne semble pas correct, demandez la confirmation. Cela empêche d\'ajouter accidentellement 100 000 LP."</string>
+    <string name="checkForSafeEntryTitle">"Vérifier l\'entrée d\'un nombre correct."</string>
+    <string name="stopAtZeroSummary">Autoriser les LP à être négatifs.</string>
+    <string name="stopAtZeroTitle">Autoriser les LP négatifs.</string>
+    <string name="defaultLifepoints">LP par défaut.</string>
+    <string name="playerOneDefaultName">Nom par défaut du Joueur 1</string>
+    <string name="playerTwoDefaultName">Nom par défaut du Joueur 2</string>
+    <string name="sound">Son</string>
+    <string name="soundSettingSummary">Activer le son</string>
+    <string name="clear">Dissiper</string>
+    <string name="calc">Calc</string>
+    <string name="defaultTimerLength">La durée initiale de la minuterie en minutes</string>
+    <string name="defaultTimerLengthSummary">La durée initiale de la minuterie en minutes</string>
+
+</resources>
+
+<!--
+//Store listing Page
+
+//Title
+SideDeck LP Calculatrice
+
+//Summary
+Une simple et élégante calculatrice de LP pour le jeu de cartes à collectionner Yu-Gi-Oh!.
+
+//Description
+<b><u>SideDeck, c'est :</u></b></br>
+Une simple et élégante calculatrice de LP pour le jeu de cartes à collectionner Yu-Gi-Oh!. Vous pouvez facilement connaître vos LP durant un duel de Yu-Gi-Oh!.</br>
+Avec une calculatrice de LP et un historique du duel, les victoires ne seront jamais contestées.</br>
+Sans pubs.</br>
+<b><u>SideDeck inclut :</u></b></br>
+• Une calculatrice de LP facile à utiliser.</br>
+• Un historique de duel pour savoir ce qu'il s'est passé pour chaque tour.</br>
+• Un compteur de tour.</br>
+• Un chronomètre de tournoi facile à utiliser (avec alarme).</br>
+• Une fonction de retour en arrière.</br>
+• Un système qui vous empêche d'entrer un trop grand nombre par erreur.</br>
+• Un simulateur de lancer de dé totalement aléatoire.</br>
+• Un simulateur de lancer de pièce totalement aléatoire.</br>
+• Une calculette standard incorporée.</br>
+• <u>Pas de pubs</u>.</br>
+<u>Ajouts à venir :</u></br>
+• Fonctions pour 3 and 4 joueurs </br>
+
+French translation provided by u/MouVii.
+-->

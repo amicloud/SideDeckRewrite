@@ -1,0 +1,91 @@
+//In app strings
+
+Histórico de Duelos
+Calculadora
+Reiniciar
+Definições
+Rolar Dado
+Jogar Moeda
+Cara
+Coroa
+"Turno\n1"
+"Turno\n"
+Turno
+Jogador 1
+Jogador 2
+" PV adicionados a "
+" PV subtraídos de "
+
+Sim!
+Não
+Não, obrigado
+Tem certeza?
+Desfazer
+Continuar
+
+ERRO
+Incompatibilidade de Parênteses
+Overflow //Usually used as "Overflow" in Brazil, but could be translated as "Transbordamento"
+Temporizador
+COMEÇAR
+PARAR
+Cinco minutos restantes
+Cancelar
+Possível entrada acidental
+"O número introduzido "
+" parece grande demais. Tem certeza que isto está correto?"
+//Please note, the two strings above are intended to follow each other in the form of
+//"The entered number " + [Entered Number] + " seems too large.  Are you sure that this is correct?"
+//If this doesn't make much sense in your language, please leave a note as to how it needs to be changed to be correct
+
+
+Uma Nova Versão está Disponível
+"A versão beta mais recente de SideDeck é "
+"Você tem a versão "
+Gostaria de ir à Google Play Store para atualizar?
+Avalie-me?
+Importaria-se de avaliar o SideDeck na Google Play Store ?
+
+Se o numero introduzido não parecer correto, peça confirmação. Previne adicionar 100,000 LP acidentalmente
+Verificar se o Número Introduzido é Seguro
+Permitir que os Pontos de Vida fiquem negativos
+Permitir Pontos de Vida Negativos
+Pontos de Vida Padrão
+Nome padrão do Jogador 1
+Nome padrão do Jogador 2
+Som
+Ativar efeitos sonoros
+
+//Store listing Page
+
+//Title
+Calculadora de Pontos de Vida SideDeck
+
+//Summary
+Uma elegantemente simples calculadora de pontos de vida para o Yu-Gi-Oh! Trading Card Game.
+
+//Description
+<b><u>SideDeck é:</u></b></br>
+Uma elegantemente simples calculadora de pontos de vida para o Yu-Gi-Oh! Trading Card Game.  Você pode acompanhar facilmente seus pontos de vida em seus duelos de Yu-Gi-Oh!.</br>
+Com uma calculadora de pontos de vida e um histórico de duelos, uma vitória nunca será contestada.</br>
+Sem nenhum tipo de anúncios.</br>
+<b><u>SideDeck inclui:</u></b></br>
+• Uma calculadora de pontos de vida fácil de usar.</br>
+• Um histórico de duelos para te manter a par do que aconteceu no teu duelo em cada turno.</br>
+• Um contador de turnos.</br>
+• Um temporizador de torneios com alertas fácil de usar.</br>
+• Uma função de desfazer.</br>
+• Um sistema para prevenir que você insira um número gigante por engano.</br>
+• Um simulador de rolamento de dado verdadeiramente aleatório.</br>
+• Um simulador de jogamento de moeda verdadeiramente aleatório.</br>
+• Uma calculadora padrão de 4 funções incorporada.</br>
+• <u>Sem anúncios de qualquer tipo</u>.</br>
+<u>Funções Por Vir:</u></br><u>
+• Suporte para 3 e 4 jogadores</br>
+
+
+Default Timer Length - Duração Padrão do Temporizador
+The initial timer duration in minutes - A duração inicial do temporizador em minutos
+Clear Calc //As in short for Calculator - Limpar Calc
+
+Brazilian Portuguese translation provided by /u/xenorrk1

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="duelLog">Histórico de Duelos</string>
+    <string name="calculator">Calculadora</string>
+    <string name="reset">Reiniciar</string>
+    <string name="settings">Definições</string>
+    <string name="diceRoll">Lançar Dado</string>
+    <string name="coinFlip">Moeda ao Ar</string>
+    <string name="coinHeads">Cara</string>
+    <string name="coinsTails">Coroa</string>
+    <string name="turn1">"Turno\n1"</string>
+    <string name="turn">"Turno\n"</string>
+    <string name="logTurn">Turno</string>
+    <string name="playerOne">Jogador 1</string>
+    <string name="playerTwo">Jogador 2</string>
+    <string name="lpAddedTo">" LP adicionado a "</string>
+    <string name="lpSubtracedFrom">" LP subtraído de "</string>
+
+    <string name="yes">Sim!</string>
+    <string name="notReally">Não realmente</string>
+    <string name="noThanks">Não, obrigado</string>
+    <string name="AreYouSure">Tens a certeza?</string>
+    <string name="undo">Desfazer</string>
+    <string name="Continue">Continuar</string>
+
+    <string name="error">ERRO</string>
+    <string name="parenMismatch">Incompatibilidade De Parêntesis</string>
+    <string name="overflow">Transbordamento</string>
+    <string name="timer">Temporizador</string>
+    <string name="start">COMEÇAR</string>
+    <string name="stop">PARAR</string>
+    <string name="fiveMinutesRemaining">Cinco minutos restantes</string>
+    <string name="cancel">Cancelar</string>
+    <string name="possibleAccidentalEntry">Possivel introdução acidental</string>
+    <string name="theEnteredNumber">"O número introduzido "</string>
+    <string name="seemsTooLarge">" parece muito grande. Tens a certeza que isto está correto?"</string>
+
+    <string name="newVersionAvailable">Uma Nova Versão está Disponível</string>
+    <string name="newestVersionIs">"A versão beta mais recente de SideDeck está "</string>
+    <string name="youHaveVersion">"Você tem a versão "</string>
+    <string name="goToPlayStore">Gostarias de ir à Google Play Store para atualizar?</string>
+    <string name="rateMe">Classifica-me?</string>
+    <string name="rateMeMessage">Importaria-se de classificar o SideDeck na Google Play Store ?</string>
+
+    <string name="checkForSafeEntrySummary">Se o numero introduzido não parecer correcto, pede confirmação. Previne adicionar 100,000 LP acidentalmente</string>
+    <string name="checkForSafeEntryTitle">Verificar se o Número Introduzido é Seguro</string>
+    <string name="stopAtZeroSummary">Permitir que os Pontos de Vida fiquem negativos</string>
+    <string name="stopAtZeroTitle">Permitir Pontos de Vida Negativos</string>
+    <string name="defaultLifepoints">Pontos de Vida Padrão</string>
+    <string name="playerOneDefaultName">Jogador 1 nome padrão</string>
+    <string name="playerTwoDefaultName">Jogador 2 nome padrão</string>
+    <string name="sound">Som</string>
+    <string name="soundSettingSummary">Ativar efeitos sonoros</string>
+    <string name="clear">Esvaziar</string>
+    <string name="calc">Calc</string>
+    <string name="defaultTimerLength">Padrão duração do temporizador</string>
+    <string name="defaultTimerLengthSummary">A duração do temporizador inicial em minutos</string>
+
+</resources>
+
+<!--
+
+//Store listing Page
+
+//Title
+Calculadora de Pontos de Vida SideDeck
+
+//Summary
+Uma elegantemente simples calculadora de pontos de vida para o Yu-Gi-Oh! Trading Card Game.
+
+//Description
+<b><u>SideDeck é:</u></b></br>
+Uma elegantemente simples calculadora de pontos de vida para o Yu-Gi-Oh! Trading Card Game.  Podes acompanhar facilmente os teus pontos de vida nos teus duelos de Yu-Gi-Oh!.</br>
+Com uma calculadora de pontos de vida e um histórico de duelos, uma vitória nunca será contestada.</br>
+Sem nenhum tipo de anúncios.</br>
+<b><u>SideDeck inclui:</u></b></br>
+• Uma calculadora de pontos de vida fácil de usar.</br>
+• Um histórico de duelos para te manteres a par do que aconteceu no teu duelo em cada turno.</br>
+• Um contador de turnos</br>
+• Um temporizador de torneios com alertas fácil de usar.</br>
+• Uma função de desfazer.</br>
+• Um sistema para prevenir que insiras um número gigante por engano.</br>
+• Um simulador de rolamento de dado verdadeiramente aleatório.</br>
+• Um simulador de moeda ao ar verdadeiramente aleatório.</br>
+• Uma calculadora padrão de 4 funções incorporada.</br>
+• <u>Sem anúncios de qualquer tipo.</u>.</br>
+<u>Funções Por Vir:</u></br><u>
+• Suporte para 3 e 4 jogadores</br>
+
+[Portuguese] translation provided by [Miguel Garcia and Guilherme Garcia].
+
+-->

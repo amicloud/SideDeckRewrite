@@ -1,0 +1,86 @@
+//In app strings
+
+Histórico de Duelos
+Calculadora
+Reiniciar
+Definições
+Lançar Dado
+Moeda ao Ar
+Cara
+Coroa
+"Turno\n1"
+"Turno\n"
+Turno
+Jogador 1
+Jogador 2
+" LP adicionado a "
+" LP subtraído de "
+
+Sim!
+Não realmente
+Não, obrigado
+Tens a certeza?
+Desfazer
+Continuar
+
+ERROR-ERRO
+Parenthesis Mismatch-Incompatibilidade De Parêntesis
+Transbordamento
+Temporizador
+COMEÇAR
+PARAR
+Cinco minutos restantes
+Cancelar
+Possivel introdução acidental
+"O número introduzido "
+" parece muito grande. Tens a certeza que isto está correto?"
+//Please note, the two strings above are intended to follow each other in the form of
+//"The entered number " + [Entered Number] + " seems too large.  Are you sure that this is correct?"
+//If this doesn't make much sense in your language, please leave a note as to how it needs to be changed to be correct
+
+
+Uma Nova Versão está Disponível
+"A versão beta mais recente de SideDeck está "
+"Você tem a versão "
+Gostarias de ir à Google Play Store para atualizar?
+Classifica-me?
+Importaria-se de classificar o SideDeck na Google Play Store ?
+
+Se o numero introduzido não parecer correcto, pede confirmação. Previne adicionar 100,000 LP acidentalmente
+Check for Safe Entered Number-Verificar se o Número Introduzido é Seguro
+Permitir que os Pontos de Vida fiquem negativos
+Permitir Pontos de Vida Negativos
+Pontos de Vida Padrão
+Jogador 1 nome padrão
+Jogador 2 nome padrão
+Som
+Ativar efeitos sonoros
+
+//Store listing Page
+
+//Title
+Calculadora de Pontos de Vida SideDeck
+
+//Summary
+Uma elegantemente simples calculadora de pontos de vida para o Yu-Gi-Oh! Trading Card Game.
+
+//Description
+<b><u>SideDeck é:</u></b></br>
+Uma elegantemente simples calculadora de pontos de vida para o Yu-Gi-Oh! Trading Card Game.  Podes acompanhar facilmente os teus pontos de vida nos teus duelos de Yu-Gi-Oh!.</br>
+Com uma calculadora de pontos de vida e um histórico de duelos, uma vitória nunca será contestada.</br>
+Sem nenhum tipo de anúncios.</br>
+<b><u>SideDeck inclui:</u></b></br>
+• Uma calculadora de pontos de vida fácil de usar.</br>
+• Um histórico de duelos para te manteres a par do que aconteceu no teu duelo em cada turno.</br>
+• Um contador de turnos</br>
+• Um temporizador de torneios com alertas fácil de usar.</br>
+• Uma função de desfazer.</br>
+• Um sistema para prevenir que insiras um número gigante por engano.</br>
+• Um simulador de rolamento de dado verdadeiramente aleatório.</br>
+• Um simulador de moeda ao ar verdadeiramente aleatório.</br>
+• Uma calculadora padrão de 4 funções incorporada.</br>
+• <u>Sem anúncios de qualquer tipo.</u>.</br>
+<u>Funções Por Vir:</u></br><u>
+• Suporte para 3 e 4 jogadores</br>
+
+[Portuguese] translation provided by [Miguel Garcia and Guilherme Garcia].

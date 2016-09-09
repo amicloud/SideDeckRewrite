@@ -1,0 +1,92 @@
+//In app strings
+
+Registro del Duello
+Calcolatrice
+Reset
+Impostazioni
+Lancio di Dado
+Testa o Croce
+Testa
+Croce
+"Turno\n1"
+"Turno\n"
+Turno
+Giocatore 1
+Giocatore 2
+" LP aggiunti a "
+" LP sottratti a "
+
+Si!
+Non proprio
+No, grazie
+Sei sicuro?
+Indietro
+Continua
+
+Calc //short for calulator
+Cancella
+
+ERRORE
+Mancata Corrispondenza fra Parentesi
+Eccesso
+Cronometro
+START
+STOP
+Rimangono cinque minuti
+Annulla
+Possibile inserimento imprevisto
+"Il numero inserito "
+" sembra troppo grande. Sei sicuro che sia corretto?"
+//Please note, the two strings above are intended to follow each other in the form of
+//"The entered number " + [Entered Number] + " seems too large.  Are you sure that this is correct?"
+//If this doesn't make much sense in your language, please leave a note as to how it needs to be changed to be correct
+Durata Predefinita del Cronometro
+La durata iniziale del cronometro in minuti
+
+Grazie.
+
+Una Nuova Versione è Disponibile
+"La più recente versione beta di SideDeck è "
+"Tu hai la versione "
+Vorresti andare al Google Play store per fare l'aggiornamento?
+Mi Recensiresti?
+Che ne diresti di recensire SideDeck sul Google Play Store?
+
+Se il numero inserito non sembra corretto, chiedere per conferma. Previene l'aggiungere imprevisto di 100,000 lp
+Controllare il Numero Immesso per Sicurezza
+Consenti ai Life Points di andare in negativo
+Consenti Life Points in Negativo
+Life Points Predefiniti
+Giocatore 1 nome predefinito
+Giocatore 2 nome predefinito
+Audio
+Attiva effetti sonori
+
+//Store listing Page
+
+//Title
+SideDeck Calcolatore di Life Points
+
+//Summary
+Un elegantemente semplice calcolatore di life points per Yu-Gi-Oh! Trading Card Game.
+
+//Description
+<b><u>SideDeck è:</u></b></br>
+Un elegantemente semplice calcolatore di life points per Yu-Gi-Oh! Trading Card Game. Tu puoi facilmente tenere traccia dei tuoi life points nei tuoi duelli .</br>
+Con un calcolatore di life points ed un registro del duello, mai sarà una vittoria contestata.</br>
+Nessuna pubblicità di alcun tipo.</br>
+<b><u>SideDeck include:</u></b></br>
+• Un calcolatore di life points facile da usare.</br>
+• Un registro del duello per tener traccia di cosa è successo durante il duello ogni turno.</br>
+• Un contatore di turni.</br>
+• Un timer da torneo facile da usare con allarmi.</br>
+• Una funzione per annullare.</br>
+• Un sistema che ti previene dall'inserire un numero troppo grande per errore.</br>
+• Un simulatore di lancio di dadi veramente casuale.</br>
+• Un simulatore di testa o croce veramente casuale.</br>
+• Una calcolatrice a 4 funzioni pre-installata.</br>
+• <u>Nessuna pubblicità di alcun tipo</u>.</br>
+<u>Carratteristice in arrivo:</u></br>
+• Supporto per 3 e 4 giocatori</br>
+
+[Italian] translation provided by [/u/bukler].

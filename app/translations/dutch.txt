@@ -1,0 +1,91 @@
+Here are all of the strings that need to be translated.  All white space and quotation marks are intended.
+At the bottom, include an attribution for yourself if you so desire, it will be on the Play Store Page.
+Anything following two slashes (//) is a comment and does not need to be translated.
+Thank you for your contribution!
+
+//In app strings
+
+Duel Logboek
+Rekenmachine
+Reset
+Opties
+Dobbelsteen Rol
+Kop of Munt
+Kop
+Munt
+"Beurt\n1"
+"Beurt\n"
+Beurt
+Speler 1
+Speler 2
+" LP gevoegd bij "
+" LP afgetrokken van "
+
+Ja!
+Niet echt
+Nee, Bedankt
+Ben je zeker?
+Stap terug
+Verder doen
+
+ERROR
+Haakjes verkeerd gecombineerd
+Overvloed
+Timer
+START
+STOP
+Nog maar vijf minuten
+Annuleer
+Mogenlijk dat de invoeging perongeluk verkeerd is
+"Het ingevoegde nummer "
+" kan te hoog zijn. Ben je zeker dat dit correct is?"
+//Please note, the two strings above are intended to follow each other in the form of
+//"The entered number " + [Entered Number] + " seems too large.  Are you sure that this is correct?"
+//If this doesn't make much sense in your language, please leave a note as to how it needs to be changed to be correct
+
+
+Een nieuwe versie is beschikbaar
+"De nieuwe beta versie van SideDeck is "
+"Jij hebt versie "
+Wil je naar de Google Play Store gaan voor een update?
+Waardeer Mij?
+Kan je SideDeck alsjeblieft een waardering geven op de Google Play Store?
+
+Als het ingegeven nummer niet correct lijkt, vraag voor confirmatie.  Dit voorkomt om perongeluk met 100,000 LP te starten.
+Check voor een veilig ingevoegd nummer.
+Sta toe om Levenspunten in de negatieven te laten gaan
+Sta Negatieve Levenspunten toe
+Standaard Levenspunten
+Speler 1 standaard naam
+Speler 2 standaard naam
+Geluid
+Sta Geluidseffecten toe
+
+//Store listing Page
+
+//Title
+SideDeck Levenspunten rekenmachine
+
+//Summary
+Een elegante en simpele manier om je levenspunten bij te houden voor de Yu-Gi-Oh! Trading Card Game.
+
+//Description
+<b><u>SideDeck is:</u></b></br>
+Een simpele en elegante Rekenmachine voor je Levenspunten in de Yu-Gi-Oh! Trading Card Game.  Je kunt met gemak je LP bijhouden in Yu-Gi-Oh!</br>
+Met een Levenspunten rekenmachine zullen je overwinningen nooit meer betwijfelt worden.</br>
+Geen Advertisementen.</br>
+<b><u>SideDeck bevat:</u></b></br>
+• Een gemakkelijk te gebruiken Rekenmachine.</br>
+• Een Logboek om alles wat er in de Duel is gebeurd bij te houden.</br>
+• Een beurten teller.</br>
+• Een gemak gebruikbare tournamenten timer met waarschuwingen.</br>
+• Mogenlijkheid om een stap terug te gaan en iets opnieuw in te geven.</br>
+• Een systeem om te voorkomen dat je een gigantisch nummer perongeluk ingeeft.</br>
+• Een dobbelsteen dat compleet lukraak is.</br>
+• Een 'Kop of Munt' worp dat compleet lukraak is.</br>
+• Een ingebouwde 4-functie rekenmachine.</br>
+• <u>Geen Advertisementen</u>.</br>
+<u>Toekomstige functies:</u></br>
+• 3 en 4 speler mogenlijkheden</br>
+
+Dutch translation provided by Ammokkx.

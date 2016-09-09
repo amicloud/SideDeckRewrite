@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="duelLog">Registro del Duello</string>
+    <string name="calculator">Calcolatrice</string>
+    <string name="reset">Reset</string>
+    <string name="settings">Impostazioni</string>
+    <string name="diceRoll">Lancio di Dado</string>
+    <string name="coinFlip">Testa o Croce</string>
+    <string name="coinHeads">Testa</string>
+    <string name="coinsTails">Croce</string>
+    <string name="turn1">"Turno\n1"</string>
+    <string name="turn">"Turno\n"</string>
+    <string name="logTurn">Turno</string>
+    <string name="playerOne">Giocatore 1</string>
+    <string name="playerTwo">Giocatore 2</string>
+    <string name="lpAddedTo">" LP aggiunti a "</string>
+    <string name="lpSubtracedFrom">" LP sottratti a "</string>
+
+    <string name="yes">Si!</string>
+    <string name="notReally">Non proprio</string>
+    <string name="noThanks">No, grazie</string>
+    <string name="AreYouSure">Sei sicuro?</string>
+    <string name="undo">Indietro</string>
+    <string name="Continue">Continua</string>
+
+    <string name="error">ERRORE</string>
+    <string name="parenMismatch">Mancata Corrispondenza fra Parentesi</string>
+    <string name="overflow">Eccesso</string>
+    <string name="timer">Cronometro</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="fiveMinutesRemaining">Rimangono cinque minuti</string>
+    <string name="cancel">Annulla</string>
+    <string name="possibleAccidentalEntry">Possibile inserimento imprevisto</string>
+    <string name="theEnteredNumber">"Il numero inserito "</string>
+    <string name="seemsTooLarge">" sembra troppo grande. Sei sicuro che sia corretto?"</string>
+
+    <string name="newVersionAvailable">Una Nuova Versione è Disponibile</string>
+    <string name="newestVersionIs">"La più recente versione beta di SideDeck è "</string>
+    <string name="youHaveVersion">"Tu hai la versione "</string>
+    <string name="goToPlayStore">"Vorresti andare al Google Play store per fare l\'aggiornamento?"</string>
+    <string name="rateMe">Mi Recensiresti?</string>
+    <string name="rateMeMessage">Che ne diresti di recensire SideDeck sul Google Play Store?</string>
+
+    <string name="checkForSafeEntrySummary">"Se il numero inserito non sembra corretto, chiedere per conferma. Previene l\'aggiungere imprevisto di 100,000 lp"</string>
+    <string name="checkForSafeEntryTitle">Controllare il Numero Immesso per Sicurezza</string>
+    <string name="stopAtZeroSummary">Consenti ai Life Points di andare in negativo</string>
+    <string name="stopAtZeroTitle">Consenti Life Points in Negativo</string>
+    <string name="defaultLifepoints">Life Points Predefiniti</string>
+    <string name="playerOneDefaultName">Giocatore 1 nome predefinito</string>
+    <string name="playerTwoDefaultName">Giocatore 2 nome predefinito</string>
+    <string name="sound">Audio</string>
+    <string name="soundSettingSummary">Attiva effetti sonori</string>
+    <string name="calc">Calc</string>
+    <string name="defaultTimerLength">Durata Predefinita del Cronometro</string>
+    <string name="defaultTimerLengthSummary">La durata iniziale del cronometro in minuti</string>
+    <string name="clear">Cancella</string>
+
+</resources>

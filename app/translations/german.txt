@@ -1,0 +1,91 @@
+Here are all of the strings that need to be translated.  All white space and quotation marks are intended.
+At the bottom, include an attribution for yourself if you so desire, it will be on the Play Store Page.
+Anything following two slashes (//) is a comment and does not need to be translated.
+Thank you for your contribution!
+
+//In app strings
+
+Duell-Verlauf;
+Rechner;
+Zurücksetzen;
+Einstellungen;
+Würfel;
+Münzwurf
+Kopf
+Zahl
+"Turn\n1"
+"Turn\n"
+Zug
+Spieler 1
+Spieler 2
+" LP hinzugefügt zu "
+" LP abgezogen von "
+
+Ja!
+Nicht wirklich
+Nein, danke
+Bist du sicher?
+Rückgängig
+Fortsetzen
+
+FEHLER
+Parenthesis Mismatch
+Overflow
+Timer
+START
+STOP
+Fünf Minuten übrig!
+Abbrechen
+Mögliche ungewollte Eingabe
+"Die eingegebene Nummer "
+" ist zu groß.  Bist du sicher, dass sie stimmt?"
+//Please note, the two strings above are intended to follow each other in the form of
+//"The entered number " + [Entered Number] + " seems too large.  Are you sure that this is correct?"
+//If this doesn't make much sense in your language, please leave a note as to how it needs to be changed to be correct
+
+
+Eine neue Version ist verfügbar
+"Die neueste Beta-Version von SideDeck ist "
+"Du hast Version "
+Würdest du gerne zum Play-Store gehen um die App zu updaten?
+App bewerten?
+Hast du einen kurzen Moment Zeit, SideDeck zu bewerten?
+
+Wenn die eingegebene Zahl falsch wirkt, frage nach Bestätigung.  Verhindert ungewolltes hintzufügen von 100.000 LP
+Überprüfe die eingegebene Zahl
+Erlaube es negative LP zu haben
+Erlaube es negative LP zu haben
+Standard LP
+Spieler 1 Standard Name
+Spieler 2 Standard Name
+Sound
+Aktiviere Sound-Effekte
+
+//Store listing Page
+
+//Title
+SideDeck LP-Rechner
+
+//Summary
+Ein einfach gestaltener LP-Zähler für das Yu-Gi-Oh!-Sammelkartenspiel.
+
+//Description
+<b><u>SideDeck ist:</u></b></br>
+Ein einfach gestaltener LP-Zähler für das Yu-Gi-Oh!-Sammelkartenspiel.  Hiermit kannst du einfach deine Lebenspunkte in Yu-Gi-Oh! Duellen im Blick behalten.</br>
+With a life point calculator and a duel log, never will a victory be contested.</br>
+Keine Werbung in irgendeiner Art.</br>
+<b><u>SideDeck beinhaltet:</u></b></br>
+• Einen einfach verwendbaren Lebenspunkte-Zähler.</br>
+• Einen Duell-Verlauf um einfachen Überblick über das Duell zu haben.</br>
+• Einen Zug-Zähler.</br>
+• Einen leicht benutzbaren Turnier-Timer welcher dich alarmiert, wenn die Zeit abgelaufen ist.</br>
+• Eine Rückgängig-Funktion.</br>
+• Ein System welches verhindert, dass du ausversehen zu viele Lebenspunkte addierst oder subtrahierst.</br>
+• Einen komplett zufälligen Würfel-Simulator.</br>
+• Einen komplett zufälligen Münzwurf-Simulator.</br>
+• Einen eingebauten Taschenrechner.</br>
+• <u>Keine Werbung in irgendeiner Art</u>.</br>
+<u>Geplante Features:</u></br>
+• 3 und 4 Spieler Unterstützung</br>
+
+[German] translation provided by [Jonathan Seyr].

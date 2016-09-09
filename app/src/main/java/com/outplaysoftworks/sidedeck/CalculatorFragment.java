@@ -90,6 +90,14 @@ public class CalculatorFragment extends Fragment {
     TextView calculatorResults;
     @BindView(R.id.holderCalculator)
     LinearLayout holderCalculator;
+    @BindView(R.id.buttonReset)
+    Button buttonReset;
+    @BindView(R.id.buttonShowCalc)
+    Button buttonShowCalc;
+    @BindView(R.id.buttonClear)
+    Button buttonClear;
+    @BindView(R.id.buttonUndo)
+    Button buttonUndo;
 
     Integer lpSoundStreamId;
     public CalculatorPresenter mCalculatorPresenter;
@@ -184,6 +192,14 @@ public class CalculatorFragment extends Fragment {
         AutofitHelper.create(player2Name);
         AutofitHelper.create(player1Lp);
         AutofitHelper.create(player2Lp);
+        AutofitHelper.create(buttonClear);
+        AutofitHelper.create(buttonReset);
+        AutofitHelper.create(buttonUndo);
+        AutofitHelper.create(buttonShowCalc);
+        AutofitHelper.create(buttonTimer);
+        AutofitHelper.create(buttonDiceRoll);
+        AutofitHelper.create(coinFlipButton);
+        AutofitHelper.create(buttonTurn);
     }
 
     @OnClick(R.id.buttonReset)

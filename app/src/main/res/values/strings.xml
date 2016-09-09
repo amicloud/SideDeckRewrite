@@ -56,13 +56,17 @@
 
     <string name="checkForSafeEntrySummary">If the entered number doesn\'t seem correct, ask for confirmation.  Prevents accidentally adding 100,000 LP</string>
     <string name="checkForSafeEntryTitle">Check for Safe Entered Number</string>
-    <string name="stopAtZeroSummary">Allow Lifepoints to become negative</string>
-    <string name="stopAtZeroTitle">Allow Negative Lifepoints</string>
-    <string name="defaultLifepoints">Default Lifepoints</string>
+    <string name="stopAtZeroSummary">Allow Life Points to become negative</string>
+    <string name="stopAtZeroTitle">Allow Negative Life Points</string>
+    <string name="defaultLifepoints">Default Life Points</string>
     <string name="playerOneDefaultName">Player 1 default name</string>
     <string name="playerTwoDefaultName">Player 2 default name</string>
     <string name="sound">Sound</string>
     <string name="soundSettingSummary">Enable sound effects</string>
+    <string name="clear">Clear</string>
+    <string name="calc">Calc</string>
+    <string name="defaultTimerLength">Default Timer Length</string>
+    <string name="defaultTimerLengthSummary">The initial timer duration in minutes</string>
 
 </resources>
 <!-- Everything arranged nicely for manual translations
@@ -111,9 +115,9 @@ Care to rate SideDeck on the Google Play store?
 
 If the entered number doesn\'t seem correct, ask for confirmation.  Prevents accidentally adding 100,000 LP
 Check for Safe Entered Number
-Allow Lifepoints to become negative
-Allow Negative Lifepoints
-Default Lifepoints
+Allow Life Points to become negative
+Allow Negative Life Points
+Default Life Points
 Player 1 default name
 Player 2 default name
 Sound
@@ -142,4 +146,79 @@ No ads of any kind.</br>
 <u>Upcoming Features:</u></br>
 • 3 and 4 player support</br>
 
+-->
+
+<!--
+
+List of translators:
+
+Spanish: https://www.reddit.com/user/fluul
+German: https://www.reddit.com/user/MrKexl
+Italian:
+French: https://www.reddit.com/user/MouVii
+Japanese: https://www.reddit.com/user/ziggaboogi
+EU Portuguese: https://www.reddit.com/user/CrazyCoww
+BR Portuguese: https://www.reddit.com/user/xenorrk1
+Dutch: https://www.reddit.com/user/Nickpws
+
+
+-->
+
+<!--
+
+<resources>
+
+<string name="duelLog"></string>
+<string name="calculator"></string>
+<string name="reset"></string>
+<string name="settings"></string>
+<string name="diceRoll"></string>
+<string name="coinFlip"></string>
+<string name="coinHeads"></string>
+<string name="coinsTails"></string>
+<string name="turn1"></string>
+<string name="turn"></string>
+<string name="logTurn"></string>
+<string name="playerOne"></string>
+<string name="playerTwo"></string>
+<string name="lpAddedTo"></string>
+<string name="lpSubtracedFrom"></string>
+
+<string name="yes"></string>
+<string name="notReally"></string>
+<string name="noThanks"></string>
+<string name="AreYouSure"></string>
+<string name="undo"></string>
+<string name="Continue"></string>
+
+<string name="error"></string>
+<string name="parenMismatch"></string>
+<string name="overflow"></string>
+<string name="timer"></string>
+<string name="start"></string>
+<string name="stop"></string>
+<string name="fiveMinutesRemaining"></string>
+<string name="cancel"></string>
+<string name="possibleAccidentalEntry"></string>
+<string name="theEnteredNumber"></string>
+<string name="seemsTooLarge"></string>
+
+<string name="newVersionAvailable"></string>
+<string name="newestVersionIs"></string>
+<string name="youHaveVersion"></string>
+<string name="goToPlayStore"></string>
+<string name="rateMe"></string>
+<string name="rateMeMessage"></string>
+
+<string name="checkForSafeEntrySummary"></string>
+<string name="checkForSafeEntryTitle"></string>
+<string name="stopAtZeroSummary"></string>
+<string name="stopAtZeroTitle"></string>
+<string name="defaultLifepoints"></string>
+<string name="playerOneDefaultName"></string>
+<string name="playerTwoDefaultName"></string>
+<string name="sound"></string>
+<string name="soundSettingSummary"></string>
+
+    </resources>
 -->

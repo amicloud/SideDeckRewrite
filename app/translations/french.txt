@@ -1,0 +1,86 @@
+//In app strings
+
+Historique du Duel
+Calculatrice
+Réinitialisation
+Options
+Lancer de Dé // or just "Dé"
+Pile ou Face
+Face
+Pile
+"Tour\n1"
+"Tour\n"
+Tour
+Joueur 1
+Joueur 2
+" LP ajoutés à "
+" LP soustraits de "
+
+Oui!
+Pas vraiment
+Non, merci
+Êtes-vous sûr ?
+Retour
+Continuer
+
+ERREUR
+Parenthèses décalées
+Débordement
+Chrono
+START
+STOP
+Cinq minutes restantes
+Annuler
+Entrée possiblement accidentelle
+"Le nombre entré "
+" semble trop grand. Êtes-vous sûr qu'il soit correct ?"
+//Please note, the two strings above are intended to follow each other in the form of
+//"The entered number " + [Entered Number] + " seems too large.  Are you sure that this is correct?"
+//If this doesn't make much sense in your language, please leave a note as to how it needs to be changed to be correct
+
+
+Une nouvelle version est disponible
+"La version bêta de SideDeck la plus récente est "
+"Vous avez la version "
+Voulez-vous le mettre à jour ?
+Notez moi ?
+Voulez-vous noter SideDeck sur le Google Play Store ?
+
+Si le nombre entré ne semble pas correct, demandez la confirmation. Cela empêche d'ajouter accidentellemetn 100 000 LP.
+Vérifier l'entrée d'un nombre correct.
+Autoriser les LP à être négatifs.
+Autoriser les LP négatifs.
+LP par défaut.
+Nom par défaut du Joueur 1
+Nom par défaut du Joueur 2
+Son
+Activer le son
+
+//Store listing Page
+
+//Title
+SideDeck LP Calculatrice
+
+//Summary
+Une simple et élégante calculatrice de LP pour le jeu de cartes à collectionner Yu-Gi-Oh!.
+
+//Description
+<b><u>SideDeck, c'est :</u></b></br>
+Une simple et élégante calculatrice de LP pour le jeu de cartes à collectionner Yu-Gi-Oh!. Vous pouvez facilement connaître vos LP durant un duel de Yu-Gi-Oh!.</br>
+Avec une calculatrice de LP et un historique du duel, les victoires ne seront jamais contestées.</br>
+Sans pubs.</br>
+<b><u>SideDeck inclut :</u></b></br>
+• Une calculatrice de LP facile à utiliser.</br>
+• Un historique de duel pour savoir ce qu'il s'est passé pour chaque tour.</br>
+• Un compteur de tour.</br>
+• Un chronomètre de tournoi facile à utiliser (avec alarme).</br>
+• Une fonction de retour en arrière.</br>
+• Un système qui vous empêche d'entrer un trop grand nombre par erreur.</br>
+• Un simulateur de lancer de dé totalement aléatoire.</br>
+• Un simulateur de lancer de pièce totalement aléatoire.</br>
+• Une calculette standard incorporée.</br>
+• <u>Pas de pubs</u>.</br>
+<u>Ajouts à venir :</u></br>
+• Fonctions pour 3 and 4 joueurs </br>
+
+French translation provided by u/MouVii.

@@ -46,7 +46,8 @@
                 android:layout_weight="3"
                 android:gravity="center"
                 android:text="@string/turn1"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:maxLines="2" />
 
             <TextView
                 android:id="@+id/player2Lp"
@@ -163,7 +164,8 @@
                 android:layout_weight="3"
                 android:gravity="center"
                 android:text="@string/diceRoll"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:maxLines="2" />
 
             <Button
 
@@ -211,7 +213,8 @@
                 android:layout_weight="3"
                 android:gravity="center"
                 android:text="@string/coinFlip"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:maxLines="2" />
 
             <Button
 
@@ -346,7 +349,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Timer" />
+                android:text="@string/timer"
+                android:maxLines="1" />
 
             <Button
                 android:id="@+id/buttonShowCalc"
@@ -354,7 +358,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Calc" />
+                android:text="@string/calc"
+                android:maxLines="1" />
 
             <Button
                 android:id="@+id/buttonReset"
@@ -362,7 +367,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Reset" />
+                android:text="@string/reset"
+                android:maxLines="1" />
 
             <Button
                 android:id="@+id/buttonClear"
@@ -370,7 +376,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Clear" />
+                android:text="@string/clear"
+                android:maxLines="1" />
 
             <Button
                 android:id="@+id/buttonUndo"
@@ -378,7 +385,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Undo" />
+                android:text="@string/undo"
+                android:maxLines="1" />
         </LinearLayout>
     </LinearLayout>
 

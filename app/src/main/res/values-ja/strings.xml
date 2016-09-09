@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="duelLog">デュエルログ</string>
+    <string name="calculator">電卓</string>
+    <string name="reset">リセット</string>
+    <string name="settings">設定</string>
+    <string name="diceRoll">サイコロ</string>
+    <string name="coinFlip">コインフリップ</string>
+    <string name="coinHeads">表</string>
+    <string name="coinsTails">裏</string>
+    <string name="turn1">"ターン\n1"</string>
+    <string name="turn">"ターン\n"</string>
+    <string name="logTurn">ターン</string>
+    <string name="playerOne">プレイヤー 1</string>
+    <string name="playerTwo">プレイヤー 2</string>
+    <string name="lpAddedTo">" ライフポイント加算 "</string>
+    <string name="lpSubtracedFrom">" ライフポイント減算 "</string>
+
+    <string name="yes">はい!</string>
+    <string name="notReally">結構です</string>
+    <string name="noThanks">いいえ</string>
+    <string name="AreYouSure">進みますか?</string>
+    <string name="undo">元に戻す</string>
+    <string name="Continue">続く</string>
+
+    <string name="error">エラー</string>
+    <string name="parenMismatch">パレンセシス ミスマッチ</string>
+    <string name="overflow">オーバーフロー</string>
+    <string name="timer">タイマー</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="fiveMinutesRemaining">残り五分</string>
+    <string name="cancel">キャンセル</string>
+    <string name="possibleAccidentalEntry">入力間違いの可能性。</string>
+    <string name="theEnteredNumber">"入力された数字、"</string>
+    <string name="seemsTooLarge">" 、が大きすぎる可能性があります。確認をお願いします。"</string>
+
+    <string name="newVersionAvailable">最新バージョンがあります。</string>
+    <string name="newestVersionIs">"SideDeck の最新バージョンは "</string>
+    <string name="youHaveVersion">"現在のバージョン "</string>
+    <string name="goToPlayStore">Google Playストアから更新しますか?</string>
+    <string name="rateMe">評価しますか?</string>
+    <string name="rateMeMessage">評価していただけますか?</string>
+
+    <string name="checkForSafeEntrySummary">入力された数字に問題がありそうの場合、確認してください。100,000ライフポイントを間違えで入力しないように。</string>
+    <string name="checkForSafeEntryTitle">整数のチェック</string>
+    <string name="stopAtZeroSummary">ライフポイントが負数になれる可</string>
+    <string name="stopAtZeroTitle">負数ライフポイント可</string>
+    <string name="defaultLifepoints">デフォルトライフポイント</string>
+    <string name="playerOneDefaultName">プレイヤー1 デフォルトネーム</string>
+    <string name="playerTwoDefaultName">プレイヤー2 デフォルトネーム</string>
+    <string name="sound">音設定</string>
+    <string name="soundSettingSummary">エフェクト音可</string>
+    <string name="clear">クリア</string>
+    <string name="calc">電卓</string>
+    <string name="defaultTimerLength">タイマーのデフォルトタイムリミット</string>
+    <string name="defaultTimerLengthSummary">分単位でのタイマーのデフォルト設定</string>
+
+</resources>
+
+<!--
+//Store listing Page
+
+//Title
+SideDeck ライフポイント電卓
+
+//Summary
+遊戯王OCGのために作られた、単純で使いやすいライフポイント電卓。
+
+//Description
+<b><u>SideDeckは:</u></b></br>
+遊戯王OCGの為に作られた、単純で使いやすいライフポイント電卓。ライフポイントの記録がこれ以上簡単にはできない！<br>
+ライフポイント電卓とデュエルログでデュエルの今までの成り行きが明快。</br>
+広告なし。</br>
+<b><u>SideDeck には:</u></b></br>
+• 使いやすいライフポイント電卓</br>
+• 毎ターンの動きを記録するデュエルログbr>
+• ターン数の表示</br>
+• 警告機能付きの大会用タイマー</br>
+• 入力間違いの為の“元に戻す”機能</br>
+•間違えで大きすぎる数字の入力を防ぐシステム</br>
+• 真にランダムなサイコロシミュレーター</br>
+• 真にランダムなコインフリップシミュレーター</br>
+• 足し算、引き算、掛け算、割り算の四機能を備えた電卓</br>
+• <u>広告を全く表示しない</u>.</br>
+<u>今後追加される機能:</u></br>
+• 3人、及び4人対戦用の機能</br>
+
+日本語版翻訳―ziggaboogi
+-->

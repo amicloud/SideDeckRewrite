@@ -23,8 +23,8 @@
         android:entries="@array/timerDefaultTimeStrings"
         android:entryValues="@array/timerDefaultTimeIntegers"
         android:key="@string/KEYdefaultTimer"
-        android:summary="The initial timer duration in minutes"
-        android:title="Default Timer Length" />
+        android:summary="@string/defaultTimerLengthSummary"
+        android:title="@string/defaultTimerLength" />
     <EditTextPreference
         android:capitalize="words"
         android:defaultValue="@string/playerOne"

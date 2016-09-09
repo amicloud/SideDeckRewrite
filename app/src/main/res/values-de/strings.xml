@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Key strings go here-->
+
+    <string name="duelLog">Duell-Verlauf</string>
+    <string name="calculator">Rechner</string>
+    <string name="reset">Zurücksetzen</string>
+    <string name="settings">Einstellungen</string>
+    <string name="diceRoll">Würfel</string>
+    <string name="coinFlip">Münzwurf</string>
+    <string name="coinHeads">Kopf</string>
+    <string name="coinsTails">Zahl</string>
+    <string name="turn1">"Turn\n1"</string>
+    <string name="turn">"Turn\n"</string>
+    <string name="logTurn">Zug</string>
+    <string name="playerOne">Spieler 1</string>
+    <string name="playerTwo">Spieler 2</string>
+    <string name="lpAddedTo">" LP hinzugefügt zu "</string>
+    <string name="lpSubtracedFrom">" LP abgezogen von "</string>
+
+    <string name="yes">Ja!</string>
+    <string name="notReally">Nicht wirklich</string>
+    <string name="noThanks">Nein, danke</string>
+    <string name="AreYouSure">Bist du sicher?</string>
+    <string name="undo">Rückgängig</string>
+    <string name="Continue">Fortsetzen</string>
+
+    <string name="error">FEHLER</string>
+    <string name="parenMismatch">Parenthesis Mismatch</string>
+    <string name="overflow">Overflow</string>
+    <string name="timer">Timer</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="fiveMinutesRemaining">Fünf Minuten übrig!</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="possibleAccidentalEntry">Mögliche ungewollte Eingabe</string>
+    <string name="theEnteredNumber">"Die eingegebene Nummer "</string>
+    <string name="seemsTooLarge">" ist zu groß.  Bist du sicher, dass sie stimmt?"</string>
+
+    <string name="newVersionAvailable">Eine neue Version ist verfügbar</string>
+    <string name="newestVersionIs">"Die neueste Beta-Version von SideDeck ist "</string>
+    <string name="youHaveVersion">"Du hast Version "</string>
+    <string name="goToPlayStore">Würdest du gerne zum Play-Store gehen um die App zu updaten?</string>
+    <string name="rateMe">App bewerten?</string>
+    <string name="rateMeMessage">Hast du einen kurzen Moment Zeit, SideDeck zu bewerten?</string>
+
+    <string name="checkForSafeEntrySummary">Wenn die eingegebene Zahl falsch wirkt, frage nach Bestätigung.  Verhindert ungewolltes hintzufügen von 100.000 LP</string>
+    <string name="checkForSafeEntryTitle">Überprüfe die eingegebene Zahl</string>
+    <string name="stopAtZeroSummary">Erlaube es negative LP zu haben</string>
+    <string name="stopAtZeroTitle">Erlaube es negative LP zu haben</string>
+    <string name="defaultLifepoints">Standard LP</string>
+    <string name="playerOneDefaultName">Spieler 1 Standard Name</string>
+    <string name="playerTwoDefaultName">Spieler 2 Standard Name</string>
+    <string name="sound">Sound</string>
+    <string name="soundSettingSummary">Aktiviere Sound-Effekte</string>
+    <string name="clear">Löschen </string>
+    <string name="calc">Rechner</string>
+    <string name="defaultTimerLength">Standard Timer Dauer</string>
+    <string name="defaultTimerLengthSummary">Die anfängliche Timer Dauer in Minuten</string>
+
+</resources>
+
+<!--
+    //Store listing Page
+
+    //Title
+    SideDeck LP-Rechner
+
+    //Summary
+    Ein einfach gestaltener LP-Zähler für das Yu-Gi-Oh!-Sammelkartenspiel.
+
+    //Description
+<b><u>SideDeck ist:</u></b></br>
+    Ein einfach gestaltener LP-Zähler für das Yu-Gi-Oh!-Sammelkartenspiel.  Hiermit kannst du einfach deine Lebenspunkte in Yu-Gi-Oh! Duellen im Blick behalten.</br>
+    With a life point calculator and a duel log, never will a victory be contested.</br>
+    Keine Werbung in irgendeiner Art.</br>
+<b><u>SideDeck beinhaltet:</u></b></br>
+    • Einen einfach verwendbaren Lebenspunkte-Zähler.</br>
+    • Einen Duell-Verlauf um einfachen Überblick über das Duell zu haben.</br>
+    • Einen Zug-Zähler.</br>
+    • Einen leicht benutzbaren Turnier-Timer welcher dich alarmiert, wenn die Zeit abgelaufen ist.</br>
+    • Eine Rückgängig-Funktion.</br>
+    • Ein System welches verhindert, dass du ausversehen zu viele Lebenspunkte addierst oder subtrahierst.</br>
+    • Einen komplett zufälligen Würfel-Simulator.</br>
+    • Einen komplett zufälligen Münzwurf-Simulator.</br>
+    • Einen eingebauten Taschenrechner.</br>
+    • <u>Keine Werbung in irgendeiner Art</u>.</br>
+<u>Geplante Features:</u></br>
+    • 3 und 4 Spieler Unterstützung</br>
+
+    [German] translation provided by [Jonathan Seyr].-->
