@@ -8,7 +8,7 @@
     <string name="reset">Zurücksetzen</string>
     <string name="settings">Einstellungen</string>
     <string name="diceRoll">Würfel</string>
-    <string name="coinFlip">Münzwurf</string>
+    <string name="coinFlip">Münze</string>
     <string name="coinHeads">Kopf</string>
     <string name="coinsTails">Zahl</string>
     <string name="turn1">"Turn\n1"</string>

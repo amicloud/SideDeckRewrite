@@ -266,21 +266,21 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed(){
-        if(mCalculatorFragment.holderCalculator.getVisibility() == View.VISIBLE){
-            mCalculatorFragment.holderCalculator.setVisibility(View.GONE);
-        } else if( mCalculatorFragment.holderTimer.getVisibility() ==  View.VISIBLE){
-            mCalculatorFragment.holderTimer.setVisibility(View.GONE);
-        } else if(mCalculatorFragment.player1Name.isFocused()){
-            mCalculatorFragment.player1Name.clearFocus();
-        } else if(mCalculatorFragment.player2Name.isFocused()){
-            mCalculatorFragment.player2Name.clearFocus();
+        try {
+            if (mCalculatorFragment.holderCalculator.getVisibility() == View.VISIBLE) {
+                mCalculatorFragment.holderCalculator.setVisibility(View.GONE);
+            } else if (mCalculatorFragment.holderTimer.getVisibility() == View.VISIBLE) {
+                mCalculatorFragment.holderTimer.setVisibility(View.GONE);
+            } else if (mCalculatorFragment.player1Name.isFocused()) {
+                mCalculatorFragment.player1Name.clearFocus();
+            } else if (mCalculatorFragment.player2Name.isFocused()) {
+                mCalculatorFragment.player2Name.clearFocus();
+            } else {
+                super.onBackPressed();
+            }
+        } catch(NullPointerException e){
+            Log.e("On back pressed: ", "No idea what happened"); //NON-NLS
         }
-        else{
-            super.onBackPressed();
-        }
-
-        //TODO: Check if the keyboard is showing and all that bull shit for the edittexts
-        //http://toastdroid.com/2014/10/14/on-screen-keyboard-state-tracking-in-3-easy-steps/
     }
 }
 

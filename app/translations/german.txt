@@ -67,7 +67,7 @@ Aktiviere Sound-Effekte
 SideDeck LP-Rechner
 
 //Summary
-Ein einfach gestaltener LP-Zähler für das Yu-Gi-Oh!-Sammelkartenspiel.
+Ein einfach gestalteter LP-Zähler für das Yu-Gi-Oh!-Sammelkartenspiel.
 
 //Description
 <b><u>SideDeck ist:</u></b></br>

@@ -84,8 +84,9 @@ Sem nenhum tipo de anúncios.</br>
 • Suporte para 3 e 4 jogadores</br>
 
 
+Brazilian Portuguese translation provided by /u/xenorrk1
+
+
 Default Timer Length - Duração Padrão do Temporizador
 The initial timer duration in minutes - A duração inicial do temporizador em minutos
 Clear Calc //As in short for Calculator - Limpar Calc
-
-Brazilian Portuguese translation provided by /u/xenorrk1
