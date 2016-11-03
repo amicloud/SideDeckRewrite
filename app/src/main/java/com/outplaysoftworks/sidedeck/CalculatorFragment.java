@@ -61,6 +61,7 @@ public class CalculatorFragment extends Fragment {
     //Drawable stuff
     private final ArrayList<Drawable> diceDrawables = new ArrayList<>();
     private Drawable diceRollBackgroundDrawable;
+    private Drawable calcArrow;
     private final Handler diceResetHandler = new Handler();
     private final Handler coinHandler = new Handler();
     @SuppressWarnings("unused")
@@ -98,6 +99,8 @@ public class CalculatorFragment extends Fragment {
     Button buttonClear;
     @BindView(R.id.buttonUndo)
     Button buttonUndo;
+    @BindView(R.id.calcEquals)
+    Button buttonCalcEquals;
 
     Integer lpSoundStreamId;
     public CalculatorPresenter mCalculatorPresenter;
@@ -237,6 +240,7 @@ public class CalculatorFragment extends Fragment {
         diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_5));
         diceDrawables.add(view.getResources().getDrawable(R.drawable.dice_6));
         diceRollBackgroundDrawable = buttonDiceRoll.getBackground();
+        calcArrow = view.getResources().getDrawable(R.drawable.calc_arrow);
     }
 
     private void setUpSounds() {
@@ -309,8 +313,6 @@ public class CalculatorFragment extends Fragment {
                 .setNegativeButton(R.string.cancel, null)
                 .show();
     }
-
-
 
     @OnClick(R.id.buttonP1Add)
     public void onClickP1Add() {
@@ -767,24 +769,52 @@ public class CalculatorFragment extends Fragment {
             R.id.calc7, R.id.calc8, R.id.calc9, R.id.calcAdd, R.id.calcMinus, R.id.calcMultiply,
             R.id.calcDivide, R.id.calcDecimal, R.id.calcLeftParen, R.id.calcRightParen})
     public void onClickCalculatorNumbersAndOperators(View view){
+        shouldSendToCalc = false;
+        buttonCalcEquals.setText("="); //NON-NLS
+        buttonCalcEquals.setBackgroundDrawable(null);
+        buttonCalcEquals.setBackgroundColor(getResources().getColor(R.color.material_accent));
         String tag = view.getTag().toString();
         calcWork += tag;
         calculatorWork.setText(calcWork);
     }
-
+    boolean shouldSendToCalc = false;
     @OnClick(R.id.calcEquals)
     public void onClickCalculatorEquals(){
-        String results;
-        try {
-            results = evaluator.evaluate(calcCorrectParens(calcWork));
-            calculatorResults.setText(results);
-        } catch (EvaluationException e) {
-            Log.e("JEVAL: ", calcWork); //NON-NLS
-            calculatorResults.setText(R.string.error);
-            e.printStackTrace();
-            if(calcCheckIsParenMismatch(calcWork)){
-                calculatorResults.setText(R.string.parenMismatch);
+        if(!shouldSendToCalc) {
+            String results;
+            try {
+                results = evaluator.evaluate(calcCorrectParens(calcWork));
+                calculatorResults.setText(results);
+            } catch (EvaluationException e) {
+                Log.e("JEVAL: ", calcWork); //NON-NLS
+                calculatorResults.setText(R.string.error);
+                e.printStackTrace();
+                if (calcCheckIsParenMismatch(calcWork)) {
+                    calculatorResults.setText(R.string.parenMismatch);
+                }
             }
+            shouldSendToCalc = true;
+            buttonCalcEquals.setBackgroundColor(getResources().getColor(R.color.material_accent));
+            buttonCalcEquals.setBackgroundDrawable(calcArrow);
+            buttonCalcEquals.setText(""); //NON-NLS
+            //TODO: SCALE FOR SIZE
+        } else {
+            if(calculatorResults.getText().equals("") || calculatorResults.getText().equals(
+                    getResources().getString(R.string.error)) || calculatorResults.getText().equals(
+                            getResources().getString(R.string.parenMismatch))){
+                buttonCalcEquals.setBackgroundDrawable(null);
+                buttonCalcEquals.setBackgroundColor(getResources().getColor(R.color.material_accent));
+                buttonCalcEquals.setText("="); //NON-NLS
+                return;
+            }
+            Double tempVal = (double) Math.round(Double.parseDouble(calculatorResults.getText().toString()));
+            Integer tempInt = tempVal.intValue();
+            mCalculatorPresenter.relayClear();
+            mCalculatorPresenter.relayNumbers(tempInt.toString());
+            shouldSendToCalc = false;
+            buttonCalcEquals.setBackgroundDrawable(null);
+            buttonCalcEquals.setBackgroundColor(getResources().getColor(R.color.material_accent));
+            buttonCalcEquals.setText("="); //NON-NLS
         }
     }
 

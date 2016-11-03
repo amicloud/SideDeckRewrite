@@ -80,32 +80,19 @@ class CalculatorModel {
     }
 
     private Integer getDefaultLpFromPreferences() {
-        String defaultLpString;
+        String defaultLpString = "";
         if(mCalculatorPresenter.mCalculatorFragment != null) {
-            SharedPreferences sharedPreferences = MainActivity.sharedPreferences;
-            defaultLpString = sharedPreferences.getString(AppConstants.KEY_DEFAULT_LP, "8000");
+            try {
+                SharedPreferences sharedPreferences = MainActivity.sharedPreferences;
+                defaultLpString = sharedPreferences.getString(AppConstants.KEY_DEFAULT_LP, "8000");
+            } catch(NullPointerException e){
+                e.printStackTrace();
+            }
         } else {
             defaultLpString = "8000";
         }
         return Integer.parseInt(defaultLpString);
     }
-
-    /*private String getPlayerOneNameFromPreferences(){
-        if(mCalculatorPresenter.mCalculatorFragment != null){
-            SharedPreferences sharedPreferences = MainActivity.sharedPreferences;
-            return sharedPreferences.getString(AppConstants.KEY_PLAYER_ONE_DEF_NAME, "");
-        }else { //TODO: See if changing these to empty strings broke anything
-            return "";
-        }
-    }
-    private String getPlayerTwoNameFromPreferences(){
-        if(mCalculatorPresenter.mCalculatorFragment != null){
-            SharedPreferences sharedPreferences = MainActivity.sharedPreferences;
-            return sharedPreferences.getString(AppConstants.KEY_PLAYER_TWO_DEF_NAME, "");
-        }else {
-            return "";
-        }
-    }*/
 
     public void doNumbers(String tag) {
         enteredValueString = enteredValue.toString();
@@ -227,7 +214,6 @@ class CalculatorModel {
         if(currentTurn > 1) {
             currentTurn--;
             mCalculatorPresenter.onTurnUpdated(currentTurn);
-            //mLogPresenter.onTurnDecremented();
         }
 
     }

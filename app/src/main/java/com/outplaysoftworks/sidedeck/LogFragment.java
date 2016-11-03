@@ -1,10 +1,12 @@
 package com.outplaysoftworks.sidedeck;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,11 +18,12 @@ import me.grantland.widget.AutofitHelper;
 
 public class LogFragment extends Fragment {
 
-    private static View view;
+    private View view;
     private static final ArrayList<LinearLayout> sections = new ArrayList<>();
     public LogPresenter mLogPresenter;
-    /*@BindView(R.id.layoutHolder)*/
-    private static LinearLayout layoutHolder;
+    private Drawable arrowUp;
+    private Drawable arrowDown;
+    private LinearLayout layoutHolder;
 
     public LogFragment() {
         makePresenter();
@@ -39,8 +42,14 @@ public class LogFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_log, container, false);
         ButterKnife.setDebug(true);
         ButterKnife.bind(this, view);
+        loadDrawables();
         setupLog();
         return view;
+    }
+
+    private void loadDrawables() {
+        arrowUp = this.getContext().getResources().getDrawable(R.drawable.arrow_up);
+        arrowDown = this.getContext().getResources().getDrawable(R.drawable.arrow_down);
     }
 
     private void setupLog() {
@@ -54,11 +63,14 @@ public class LogFragment extends Fragment {
 
     @SuppressWarnings("deprecation")
     private LinearLayout makeLayoutForCalculation(Calculation calculation) {
+        loadDrawables();
         LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
         LinearLayout calculationLayout = (LinearLayout) layoutInflater.inflate(R.layout.calculation, layoutHolder, false);
         TextView playerName = ButterKnife.findById(calculationLayout, R.id.playerName);
         TextView lpDifference = ButterKnife.findById(calculationLayout, R.id.lpDifference);
         TextView lpAfter = ButterKnife.findById(calculationLayout, R.id.lpAfter);
+        //ImageView arrowHolder = ButterKnife.findById(calculationLayout, R.id.holderArrow);
+        ImageView arrowHolder = (ImageView)calculationLayout.findViewById(R.id.holderArrow);
         playerName.setText(getPlayerName(calculation.getPlayer()));
         playerName.setMaxLines(1);
         AutofitHelper.create(playerName);
@@ -76,8 +88,10 @@ public class LogFragment extends Fragment {
         AutofitHelper.create(lpAfter);
         if (calculation.isLpLoss()) {
             lpDifference.setTextColor(view.getResources().getColor(R.color.material_red));
+            arrowHolder.setImageDrawable(arrowDown);
         } else if (!calculation.isLpLoss()) {
             lpDifference.setTextColor(view.getResources().getColor(R.color.material_green));
+            arrowHolder.setImageDrawable(arrowUp);
         }
         if (sections.get(calculation.getTurn() - 1).getChildCount() > 1) {
             calculationLayout.addView(createHorizontalRule());
