@@ -114,26 +114,26 @@ public class MainActivity extends AppCompatActivity {
         if (timesOpened > 10 && shouldAskUser) {
             askUserToRate();
         }
-        boolean shouldAskUserForSupport = sharedPreferences.getBoolean("KEY_ASK_USER_TO_SUPPORT", true);//NON-NLS
-        if (timesOpened > 15 && shouldAskUserForSupport) {
-            askUserToSupport();
-        }
+//        boolean shouldAskUserForSupport = sharedPreferences.getBoolean("KEY_ASK_USER_TO_SUPPORT", true);//NON-NLS
+//        if (timesOpened > 15 && shouldAskUserForSupport) {
+//            askUserToSupport();
+//        }
     }
 
-    private void askUserToSupport() {
-        new AlertDialog.Builder(this, R.style.MyDialog)
-                .setIcon(android.R.drawable.ic_dialog_info)
-                .setTitle(R.string.supportDeveloper)
-                .setMessage(R.string.supportDeveloperMessage)
-                .setPositiveButton(getString(R.string.ok), (dialog, which) -> {
-                    takeUserToSupportPurchase();
-                    sharedPreferences.edit().putBoolean("KEY_ASK_USER_TO_SUPPORT", false).apply();//NON-NLS
-                })
-                .setNegativeButton(getString(R.string.noThanks), (dialog, which) -> {
-                    sharedPreferences.edit().putBoolean("KEY_ASK_USER_TO_SUPPORT", false).apply();//NON-NLS
-                })
-                .show();
-    }
+//    private void askUserToSupport() {
+//        new AlertDialog.Builder(this, R.style.MyDialog)
+//                .setIcon(android.R.drawable.ic_dialog_info)
+//                .setTitle(R.string.supportDeveloper)
+//                .setMessage(R.string.supportDeveloperMessage)
+//                .setPositiveButton(getString(R.string.ok), (dialog, which) -> {
+//                    takeUserToSupportPurchase();
+//                    sharedPreferences.edit().putBoolean("KEY_ASK_USER_TO_SUPPORT", false).apply();//NON-NLS
+//                })
+//                .setNegativeButton(getString(R.string.noThanks), (dialog, which) -> {
+//                    sharedPreferences.edit().putBoolean("KEY_ASK_USER_TO_SUPPORT", false).apply();//NON-NLS
+//                })
+//                .show();
+//    }
 
     private synchronized void takeUserToSupportPurchase() {
         ArrayList<String> skuList = new ArrayList<>();

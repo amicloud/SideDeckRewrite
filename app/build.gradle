@@ -11,13 +11,14 @@ android {
         applicationId "com.outplaysoftworks.sidedeck"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 34
+        versionCode 35
         versionName "2.2"
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         development {
@@ -40,6 +41,7 @@ repositories {
 
 dependencies {
     androidTestCompile 'junit:junit:4.12'
+    compile 'com.android.support:multidex:1.0.0'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'

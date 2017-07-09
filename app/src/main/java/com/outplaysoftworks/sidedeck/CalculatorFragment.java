@@ -809,7 +809,6 @@ public class CalculatorFragment extends Fragment {
             buttonCalcEquals.setBackgroundColor(getResources().getColor(R.color.material_accent));
             buttonCalcEquals.setBackgroundDrawable(calcArrow);
             buttonCalcEquals.setText(""); //NON-NLS
-            hideCalculator();
             //TODO: SCALE FOR SIZE
         } else {
             if(calculatorResults.getText().equals("") || calculatorResults.getText().equals(
@@ -828,6 +827,7 @@ public class CalculatorFragment extends Fragment {
             buttonCalcEquals.setBackgroundDrawable(null);
             buttonCalcEquals.setBackgroundColor(getResources().getColor(R.color.material_accent));
             buttonCalcEquals.setText("="); //NON-NLS
+            hideCalculator();
         }
     }
 
