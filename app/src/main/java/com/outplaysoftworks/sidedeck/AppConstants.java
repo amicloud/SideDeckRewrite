@@ -3,7 +3,7 @@ package com.outplaysoftworks.sidedeck;
 /** Holds app constants, mainly preference keys
  * Created by Billy on 5/15/2016.
  */
-@SuppressWarnings({"HardCodedStringLiteral", "unused"})
+@SuppressWarnings({"HardCodedStringLiteral"})
 class AppConstants {
     public static final String KEY_PLAYER_ONE_DEF_NAME = "KEYplayerOneDefaultNameSetting"; //NON-NLS
     public static final String KEY_PLAYER_TWO_DEF_NAME = "KEYplayerTwoDefaultNameSetting"; //NON-NLS
