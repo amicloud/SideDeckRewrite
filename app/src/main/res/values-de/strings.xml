@@ -58,6 +58,7 @@
     <string name="calc">Rechner</string>
     <string name="defaultTimerLength">Standard Timer Dauer</string>
     <string name="defaultTimerLengthSummary">Die anfängliche Timer Dauer in Minuten</string>
+    <string name="newestReleaseVersionIs">\"Die neueste version von SideDeck ist \"</string>
 
 </resources>
 

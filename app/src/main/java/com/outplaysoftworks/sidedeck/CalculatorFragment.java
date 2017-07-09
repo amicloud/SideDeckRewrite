@@ -46,12 +46,15 @@ public class CalculatorFragment extends Fragment {
 
     //TODO: Add a sound for when lp hits zero
 
+    //This code is disgusting...
+
     private final Integer diceRollAnimationDuration = 2000; //In milliseconds
     //View objects
     public static View view;
     //Sound stuff
     private SoundPool soundPool;
     private Integer lpCounterSoundId;
+    private Integer lpCounterSound2Id;
     private Integer diceRollSoundId;
     private Integer coinFlipSoundId;
     private Integer timerWarning1SoundId;
@@ -129,11 +132,14 @@ public class CalculatorFragment extends Fragment {
         makePresenter();
     }
 
-    private static void animateTextView(int initialValue, int finalValue, final TextView textview) {
+    private static void animateTextView(int initialValue, int finalValue, final TextView textview, boolean isZero) {
         if (initialValue != finalValue) { //will not do anything if both values are equal
             ValueAnimator valueAnimator = ValueAnimator.ofInt(initialValue, finalValue);
-            valueAnimator.setDuration(AppConstants.LPCHANGEANIMATIONDURATION);
-
+            if(isZero){
+                valueAnimator.setDuration(AppConstants.LPCHANGEANIMATIONDURATIONLONG);
+            } else{
+                valueAnimator.setDuration(AppConstants.LPCHANGEANIMATIONDURATION);
+            }
             valueAnimator.addUpdateListener(valueAnimator1 -> textview.setText(valueAnimator1.getAnimatedValue().toString()));
             valueAnimator.start();
         }
@@ -247,13 +253,13 @@ public class CalculatorFragment extends Fragment {
         //noinspection deprecation
         soundPool = new SoundPool(32, AudioManager.STREAM_MUSIC, 0);
         lpCounterSoundId = soundPool.load(getContext(), R.raw.lpcountersound, 1);
+        lpCounterSound2Id = soundPool.load(getContext(), R.raw.lpcountersound2, 1);
         coinFlipSoundId = soundPool.load(getContext(), R.raw.coinflipsound, 1);
         diceRollSoundId = soundPool.load(getContext(), R.raw.dicerollsound, 1);
         timerWarning1SoundId = soundPool.load(getContext(), R.raw.timer_warning1, 1);
         timerWarning2SoundId = soundPool.load(getContext(), R.raw.timer_warning2, 1);
         timerWarning3SoundId = soundPool.load(getContext(), R.raw.timer_warning3, 1);
         timerBeepSoundId = soundPool.load(getContext(), R.raw.timer_beep, 1);
-
     }
 
     @OnClick({R.id.button0, R.id.button00, R.id.button000, R.id.button1, R.id.button2, R.id.button3,
@@ -278,7 +284,7 @@ public class CalculatorFragment extends Fragment {
     }
 
     public SharedPreferences getPreferences(){
-        return PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        return PreferenceManager.getDefaultSharedPreferences(this.getActivity().getApplication().getApplicationContext());
     }
 
     @OnClick({R.id.enteredValue, R.id.buttonClear})
@@ -439,14 +445,15 @@ public class CalculatorFragment extends Fragment {
 
     public void onLpUpdated(Integer playerLpPrevious, Integer playerLp, Integer player, String toast,
                             boolean doNotShowToast) {
-        playLpSound();
+        boolean isZero = playerLp <= 0;
+        playLpSound(isZero);
         if (!doNotShowToast) makeToast(toast);
         switch (player) {
             case 1:
-                animateTextView(playerLpPrevious, playerLp, player1Lp);
+                animateTextView(playerLpPrevious, playerLp, player1Lp,isZero);
                 break;
             case 2:
-                animateTextView(playerLpPrevious, playerLp, player2Lp);
+                animateTextView(playerLpPrevious, playerLp, player2Lp,isZero);
                 break;
         }
     }
@@ -456,12 +463,17 @@ public class CalculatorFragment extends Fragment {
         player2Lp.setText(mCalculatorPresenter.getDefaultLp());
     }
 
-    public void playLpSound() {
+    public void playLpSound(Boolean isZero) {
         if (lpSoundStreamId != null) {
             soundPool.stop(lpSoundStreamId);
         }
         if(getIsSoundEnabled()) {
-            lpSoundStreamId = soundPool.play(lpCounterSoundId, 1, 1, 1, 0, 1);
+            if(isZero){
+                lpSoundStreamId = soundPool.play(lpCounterSound2Id, 1, 1, 1, 0, 1);
+            }
+            else {
+                lpSoundStreamId = soundPool.play(lpCounterSoundId, 1, 1, 1, 0, 1);
+            }
         }
     }
 
@@ -797,6 +809,7 @@ public class CalculatorFragment extends Fragment {
             buttonCalcEquals.setBackgroundColor(getResources().getColor(R.color.material_accent));
             buttonCalcEquals.setBackgroundDrawable(calcArrow);
             buttonCalcEquals.setText(""); //NON-NLS
+            hideCalculator();
             //TODO: SCALE FOR SIZE
         } else {
             if(calculatorResults.getText().equals("") || calculatorResults.getText().equals(

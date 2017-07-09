@@ -22,5 +22,6 @@ class AppConstants {
     public static final String KEY_REMIND_ME_LATER = "remind_me_later";//NON-NLS
     public static final String KEY_HAS_BEEN_LAUNCHED = "has_been_launched";//NON-NLS
     public static final int ENTEREDVALUEVIEWANIMATIONDURATION = 693;
-    public static final int LPCHANGEANIMATIONDURATION = 1050;
+    public static final int LPCHANGEANIMATIONDURATION = 1700; //Previously 1050
+    public static final int LPCHANGEANIMATIONDURATIONLONG = 3000;
 }

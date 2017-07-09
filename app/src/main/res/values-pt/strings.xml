@@ -56,6 +56,7 @@
     <string name="calc">Calc</string>
     <string name="defaultTimerLength">Padrão duração do temporizador</string>
     <string name="defaultTimerLengthSummary">A duração do temporizador inicial em minutos</string>
+    <string name="newestReleaseVersionIs">\"A versão mais recente de SideDeck está \"</string>
 
 </resources>
 

@@ -69,6 +69,7 @@
     <string name="defaultTimerLengthSummary">The initial timer duration in minutes</string>
     <string name="supportDeveloper">Support the developer?</string>
     <string name="supportDeveloperMessage">Care to support the developer of SideDeck?</string>
+    <string name="newestReleaseVersionIs">\"The newest version of SideDeck is is \"</string>
 
 </resources>
 <!-- Everything arranged nicely for manual translations

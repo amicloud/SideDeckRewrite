@@ -56,5 +56,6 @@
     <string name="defaultTimerLength">Durata Predefinita del Cronometro</string>
     <string name="defaultTimerLengthSummary">La durata iniziale del cronometro in minuti</string>
     <string name="clear">Cancella</string>
+    <string name="newestReleaseVersionIs">\"La più recente versione di SideDeck è \"</string>
 
 </resources>

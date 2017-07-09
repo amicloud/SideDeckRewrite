@@ -80,15 +80,17 @@ class CalculatorModel {
     }
 
     private Integer getDefaultLpFromPreferences() {
-        String defaultLpString = "";
-        if(mCalculatorPresenter.mCalculatorFragment != null) {
-            try {
-                SharedPreferences sharedPreferences = MainActivity.sharedPreferences;
+        String defaultLpString;
+        try {
+            if(mCalculatorPresenter.mCalculatorFragment != null) {
+
+                SharedPreferences sharedPreferences = mCalculatorPresenter.mCalculatorFragment.getPreferences();
                 defaultLpString = sharedPreferences.getString(AppConstants.KEY_DEFAULT_LP, "8000");
-            } catch(NullPointerException e){
-                e.printStackTrace();
+            } else {
+                defaultLpString = "8000";
             }
-        } else {
+        } catch(NullPointerException e){
+            e.printStackTrace();
             defaultLpString = "8000";
         }
         return Integer.parseInt(defaultLpString);

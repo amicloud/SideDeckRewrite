@@ -56,6 +56,7 @@
     <string name="calc">Calc</string>
     <string name="defaultTimerLength">La durée initiale de la minuterie en minutes</string>
     <string name="defaultTimerLengthSummary">La durée initiale de la minuterie en minutes</string>
+    <string name="newestReleaseVersionIs">\"La version de SideDeck la plus récente est \"</string>
 
 </resources>
 

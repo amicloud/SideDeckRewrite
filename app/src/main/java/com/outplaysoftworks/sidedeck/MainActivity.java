@@ -448,7 +448,7 @@ public class MainActivity extends AppCompatActivity {
             new AlertDialog.Builder(this, R.style.MyDialog)
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .setTitle(getString(R.string.newVersionAvailable))
-                    .setMessage(getString(R.string.newestVersionIs) + remoteVersionName + "\n" +
+                    .setMessage(getString(R.string.newestReleaseVersionIs) + remoteVersionName + "\n" +
                             getString(R.string.youHaveVersion) + BuildConfig.VERSION_NAME + "\n" +
                             getString(R.string.goToPlayStore))
                     .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
