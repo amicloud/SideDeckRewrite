@@ -48,8 +48,8 @@ public class LogFragment extends Fragment {
     }
 
     private void loadDrawables() {
-        arrowUp = this.getContext().getResources().getDrawable(R.drawable.arrow_up);
-        arrowDown = this.getContext().getResources().getDrawable(R.drawable.arrow_down);
+        arrowUp = getActivity().getApplication().getApplicationContext().getResources().getDrawable(R.drawable.arrow_up);
+        arrowDown = getActivity().getApplication().getApplicationContext().getResources().getDrawable(R.drawable.arrow_down);
     }
 
     private void setupLog() {

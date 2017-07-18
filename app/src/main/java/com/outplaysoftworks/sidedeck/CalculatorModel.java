@@ -5,16 +5,18 @@ import android.content.SharedPreferences;
 import java.util.ArrayList;
 import java.util.Random;
 
-/** Model for the calculator, hooks up to the calculator presenter and the log presenter
+/**
+ * Model for the calculator, hooks up to the calculator presenter and the log presenter
  * Created by Billy on 5/13/2016.
  */
 class CalculatorModel {
 
+    private final Random random = new Random(System.nanoTime());
+    private final ArrayList<Calculation> calculations;
+    private final CalculatorPresenter mCalculatorPresenter;
     private Integer enteredValue;
     private String player1Name;
-    private final Random random = new Random(System.nanoTime());
     private String player2Name;
-    private final ArrayList<Calculation> calculations;
     private String enteredValueString;
     private Integer player1Lp;
     private Integer player1LpPrevious;
@@ -22,8 +24,19 @@ class CalculatorModel {
     private Integer player2LpPrevious;
     private Integer defaultLp;
     private Integer currentTurn;
+    private LogPresenter mLogPresenter;
 
-    public Integer getEnteredValue(){
+    public CalculatorModel(CalculatorPresenter calculatorPresenter) {
+        mCalculatorPresenter = calculatorPresenter;
+        enteredValue = 0;
+        currentTurn = 1;
+        initializeLp();
+        calculations = new ArrayList<>();
+        /*player1Name = getPlayerOneNameFromPreferences();
+        player2Name = getPlayerTwoNameFromPreferences();*/
+    }
+
+    public Integer getEnteredValue() {
         return this.enteredValue;
     }
 
@@ -35,39 +48,26 @@ class CalculatorModel {
         return player2Name;
     }
 
-    public void setPlayer1Lp(int lp){
+    public void setPlayer1Lp(int lp) {
         this.player1Lp = lp;
         this.player1LpPrevious = lp;
         mCalculatorPresenter.onP1LpSet(lp);
     }
 
-    public void setPlayer2Lp(int lp){
+    public void setPlayer2Lp(int lp) {
         this.player2Lp = lp;
         this.player2LpPrevious = lp;
         mCalculatorPresenter.onP2LpSet(lp);
     }
 
-    private final CalculatorPresenter mCalculatorPresenter;
-
-    public LogPresenter getmLogPresenter(){
-        if(this.mLogPresenter == null){
+    public LogPresenter getmLogPresenter() {
+        if (this.mLogPresenter == null) {
             makeLogPresenter();
         }
         return this.mLogPresenter;
     }
 
-    private LogPresenter mLogPresenter;
-    public CalculatorModel(CalculatorPresenter calculatorPresenter){
-        mCalculatorPresenter = calculatorPresenter;
-        enteredValue = 0;
-        currentTurn = 1;
-        initializeLp();
-        calculations = new ArrayList<>();
-        /*player1Name = getPlayerOneNameFromPreferences();
-        player2Name = getPlayerTwoNameFromPreferences();*/
-    }
-
-    private void makeLogPresenter(){
+    private void makeLogPresenter() {
         mLogPresenter = MainActivity.mLogFragment.mLogPresenter;
     }
 
@@ -82,14 +82,14 @@ class CalculatorModel {
     private Integer getDefaultLpFromPreferences() {
         String defaultLpString;
         try {
-            if(mCalculatorPresenter.mCalculatorFragment != null) {
+            if (mCalculatorPresenter.mCalculatorFragment != null) {
 
                 SharedPreferences sharedPreferences = mCalculatorPresenter.mCalculatorFragment.getPreferences();
                 defaultLpString = sharedPreferences.getString(AppConstants.KEY_DEFAULT_LP, "8000");
             } else {
                 defaultLpString = "8000";
             }
-        } catch(NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             defaultLpString = "8000";
         }
@@ -99,10 +99,15 @@ class CalculatorModel {
     public void doNumbers(String tag) {
         enteredValueString = enteredValue.toString();
         String appendedString;
-        if(tag.length() + enteredValueString.length() < 7) {
+        if (tag.length() + enteredValueString.length() < 7) {
             appendedString = enteredValueString + tag;
-        } else{
+        } else {
             appendedString = "999999";  //NON-NLS
+        }
+        if (appendedString.length() > 1) {
+            if (appendedString.charAt(0) == '0') {
+                appendedString = appendedString.substring(1);
+            }
         }
         enteredValue = Integer.parseInt(appendedString);
         mCalculatorPresenter.onEnteredValueUpdated(enteredValue.toString());
@@ -116,7 +121,7 @@ class CalculatorModel {
 
 
     public void doP1Add() {
-        if(enteredValue != 0) {
+        if (enteredValue != 0) {
             int tPlayer1LpPrevious = player1Lp;
             int tPlayer1Lp = player1Lp + enteredValue;
             setPlayerLp(tPlayer1LpPrevious, tPlayer1Lp, 1, false);
@@ -126,10 +131,10 @@ class CalculatorModel {
     }
 
     public void doP1Sub() {
-        if(enteredValue != 0) {
+        if (enteredValue != 0) {
             int tPlayer1LpPrevious = player1Lp;
             int tPlayer1Lp = player1Lp - enteredValue;
-            if(!getAllowNegativeLp() && tPlayer1Lp < 0){
+            if (!getAllowNegativeLp() && tPlayer1Lp < 0) {
                 tPlayer1Lp = 0;
             }
             setPlayerLp(tPlayer1LpPrevious, tPlayer1Lp, 1, false);
@@ -139,7 +144,7 @@ class CalculatorModel {
     }
 
     public void doP2Add() {
-        if(enteredValue != 0) {
+        if (enteredValue != 0) {
             int tPlayer2LpPrevious = player2Lp;
             int tPlayer2Lp = player2Lp + enteredValue;
             setPlayerLp(tPlayer2LpPrevious, tPlayer2Lp, 2, false);
@@ -149,10 +154,10 @@ class CalculatorModel {
     }
 
     public void doP2Sub() {
-        if(enteredValue != 0) {
+        if (enteredValue != 0) {
             int tPlayer2LpPrevious = player2Lp;
             int tPlayer2Lp = player2Lp - enteredValue;
-            if(!getAllowNegativeLp() && tPlayer2Lp < 0){
+            if (!getAllowNegativeLp() && tPlayer2Lp < 0) {
                 tPlayer2Lp = 0;
             }
             setPlayerLp(tPlayer2LpPrevious, tPlayer2Lp, 2, false);
@@ -161,8 +166,8 @@ class CalculatorModel {
         }
     }
 
-    private void setPlayerLp(int playerLpPrevious, int playerLp, int player, boolean isReset){
-        switch(player){
+    private void setPlayerLp(int playerLpPrevious, int playerLp, int player, boolean isReset) {
+        switch (player) {
             case 1:
                 player1LpPrevious = playerLpPrevious;
                 player1Lp = playerLp;
@@ -176,28 +181,28 @@ class CalculatorModel {
         }
     }
 
-    private void createCalculation(int previousLp, int newLp, int player, CalculatorModel model){
+    private void createCalculation(int previousLp, int newLp, int player, CalculatorModel model) {
         Calculation Calculation = new Calculation(previousLp, newLp, player, currentTurn, model);
         addCalculation(Calculation);
     }
 
-    private void addCalculation(Calculation calculation){
+    private void addCalculation(Calculation calculation) {
         calculations.add(calculation);
         makeLogPresenter();
         mLogPresenter.sendCalculationToLogModel(calculation, currentTurn);
     }
 
-    public void doUndo(){
-        if(calculations.size() > 0) {
+    public void doUndo() {
+        if (calculations.size() > 0) {
             undoLastCalculation();
         }
     }
 
-    private void undoLastCalculation(){
+    private void undoLastCalculation() {
         makeLogPresenter();
-        Calculation lastCalculation = calculations.get(calculations.size()-1);
+        Calculation lastCalculation = calculations.get(calculations.size() - 1);
         lastCalculation.undoCalculation();
-        calculations.remove(calculations.size()-1);
+        calculations.remove(calculations.size() - 1);
     }
 
     public Integer getDefaultLp() {
@@ -211,9 +216,10 @@ class CalculatorModel {
         mLogPresenter.onTurnIncremented(currentTurn);
 
     }
+
     public void doTurnLongClick() {
         makeLogPresenter();
-        if(currentTurn > 1) {
+        if (currentTurn > 1) {
             currentTurn--;
             mCalculatorPresenter.onTurnUpdated(currentTurn);
         }
@@ -225,7 +231,7 @@ class CalculatorModel {
         mCalculatorPresenter.onDiceRollComplete(lastDiceRoll);
     }
 
-    public void doReset(){
+    public void doReset() {
         makeLogPresenter();
         defaultLp = getDefaultLpFromPreferences();
         setPlayerLp(0, defaultLp, 1, true);
@@ -238,10 +244,11 @@ class CalculatorModel {
         enteredValueString = "";
         currentTurn = 1;
         mCalculatorPresenter.onTurnUpdated(currentTurn);
+        doClear();
     }
 
     public void doPlayerNameChanged(String name, int i) {
-        switch(i){
+        switch (i) {
             case 1:
                 player1Name = name;
                 break;
@@ -252,7 +259,7 @@ class CalculatorModel {
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean getAllowNegativeLp(){
+    private boolean getAllowNegativeLp() {
         return mCalculatorPresenter.getAllowedNegativeLp();
     }
 }
