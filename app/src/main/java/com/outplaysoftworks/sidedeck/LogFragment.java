@@ -63,7 +63,11 @@ public class LogFragment extends Fragment {
 
     @SuppressWarnings("deprecation")
     private LinearLayout makeLayoutForCalculation(Calculation calculation) {
-        loadDrawables();
+        try {
+            loadDrawables();
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
         LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
         LinearLayout calculationLayout = (LinearLayout) layoutInflater.inflate(R.layout.calculation, layoutHolder, false);
         TextView playerName = ButterKnife.findById(calculationLayout, R.id.playerName);
@@ -88,10 +92,18 @@ public class LogFragment extends Fragment {
         AutofitHelper.create(lpAfter);
         if (calculation.isLpLoss()) {
             lpDifference.setTextColor(view.getResources().getColor(R.color.material_red));
-            arrowHolder.setImageDrawable(arrowDown);
+            try {
+                arrowHolder.setImageDrawable(arrowDown);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if (!calculation.isLpLoss()) {
             lpDifference.setTextColor(view.getResources().getColor(R.color.material_green));
-            arrowHolder.setImageDrawable(arrowUp);
+            try {
+                arrowHolder.setImageDrawable(arrowUp);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         if (sections.get(calculation.getTurn() - 1).getChildCount() > 1) {
             calculationLayout.addView(createHorizontalRule());
@@ -110,7 +122,7 @@ public class LogFragment extends Fragment {
     }
 
     private LinearLayout createSection(Integer turnNumber) {
-        LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         LinearLayout section = (LinearLayout) layoutInflater.inflate(R.layout.section, layoutHolder, false);
         TextView sectionText = ButterKnife.findById(section, R.id.text);
         String text = view.getResources().getString(R.string.logTurn) + " " + turnNumber.toString();

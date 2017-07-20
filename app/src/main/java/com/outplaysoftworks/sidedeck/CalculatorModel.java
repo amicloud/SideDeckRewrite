@@ -93,6 +93,9 @@ class CalculatorModel {
             e.printStackTrace();
             defaultLpString = "8000";
         }
+        if(defaultLpString.equals("")){
+            return 0;
+        }
         return Integer.parseInt(defaultLpString);
     }
 
